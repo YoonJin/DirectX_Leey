@@ -7,7 +7,9 @@
 #include <assert.h>
 #include <string>
 
+
 // STL
+#include <iostream>
 #include <vector>
 
 using namespace std;
@@ -45,3 +47,6 @@ typedef unsigned int uint;
 // Framework
 #include "Core/Settings.h"
 #include "Core/Graphics.h"
+
+#include "Core/D3D11/Vertex/Vertex.h"
+#include "Core/D3D11/Vertex/Geometry.h"

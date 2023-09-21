@@ -94,15 +94,14 @@ void Execute::Update()
 
 void Execute::Render()
 {
-	uint stride = sizeof(Vertex);
+	// * stride : 한 정점 데이터의 크기를 바이트 단위로 나타낸다.
+	// * offset : 정점 버퍼에서 첫번째 정점 데이터까지의 바이트 오프셋을 나타낸다.
+	uint stride = sizeof(VertexTexture);
 	uint offset = 0;
 
 	graphics->RenderBegin();
 	// 렌더링 파이프라인에 따른 여러가지 처리들을 아래에 기재
 	{
-
-		// * stride : 한 정점 데이터의 크기를 바이트 단위로 나타낸다.
-		// * offset : 정점 버퍼에서 첫번째 정점 데이터까지의 바이트 오프셋을 나타낸다.
 		// IA
 		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, &_vertexBuffer, &stride, &offset);
 		graphics->GetDeviceContext()->IASetIndexBuffer(_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
@@ -126,7 +125,7 @@ void Execute::Render()
 		// OM
 		//graphics->GetDeviceContext()->Draw(_vertices.size(), 0);
 		graphics->GetDeviceContext()->OMSetBlendState(_blendState, nullptr, 0xFFFFFFFF);
-		graphics->GetDeviceContext()->DrawIndexed(_indices.size(), 0, 0);
+		graphics->GetDeviceContext()->DrawIndexed(geometry.GetIndexCount(), 0, 0);
 	}
 	graphics->RenderEnd();
 }
@@ -143,23 +142,13 @@ void Execute::CreateGeometry()
 	0	  |      2
 	*/
 
-	// CPU 데이터 세팅
-	// VertexData
-	{
-		_vertices.resize(4);
+	geometry.AddVertex(VertexTexture(Vec3(-0.5f, -0.5f, +0.f), Vec2(0.f, 1.f)));
+	geometry.AddVertex(VertexTexture(Vec3(-0.5f, +0.5f, 0.0f), Vec2(0.0f, 0.0f)));
+	geometry.AddVertex(VertexTexture(Vec3(+0.5f, -0.5f, 0.0f), Vec2(1.0f, 1.0f)));
+	geometry.AddVertex(VertexTexture(Vec3(+0.5f, +0.5f, 0.0f), Vec2(1.0f, 0.0f)));
+	geometry.AddIndex(0); geometry.AddIndex(1); geometry.AddIndex(2); 
+	geometry.AddIndex(2); geometry.AddIndex(1); geometry.AddIndex(3);
 
-		_vertices[0].position = Vec3(-0.5f, -0.5f, +0.f);
-		_vertices[0].uv = Vec2(0.f, 1.f);
-
-		_vertices[1].position = Vec3(-0.5f, +0.5f, +0.f);
-		_vertices[1].uv = Vec2(0.f, 0.f);
-		
-		_vertices[2].position = Vec3(+0.5f, -0.5f, 0.f);
-		_vertices[2].uv = Vec2(1.f, 1.f);
-
-		_vertices[3].position = Vec3(+0.5f, +0.5f, 0.f);
-		_vertices[3].uv = Vec2(1.f, 0.f);
-	}
 
 	// GPU 데이터 세팅
 	// VertexBuffer
@@ -172,23 +161,18 @@ void Execute::CreateGeometry()
 			// 해당 버퍼는 정점들을 저장하는 버퍼로 활용하겠다.
 			desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 			// 버퍼 사이즈
-			desc.ByteWidth = (UINT)(sizeof(Vertex) * _vertices.size());
+			desc.ByteWidth = geometry.GetVertexByteWidth();
 		}
 
 		// cpu의 데이터를 gpu로 넘겨주기 위한 구조체
 		D3D11_SUBRESOURCE_DATA data;
 		ZeroMemory(&data, sizeof(data));
 		{
-			data.pSysMem = _vertices.data();
+			data.pSysMem = geometry.GetVertexPointer();
 		}
 
 		auto hr = graphics->GetDevice()->CreateBuffer(&desc, &data, &_vertexBuffer);
 		CHECK(hr);
-	}
-
-	// Index
-	{
-		_indices = { 0, 1, 2, 2, 1, 3 };
 	}
 
 	// IndexBuffer
@@ -198,12 +182,12 @@ void Execute::CreateGeometry()
 		{
 			desc.Usage = D3D11_USAGE_IMMUTABLE;
 			desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-			desc.ByteWidth = (uint)(sizeof(uint) * _indices.size());
+			desc.ByteWidth = geometry.GetIndexByteWidth();
 		}
 
 		D3D11_SUBRESOURCE_DATA data;
 		ZeroMemory(&data, sizeof(data));
-		data.pSysMem = _indices.data();
+		data.pSysMem = geometry.GetIndexPointer();
 
 		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, &data, &_indexBuffer);
 		CHECK(hr);
