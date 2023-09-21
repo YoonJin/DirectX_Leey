@@ -44,9 +44,15 @@ typedef unsigned int uint;
 
 #define CHECK(p) assert(SUCCEEDED(p))
 
+
+
+#include "Utility/Geometry_Generator.h"
+
+
 // Framework
 #include "Core/Settings.h"
 #include "Core/Graphics.h"
 
-#include "Core/D3D11/Vertex/Vertex.h"
-#include "Core/D3D11/Vertex/Geometry.h"
+#include "Core/D3D11/Vertex/D3D11_Vertex.h"
+#include "Core/D3D11/Vertex/D3D11_Geometry.h"
+#include "Core/D3D11/InputAssembler/D3D11_VertexBuffer.h"

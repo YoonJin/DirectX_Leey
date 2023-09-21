@@ -46,10 +46,11 @@ private:
 	Graphics* graphics = nullptr;
 
 	// Geometry
-	Geometry<VertexTexture> geometry;
-	ID3D11Buffer* _vertexBuffer = nullptr;
-	ID3D11Buffer* _indexBuffer = nullptr;
+	D3D11_Geometry<D3D11_VertexTexture> geometry;
+	D3D11_VertexBuffer* _vertexBuffer = nullptr;
 
+
+	ID3D11Buffer* _indexBuffer = nullptr;
 	// 버텍스 정보를 어떻게 끊어 읽을지 등에 대한 정보 및 설명서
 	ID3D11InputLayout* _inputLayout = nullptr;
 
