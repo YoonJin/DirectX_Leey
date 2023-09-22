@@ -40,18 +40,17 @@ Execute::Execute()
 
 Execute::~Execute()
 {
-	SAFE_DELETE(graphics);
-
 	SAFE_RELEASE(_blendState);
 	SAFE_RELEASE(_samplerState);
 	SAFE_RELEASE(_psBlob);
 	SAFE_RELEASE(_pixelShader);
 	SAFE_RELEASE(_vsBlob);
 	SAFE_RELEASE(_vertexShader);
-	SAFE_RELEASE(_indexBuffer);
-	SAFE_RELEASE(_inputLayout);
 	
+	SAFE_DELETE(_inputLayout);
+	SAFE_DELETE(_indexBuffer);
 	SAFE_DELETE(_vertexBuffer);
+	SAFE_DELETE(graphics);
 }
 
 void Execute::Update()
@@ -102,9 +101,14 @@ void Execute::Render()
 		// IA
 		ID3D11Buffer* buffers[] = { _vertexBuffer->GetResource() };
 		graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, buffers, &_vertexBuffer->GetStride(), &_vertexBuffer->GetOffset());
-		graphics->GetDeviceContext()->IASetIndexBuffer(_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+		graphics->GetDeviceContext()->IASetIndexBuffer(_indexBuffer->GetResource(), DXGI_FORMAT_R32_UINT, _indexBuffer->GetOffset());
+		
 		// Input Layout -> 데이터의 구조를 정의했다!
-		graphics->GetDeviceContext()->IASetInputLayout(_inputLayout);
+		graphics->GetDeviceContext()->IASetInputLayout(_inputLayout->GetResource());
+
+
+
 		// IASetPrimitiveTopology : 삼각형으로 그리겠다.
 		graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		
@@ -147,37 +151,15 @@ void Execute::CreateGeometry()
 	_vertexBuffer = new D3D11_VertexBuffer(graphics);
 	_vertexBuffer->Create(geometry.GetVertices());
 
-	// IndexBuffer
-	{
-		D3D11_BUFFER_DESC desc;
-		ZeroMemory(&desc, sizeof(desc));
-		{
-			desc.Usage = D3D11_USAGE_IMMUTABLE;
-			desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-			desc.ByteWidth = geometry.GetIndexByteWidth();
-		}
-
-		D3D11_SUBRESOURCE_DATA data;
-		ZeroMemory(&data, sizeof(data));
-		data.pSysMem = geometry.GetIndexPointer();
-
-		HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, &data, &_indexBuffer);
-		CHECK(hr);
-	}
+	_indexBuffer = new D3D11_IndexBuffer(graphics);
+	_indexBuffer->Create(geometry.GetIndices());
 }
 
 void Execute::CreateInputLayout()
 {
-	D3D11_INPUT_ELEMENT_DESC layout[] =
-	{
-		{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
-		{"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
-	};
-
-	const int count = sizeof(layout) / sizeof(D3D11_INPUT_ELEMENT_DESC); 
-
-	// 데이터 구조 작성
-	graphics->GetDevice()->CreateInputLayout(layout, count, _vsBlob->GetBufferPointer(), _vsBlob->GetBufferSize(), &_inputLayout);
+	_inputLayout = new D3D11_InputLayout(graphics);
+	_inputLayout->Create(D3D11_VertexTexture::descs, D3D11_VertexTexture::count,
+		_vsBlob);
 }
 
 void Execute::CreateVS()

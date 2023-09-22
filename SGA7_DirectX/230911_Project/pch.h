@@ -56,3 +56,5 @@ typedef unsigned int uint;
 #include "Core/D3D11/Vertex/D3D11_Vertex.h"
 #include "Core/D3D11/Vertex/D3D11_Geometry.h"
 #include "Core/D3D11/InputAssembler/D3D11_VertexBuffer.h"
+#include "Core/D3D11/InputAssembler/D3D11_IndexBuffer.h"
+#include "Core/D3D11/InputAssembler/D3D11_InputLayout.h"
