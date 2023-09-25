@@ -42,12 +42,11 @@ Execute::~Execute()
 {
 	SAFE_RELEASE(_blendState);
 	SAFE_RELEASE(_samplerState);
-	SAFE_RELEASE(_psBlob);
-	SAFE_RELEASE(_pixelShader);
-	SAFE_RELEASE(_vsBlob);
-	SAFE_RELEASE(_vertexShader);
 	
+	SAFE_DELETE(_gpuBuffer);
 	SAFE_DELETE(_inputLayout);
+	SAFE_DELETE(_pixelShader);
+	SAFE_DELETE(_vertexShader);
 	SAFE_DELETE(_indexBuffer);
 	SAFE_DELETE(_vertexBuffer);
 	SAFE_DELETE(graphics);
@@ -71,25 +70,14 @@ void Execute::Update()
 
 	// 상수버퍼 세팅 부분. (건드리면 안됨.)
 	{
-		// 매핑된 하위 리소스 구조체를 생성한다.
-	// 매핑 : 컴퓨터 과학에서 일반적으로 한 데이터 또는 리소스를 다른 데이터 또는 리소스에
-	// 연결하거나 대응시키는 과정을 의미. ex) CPU->GPU간의 메모리 연결을 설립 및 해제
-	// 아래의 subResrouce 객체를 이용해서 GPU 에 저장된 데이터에 CPU가 직접 접근하고
-	// 수정할 수 있게 만든다.
-
-		D3D11_MAPPED_SUBRESOURCE subResource;
-		ZeroMemory(&subResource, sizeof(subResource));
-
-		// Map을 사용하면 GPU 리소스를 CPU소스로 매핑할 수 있다.
-		// 매핑된 상태에서는 CPU가 해당 리소스의 데이터를 읽고 쓸 수 있다.
-		// 해당 상태가 되면 GPU는 데이터에 접근이 불가능하다.
-		graphics->GetDeviceContext()->Map(_constantBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &subResource);
+		
+		auto buffer = _gpuBuffer->Map<TransformData>();
 		{
 			// _transformData의 데이터를 매핑된 상수 버퍼로 복사한다.
-			::memcpy(subResource.pData, &_transformData, sizeof(_transformData));
+			::memcpy(buffer, &_transformData, sizeof(_transformData));
 		}
-		// 상수 버퍼의 매핑을 해제하여 GPU가 다시 데이터에 접근 할 수 있도록 한다.
-		graphics->GetDeviceContext()->Unmap(_constantBuffer, 0);
+		_gpuBuffer->Unmap();
+	
 	}
 }
 
@@ -113,14 +101,17 @@ void Execute::Render()
 		graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		
 		// VS
-		graphics->GetDeviceContext()->VSSetShader(_vertexShader, nullptr, 0);
-		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, &_constantBuffer);
+		graphics->GetDeviceContext()->VSSetShader(static_cast<ID3D11VertexShader*>(_vertexShader->GetResource()), nullptr, 0);
+
+
+		ID3D11Buffer* cbuffers[] = { _gpuBuffer->GetResource() };
+		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, cbuffers);
 
 		// RS
 		graphics->GetDeviceContext()->RSSetState(_rasterizerState);
 
 		// PS
-		graphics->GetDeviceContext()->PSSetShader(_pixelShader, nullptr, 0);
+		graphics->GetDeviceContext()->PSSetShader(static_cast<ID3D11PixelShader*>(_pixelShader->GetResource()), nullptr, 0);
 		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &_shaderResourceView);
 		graphics->GetDeviceContext()->PSSetSamplers(0, 1, &_samplerState);
 
@@ -159,21 +150,19 @@ void Execute::CreateInputLayout()
 {
 	_inputLayout = new D3D11_InputLayout(graphics);
 	_inputLayout->Create(D3D11_VertexTexture::descs, D3D11_VertexTexture::count,
-		_vsBlob);
+		_vertexShader->GetShaderBlob());
 }
 
 void Execute::CreateVS()
 {
-	LoadShaderFromFile(L"Assets/Texture.hlsl", "VS", "vs_5_0", &_vsBlob);
-	HRESULT hr = graphics->GetDevice()->CreateVertexShader(_vsBlob->GetBufferPointer(),
-		_vsBlob->GetBufferSize(), nullptr, &_vertexShader);
+	_vertexShader = new D3D11_Shader(graphics);
+	_vertexShader->Create(ShaderScope_VS, L"Assets/Texture.hlsl");
 }
 
 void Execute::CreatePS()
 {
-	LoadShaderFromFile(L"Assets/Texture.hlsl", "PS", "ps_5_0", &_psBlob);
-	HRESULT hr = graphics->GetDevice()->CreatePixelShader(_psBlob->GetBufferPointer(),
-		_psBlob->GetBufferSize(), nullptr, &_pixelShader);
+	_pixelShader = new D3D11_Shader(graphics);
+	_pixelShader->Create(ShaderScope_PS, L"Assets/Texture.hlsl");
 }
 
 // 3D 객체를 2D화면에 어떻게 렌더링 할지를 결정하는 규칙을 정의한다.
@@ -316,45 +305,8 @@ void Execute::CreateSRV()
 //
 // -> 버텍스 버퍼의 많은 정점 데이터들을 셰이더 코드에 일일이 전달 하는 것 보다는,
 // 상수 버퍼의 적은 데이터를 프레임마다 변경하며 셰이더에 전달하는 것이 훨씬 비용이 적게 든다.
-
 void Execute::CreateConstantBuffer()
 {
-	D3D11_BUFFER_DESC desc; // 버퍼 설명 구조체 선언
-	ZeroMemory(&desc, sizeof(desc));
-
-	{
-		desc.Usage = D3D11_USAGE_DYNAMIC; // 1. CPU에서 데이터의 변경이 가능
-		                                  // 2. GPU에서 데이터의 읽기가 가능
-
-		desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;	
-		desc.ByteWidth = sizeof(TransformData);
-		desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; // CPU에서 이 버퍼에 대한 쓰기
-		                                              // 접근 권한을 허용함
-	}
-
-	HRESULT hr = graphics->GetDevice()->CreateBuffer(&desc, nullptr, &_constantBuffer);
-}
-
-void Execute::LoadShaderFromFile(const wstring& path, const string& name, const string& version, ID3DBlob** blob)
-{
-	// * COMPILE_DEBUG : 이 플래그를 설정하면 쉐이더 디버깅 정보를 생성한다.
-	// 디버그 정보를 포함하면 쉐이더 코드 내에서 디버거를 사용해 단계별로 실행하고
-	// 변수 값을 검사하는 등 디버깅 작업을 수행할 수 있다.
-	// * COMPILE_SKIP_OPTIMIZATION : 이 플래그를 사용하면, 쉐이더 컴파일 과정에서
-	// 최적화를 건너뛴다. 최적화를 건너 뛰면 컴파일 속도가 빨라질 수 있으나
-	// 실행성능은 최적화 되지 않은 상태로 유지된다.
-	const uint compileFlag = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-
-	HRESULT hr = ::D3DCompileFromFile(
-		path.c_str(),
-		nullptr,
-		D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		name.c_str(),
-		version.c_str(),
-		compileFlag,
-		0,
-		blob,
-		nullptr);
-
-	CHECK(hr);
+	_gpuBuffer = new D3D11_ConstantBuffer(graphics);
+	_gpuBuffer->Create<TransformData>();
 }

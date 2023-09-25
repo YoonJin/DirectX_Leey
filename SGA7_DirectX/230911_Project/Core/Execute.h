@@ -40,8 +40,6 @@ private:
 
 	void CreateConstantBuffer();
 
-	void LoadShaderFromFile(const wstring& path, const string& name, const string& version, ID3DBlob** blob);
-
 private:
 	Graphics* graphics = nullptr;
 
@@ -51,22 +49,12 @@ private:
 	D3D11_IndexBuffer* _indexBuffer   = nullptr;
 	// 버텍스 정보를 어떻게 끊어 읽을지 등에 대한 정보 및 설명서
 	D3D11_InputLayout* _inputLayout   = nullptr;
-
-
-	// VS
-	ID3D11VertexShader* _vertexShader = nullptr;
-	// ID3DBlob : Binary Large Object(Blob)을 나타낸다.
-    // 컴파일된 셰이더 코드나 데이터 파일 등의 이진 데이터를 저장하고 조작할 수 있는
-    // 기본 데이터 구조이다.
-	ID3DBlob* _vsBlob = nullptr;
-
+	D3D11_Shader* _vertexShader = nullptr;
+	D3D11_Shader* _pixelShader = nullptr;
+	D3D11_ConstantBuffer* _gpuBuffer = nullptr;
+	
 	// RS
 	ID3D11RasterizerState* _rasterizerState = nullptr;
-
-
-	// PS
-	ID3D11PixelShader* _pixelShader = nullptr;
-	ID3DBlob* _psBlob = nullptr;
 
 	// SRV
 	// 셰이더에서 읽을 수 있는 리소스에 대한 뷰를 제공한다.
@@ -79,7 +67,6 @@ private:
 
 private:
 	TransformData _transformData;
-	ID3D11Buffer* _constantBuffer;
 
 	Vec3 _localPosition = { 0.f, 0.f, 0.f };
 	Vec3 _localRotation = { 0.f, 0.f, 0.f };

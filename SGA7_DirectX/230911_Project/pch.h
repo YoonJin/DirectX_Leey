@@ -58,3 +58,5 @@ typedef unsigned int uint;
 #include "Core/D3D11/InputAssembler/D3D11_VertexBuffer.h"
 #include "Core/D3D11/InputAssembler/D3D11_IndexBuffer.h"
 #include "Core/D3D11/InputAssembler/D3D11_InputLayout.h"
+#include "Shader/D3D11_Shader.h"
+#include "Shader/D3D11_ConstantBuffer.h"

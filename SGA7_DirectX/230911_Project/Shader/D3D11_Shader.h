@@ -14,7 +14,7 @@ enum class CompilationState : uint
 	Unknown,
 	Compiling,
 	Succeeded,
-	Filed
+	Failed
 };
 
 class D3D11_Shader final
@@ -40,11 +40,11 @@ public:
 
 	bool IsCompiled() const { return compilation_state == CompilationState::Succeeded; }
 
-	void Create(const ShaderScope& scope, const std::string& shader);
+	void Create(const ShaderScope& scope, const std::wstring& shader);
 	void Clear();
 
 private:
-	void* Compile(const ShaderScope& scope, const std::string& shader);
+	void* Compile(const ShaderScope& scope, const std::wstring& shader);
 
 private:
 	ID3D11Device* device = nullptr;
