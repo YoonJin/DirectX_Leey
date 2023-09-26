@@ -36,7 +36,7 @@
     <ClInclude Include="Types.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Shader\D3D11_Shader.h">
+    <ClInclude Include="Core\D3D11\Shader\D3D11_Shader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Geometry_Generator.h">
@@ -57,13 +57,16 @@
     <ClInclude Include="Core\D3D11\Vertex\D3D11_Vertex.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Core\D3D11\Vertex\Geometry.h">
+    <ClInclude Include="Core\D3D11\Shader\D3D11_ConstantBuffer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Core\D3D11\Vertex\Vertex.h">
+    <ClInclude Include="Core\D3D11\Rasterizer\D3D11_RasterizerState.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Shader\D3D11_ConstantBuffer.h">
+    <ClInclude Include="Core\D3D11\Rasterizer\D3D11_Viewport.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\D3D11\Shader\D3D11_Texture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,7 +86,7 @@
     <ClCompile Include="MyLibraries\SimpleMath.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Shader\D3D11_Shader.cpp">
+    <ClCompile Include="Core\D3D11\Shader\D3D11_Shader.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Geometry_Generator.cpp">
@@ -101,10 +104,16 @@
     <ClCompile Include="Core\D3D11\Vertex\D3D11_Vertex.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Core\D3D11\Vertex\Vertex.cpp">
+    <ClCompile Include="Core\D3D11\Shader\D3D11_ConstantBuffer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Shader\D3D11_ConstantBuffer.cpp">
+    <ClCompile Include="Core\D3D11\Rasterizer\D3D11_RasterizerState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\D3D11\Rasterizer\D3D11_Viewport.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\D3D11\Shader\D3D11_Texture.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,9 +122,6 @@
       <Filter>헤더 파일</Filter>
     </None>
     <None Include="Core\D3D11\Vertex\D3D11_Geometry.inl">
-      <Filter>헤더 파일</Filter>
-    </None>
-    <None Include="Core\D3D11\Vertex\Geometry.inl">
       <Filter>헤더 파일</Filter>
     </None>
   </ItemGroup>

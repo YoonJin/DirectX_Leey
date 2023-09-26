@@ -9,9 +9,7 @@ Execute::Execute()
 	graphics->CreateRenderTargetView(
 	static_cast<uint>(Settings::Get().GetWidth()),
 		static_cast<uint>(Settings::Get().GetHeight()));
-	graphics->SetViewport(
-		static_cast<uint>(Settings::Get().GetWidth()),
-		static_cast<uint>(Settings::Get().GetHeight()));
+
 
 	CreateGeometry();    // 1.
 	CreateVS();          // 2.
@@ -43,6 +41,8 @@ Execute::~Execute()
 	SAFE_RELEASE(_blendState);
 	SAFE_RELEASE(_samplerState);
 	
+	SAFE_DELETE(_texture);
+	SAFE_DELETE(_rasterizerState);
 	SAFE_DELETE(_gpuBuffer);
 	SAFE_DELETE(_inputLayout);
 	SAFE_DELETE(_pixelShader);
@@ -108,11 +108,16 @@ void Execute::Render()
 		graphics->GetDeviceContext()->VSSetConstantBuffers(0, 1, cbuffers);
 
 		// RS
-		graphics->GetDeviceContext()->RSSetState(_rasterizerState);
+		graphics->GetDeviceContext()->RSSetState(_rasterizerState->GetResource());
 
 		// PS
 		graphics->GetDeviceContext()->PSSetShader(static_cast<ID3D11PixelShader*>(_pixelShader->GetResource()), nullptr, 0);
-		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, &_shaderResourceView);
+
+		// Resource View
+		ID3D11ShaderResourceView* shader_resources[] = { _texture->GetResource() };
+		graphics->GetDeviceContext()->PSSetShaderResources(0, 1, shader_resources);
+
+
 		graphics->GetDeviceContext()->PSSetSamplers(0, 1, &_samplerState);
 
 		// OM
@@ -168,18 +173,8 @@ void Execute::CreatePS()
 // 3D 객체를 2D화면에 어떻게 렌더링 할지를 결정하는 규칙을 정의한다.
 void Execute::CreateRasterizerState()
 {
-	// 래스터라이저 상태 설명 구조체
-	D3D11_RASTERIZER_DESC desc;
-	// 구조체 초기화
-	ZeroMemory(&desc, sizeof(desc));
-	{
-		desc.FillMode = D3D11_FILL_SOLID;   // 다각형 내부 픽셀을 채워주세요.
-		desc.CullMode = D3D11_CULL_BACK;    // 오브젝트의 보이지 않는 뒷면은 
-		                                    // 그리지 않겠다.
-		desc.FrontCounterClockwise = false; // 정면은 시계방향으로 정의
-	}
-	HRESULT hr = graphics->GetDevice()->CreateRasterizerState(&desc, &_rasterizerState);
-	CHECK(hr);
+	_rasterizerState = new D3D11_RasterizerState(graphics);
+	_rasterizerState->Create(D3D11_CULL_BACK, D3D11_FILL_SOLID);
 }
 
 // 텍스처를 샘플링 할때 어떻게 픽셀들을 필터링하고 해석할지 결정하는 규칙의 집합.
@@ -280,21 +275,8 @@ void Execute::CreateBlendState()
 // DirectX Tex 라이브러리 이용해서 이미지 불러오는 함수
 void Execute::CreateSRV()
 {   
-	// DirectX::TexMetadata md : 텍스처 메타데이터 구조체
-	// 메타 데이터 : 텍스처의 차원, 형식, 크기등의 정보가 포함된다.
-	DirectX::TexMetadata md;   
-
-	// DirectX::ScratchImage img : 이미지 데이터를 저장할 객체.
-	// 이미지의 픽셀 데이터를 담을 수 있음
-	DirectX::ScratchImage img; // 스크래치 이미지 객체
-
-	HRESULT hr = ::LoadFromWICFile(L"Assets/Skeleton.png", WIC_FLAGS_NONE, &md, img);
-	CHECK(hr);
-
-	// 셰이더 리소스 뷰 생성
-	// 셰이더 리소스 뷰 : GPU가 리소스(예: 텍스처, 버퍼 등)에 접근할 수 있는 인터페이스 제공
-	hr = ::CreateShaderResourceView(graphics->GetDevice(), img.GetImages(),
-		img.GetImageCount(), md, &_shaderResourceView);
+	_texture = new D3D11_Texture(graphics);
+	_texture->Create(L"Assets/Skeleton.png");
 }
 
 // 상수 버퍼를 세팅하는데 사용한다.

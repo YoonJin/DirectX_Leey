@@ -45,22 +45,16 @@ private:
 
 	// Geometry
 	D3D11_Geometry<D3D11_VertexTexture> geometry;
-	D3D11_VertexBuffer* _vertexBuffer = nullptr;
-	D3D11_IndexBuffer* _indexBuffer   = nullptr;
+	D3D11_VertexBuffer* _vertexBuffer		= nullptr;
+	D3D11_IndexBuffer* _indexBuffer			= nullptr;
 	// 버텍스 정보를 어떻게 끊어 읽을지 등에 대한 정보 및 설명서
-	D3D11_InputLayout* _inputLayout   = nullptr;
-	D3D11_Shader* _vertexShader = nullptr;
-	D3D11_Shader* _pixelShader = nullptr;
-	D3D11_ConstantBuffer* _gpuBuffer = nullptr;
-	
-	// RS
-	ID3D11RasterizerState* _rasterizerState = nullptr;
+	D3D11_InputLayout* _inputLayout			= nullptr;
+	D3D11_Shader* _vertexShader				= nullptr;
+	D3D11_Shader* _pixelShader				= nullptr;
+	D3D11_ConstantBuffer* _gpuBuffer		= nullptr;
+	D3D11_RasterizerState* _rasterizerState = nullptr;
+	D3D11_Texture* _texture					= nullptr;
 
-	// SRV
-	// 셰이더에서 읽을 수 있는 리소스에 대한 뷰를 제공한다.
-	// 이것은 텍스처, 버퍼 등의 GPU 리소스에 대한 읽기 전용 엑세스를 셰이더에 제공하게 된다.
-	ID3D11ShaderResourceView* _shaderResourceView = nullptr;
-	ID3D11ShaderResourceView* _shaderResourceView2 = nullptr;
 
 	ID3D11SamplerState* _samplerState = nullptr;
 	ID3D11BlendState* _blendState = nullptr;

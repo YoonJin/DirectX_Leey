@@ -158,15 +158,16 @@
     <ClInclude Include="Core\D3D11\InputAssembler\D3D11_IndexBuffer.h" />
     <ClInclude Include="Core\D3D11\InputAssembler\D3D11_InputLayout.h" />
     <ClInclude Include="Core\D3D11\InputAssembler\D3D11_VertexBuffer.h" />
+    <ClInclude Include="Core\D3D11\Rasterizer\D3D11_RasterizerState.h" />
+    <ClInclude Include="Core\D3D11\Rasterizer\D3D11_Viewport.h" />
+    <ClInclude Include="Core\D3D11\Shader\D3D11_Texture.h" />
     <ClInclude Include="Core\D3D11\Vertex\D3D11_Geometry.h" />
     <ClInclude Include="Core\D3D11\Vertex\D3D11_Vertex.h" />
-    <ClInclude Include="Core\D3D11\Vertex\Geometry.h" />
-    <ClInclude Include="Core\D3D11\Vertex\Vertex.h" />
     <ClInclude Include="Core\Execute.h" />
     <ClInclude Include="Core\Graphics.h" />
     <ClInclude Include="Core\MyWindows.h" />
-    <ClInclude Include="Shader\D3D11_ConstantBuffer.h" />
-    <ClInclude Include="Shader\D3D11_Shader.h" />
+    <ClInclude Include="Core\D3D11\Shader\D3D11_ConstantBuffer.h" />
+    <ClInclude Include="Core\D3D11\Shader\D3D11_Shader.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="MyLibraries\SimpleMath.h" />
     <ClInclude Include="pch.h" />
@@ -177,13 +178,15 @@
     <ClCompile Include="Core\D3D11\InputAssembler\D3D11_IndexBuffer.cpp" />
     <ClCompile Include="Core\D3D11\InputAssembler\D3D11_InputLayout.cpp" />
     <ClCompile Include="Core\D3D11\InputAssembler\D3D11_VertexBuffer.cpp" />
+    <ClCompile Include="Core\D3D11\Rasterizer\D3D11_RasterizerState.cpp" />
+    <ClCompile Include="Core\D3D11\Rasterizer\D3D11_Viewport.cpp" />
+    <ClCompile Include="Core\D3D11\Shader\D3D11_Texture.cpp" />
     <ClCompile Include="Core\D3D11\Vertex\D3D11_Vertex.cpp" />
-    <ClCompile Include="Core\D3D11\Vertex\Vertex.cpp" />
     <ClCompile Include="Core\Execute.cpp" />
     <ClCompile Include="Core\Graphics.cpp" />
     <ClCompile Include="MyLibraries\SimpleMath.cpp" />
-    <ClCompile Include="Shader\D3D11_ConstantBuffer.cpp" />
-    <ClCompile Include="Shader\D3D11_Shader.cpp" />
+    <ClCompile Include="Core\D3D11\Shader\D3D11_ConstantBuffer.cpp" />
+    <ClCompile Include="Core\D3D11\Shader\D3D11_Shader.cpp" />
     <ClCompile Include="Utility\Geometry_Generator.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="pch.cpp">
@@ -192,7 +195,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Core\D3D11\Vertex\D3D11_Geometry.inl" />
-    <None Include="Core\D3D11\Vertex\Geometry.inl" />
     <None Include="MyLibraries\SimpleMath.inl" />
   </ItemGroup>
   <ItemGroup>

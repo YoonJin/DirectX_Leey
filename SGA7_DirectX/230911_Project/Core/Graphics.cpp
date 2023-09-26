@@ -53,8 +53,17 @@ void Graphics::RenderBegin()
 	_deviceContext->OMSetRenderTargets(1, &_renderTargetView, nullptr);
 	// RTV를 이용하여 버퍼를 특정색상으로 덮어 씌워준다.
 	_deviceContext->ClearRenderTargetView(_renderTargetView, _clearColor);
+
+	D3D11_VIEWPORT _d3d11Viewport;
+	_d3d11Viewport.TopLeftX = _viewport.x;
+	_d3d11Viewport.TopLeftY = _viewport.y;
+	_d3d11Viewport.Width    = _viewport.width;
+	_d3d11Viewport.Height   = _viewport.height;
+	_d3d11Viewport.MinDepth = _viewport.min_depth;
+	_d3d11Viewport.MaxDepth = _viewport.max_depth;
+
 	// 설정한 RTV에 대응하는 viewports 정보를 설정한다.
-	_deviceContext->RSSetViewports(1, &_viewport);
+	_deviceContext->RSSetViewports(1, &_d3d11Viewport);
 }
 
 void Graphics::RenderEnd()
@@ -181,20 +190,14 @@ void Graphics::CreateRenderTargetView(const uint& width, const uint& height)
 	hr = _device->CreateRenderTargetView(backBuffer, nullptr, &_renderTargetView);
 	CHECK(hr);
 
+	_viewport.x			= 0.0f;
+	_viewport.y			= 0.0f;
+	_viewport.width		= static_cast<float>(width);
+	_viewport.height	= static_cast<float>(height);
+	_viewport.min_depth = 0.0f;
+	_viewport.max_depth = 1.0f;
+
 	// 백 버퍼 COM 객체의 참조를 해제한다.
 	SAFE_RELEASE(backBuffer);
-}
-
-// 해당 코드 블록은 뷰포트 변환을 위한 정보를 설정하는 함수이다.
-// 전체 화면을 채울것인지, 아니면 화면의 일부만 그릴 것인지
-// 어떤 비율로 그릴 것인지 등을 결정한다.
-void Graphics::SetViewport(const uint& width, const uint& height)
-{
-	_viewport.TopLeftX = 0.f;  // 뷰포트의 시작 x좌표
-	_viewport.TopLeftY = 0.f;  // 뷰포트의 시작 y좌표
-	_viewport.Width = static_cast<float>(width);   // 뷰포트 너비
-	_viewport.Height = static_cast<float>(height); // 뷰포트 높이
-	_viewport.MinDepth = 0.f; // 뷰 포트의 최소 깊이 값
-	_viewport.MaxDepth = 1.f; // 뷰 포트의 최대 깊이 값
 }
 

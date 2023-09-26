@@ -1,4 +1,6 @@
 #pragma once
+#include "Core/D3D11/Rasterizer/D3D11_Viewport.h"
+
 
 class Graphics final
 {
@@ -9,7 +11,6 @@ public:
 public:
 	void CreateDeviceAndSwapChain();
 	void CreateRenderTargetView(const uint& width, const uint& height);
-	void SetViewport(const uint& width, const uint& height);
 
 	ID3D11Device* GetDevice() { return _device; }
 	ID3D11DeviceContext* GetDeviceContext() { return _deviceContext; }
@@ -30,6 +31,6 @@ private:
 	// RTV
 	ID3D11RenderTargetView* _renderTargetView;
 
-	D3D11_VIEWPORT _viewport = { 0, };
+	D3D11_Viewport _viewport = D3D11_Viewport::Undefined_viewport;
 	D3DXCOLOR	 _clearColor = { 0, 0, 0, 0 };  // black
 };
