@@ -54,10 +54,9 @@ private:
 	D3D11_ConstantBuffer* _gpuBuffer		= nullptr;
 	D3D11_RasterizerState* _rasterizerState = nullptr;
 	D3D11_Texture* _texture					= nullptr;
-
-
-	ID3D11SamplerState* _samplerState = nullptr;
-	ID3D11BlendState* _blendState = nullptr;
+	D3D11_SamplerState* _samplerState       = nullptr;
+	D3D11_BlendState* _blendState			= nullptr;
+	
 
 private:
 	TransformData _transformData;

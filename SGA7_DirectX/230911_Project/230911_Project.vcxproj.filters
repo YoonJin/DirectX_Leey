@@ -69,6 +69,15 @@
     <ClInclude Include="Core\D3D11\Shader\D3D11_Texture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Core\D3D11\Shader\D3D11_SamplerState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\D3D11\OutputMerger\D3D11_BlendState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Camera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -114,6 +123,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Core\D3D11\Shader\D3D11_Texture.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\D3D11\Shader\D3D11_SamplerState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\D3D11\OutputMerger\D3D11_BlendState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Camera.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

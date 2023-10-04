@@ -17,7 +17,6 @@ using namespace std;
 // DirectX
 #include <d3dcompiler.h>
 #include <d3d11.h>
-#include <D3DX10math.h>
 #include <DirectXMath.h>
 #include <DirectXTex/DirectXTex.h>
 #include <DirectXTex/DirectXTex.inl>
@@ -60,6 +59,8 @@ typedef unsigned int uint;
 #include "Core/D3D11/InputAssembler/D3D11_InputLayout.h"
 #include "Core/D3D11/Shader/D3D11_Shader.h"
 #include "Core/D3D11/Shader/D3D11_ConstantBuffer.h"
+#include "Core/D3D11/Shader/D3D11_SamplerState.h"
 #include "Core/D3D11/Shader/D3D11_Texture.h"
 #include "Core/D3D11/Rasterizer/D3D11_RasterizerState.h"
 #include "Core/D3D11/Rasterizer/D3D11_Viewport.h"
+#include "Core/D3D11/OutputMerger/D3D11_BlendState.h"

@@ -32,5 +32,5 @@ private:
 	ID3D11RenderTargetView* _renderTargetView;
 
 	D3D11_Viewport _viewport = D3D11_Viewport::Undefined_viewport;
-	D3DXCOLOR	 _clearColor = { 0, 0, 0, 0 };  // black
+	float	 _clearColor[4] = { 0, 0, 0, 0 };  // black
 };

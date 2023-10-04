@@ -2,15 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Users\SGA\Documents\SGA7Time_DriectX\SGA7_DirectX\Binaries\230911_Project.exe</FullPath>
+      <FullPath>C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\230911_Project.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles>
     <ContentFile>
-      <FullPath>C:\Users\SGA\Documents\SGA7Time_DriectX\SGA7_DirectX\Binaries\Color.cso</FullPath>
+      <FullPath>C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\Color.cso</FullPath>
     </ContentFile>
     <ContentFile>
-      <FullPath>C:\Users\SGA\Documents\SGA7Time_DriectX\SGA7_DirectX\Binaries\Texture.cso</FullPath>
+      <FullPath>C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\Texture.cso</FullPath>
     </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
