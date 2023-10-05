@@ -64,4 +64,7 @@ private:
 	Vec3 _localPosition = { 0.f, 0.f, 0.f };
 	Vec3 _localRotation = { 0.f, 0.f, 0.f };
 	Vec3 _localScale = { 250.0f, 250.0f, 0.f };
+
+	class Camera* camera = nullptr;
+	Matrix world;
 };

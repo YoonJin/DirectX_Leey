@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Execute.h"
+#include "Graphics.h"
+#include "Scene/Camera.h"
 
 Execute::Execute()
 {
@@ -24,20 +26,22 @@ Execute::Execute()
 	CreateSRV();
 	CreateConstantBuffer();
 
-	// 카메라의 위치
-	Vec3 eyePosition = { 0, 0, 0 };
-	// 카메라가 바라보는 대상의 위치
-	Vec3 lookAtPosition = { 0, 0, 1 };
-	// 카메라의 수직방향을 나타내는 벡터
-	Vec3 upVector = { 0, 1, 0 };
+	camera = new Camera();
+	{
+		world = Matrix::Identity;
 
-	_transformData.matWorld = Matrix::Identity;
-	_transformData.matView = XMMatrixLookAtLH(eyePosition, lookAtPosition, upVector);
-	_transformData.matProjection = XMMatrixOrthographicLH(Settings::Get().GetWidth(), Settings::Get().GetHeight(), 0, 1);
+		// World
+		Matrix S = XMMatrixScaling(250, 250, 1);
+		Matrix R = XMMatrixRotationX(0) * XMMatrixRotationY(0) * XMMatrixRotationZ(0);
+		Matrix T = XMMatrixTranslation(0, 0, 0);
+	
+		world = S * R * T;
+	}
 }
 
 Execute::~Execute()
 {
+	SAFE_DELETE(camera);
 	SAFE_DELETE(_blendState);
 	SAFE_DELETE(_samplerState);
 	SAFE_DELETE(_texture);
@@ -53,27 +57,18 @@ Execute::~Execute()
 
 void Execute::Update()
 {
-	//_transformData.offset.x += 0.003f;
-	//_transformData.offset.y += 0.003f;
-
-	Matrix matScale    = Matrix::CreateScale(_localScale);
-	Matrix matRotation = Matrix::CreateRotationX(_localRotation.x);
-	matRotation *= Matrix::CreateRotationY(_localRotation.y);
-	matRotation *= Matrix::CreateRotationZ(_localRotation.z);
-
-	Matrix matTranslation = Matrix::CreateTranslation(_localPosition);
-
-	Matrix matWorld = matScale * matRotation * matTranslation; // SRT
-	_transformData.matWorld = matWorld;
-
+	camera->Update();
 
 	// 상수버퍼 세팅 부분. (건드리면 안됨.)
 	{
-		
 		auto buffer = _gpuBuffer->Map<TransformData>();
 		{
+			TransformData cpuData;
+			cpuData.matWorld	  = world;
+			cpuData.matView		  = camera->GetViewMatrix();
+			cpuData.matProjection = camera->GetProjectionMatrix();
 			// _transformData의 데이터를 매핑된 상수 버퍼로 복사한다.
-			::memcpy(buffer, &_transformData, sizeof(_transformData));
+			::memcpy(buffer, &cpuData, sizeof(TransformData));
 		}
 		_gpuBuffer->Unmap();
 	
