@@ -130,17 +130,51 @@ void D3D11_Pipeline::SetConstantBuffer(const uint& slot, const uint& scope, cons
 }
 
 void D3D11_Pipeline::SetShaderResource(const uint& slot, const uint& scope, const D3D11_Texture* resource)
-{
+{	
+	if (!resource || !resource->GetResource())
+	{
+		assert(false);
+		return;
+	}
+
+	if (slot >= D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT)
+	{
+		assert(false);
+		return;
+	}
+
+	ID3D11ShaderResourceView* shader_resources[]{ resource->GetResource(), };
+
+	if (scope & ShaderScope_VS) device_context->VSSetShaderResources(slot, 1, shader_resources);
+	if (scope & ShaderScope_PS) device_context->PSSetShaderResources(slot, 1, shader_resources);
 }
 
 void D3D11_Pipeline::SetSamplerState(const uint& slot, const uint& scope, const D3D11_SamplerState* state)
 {
+	if (!state || !state->GetResource())
+	{
+		assert(false);
+		return;
+	}
+
+	if (slot >= D3D11_COMMONSHADER_SAMPLER_SLOT_COUNT)
+	{
+		assert(false);
+		return;
+	}
+
+	ID3D11SamplerState* sampler_states[]{ state->GetResource(), };
+
+	if (scope & ShaderScope_VS) device_context->VSSetSamplers(slot, 1, sampler_states);
+	if (scope & ShaderScope_PS) device_context->PSSetSamplers(slot, 1, sampler_states);
 }
 
 void D3D11_Pipeline::Draw(const uint& vertex_count, const uint& vertex_offset)
 {
+	device_context->Draw(vertex_count, vertex_offset);
 }
 
 void D3D11_Pipeline::DrawIndexed(const uint& index_count, const uint& index_offset, const uint& vertex_offset)
 {
+	device_context->DrawIndexed(index_count, index_offset, vertex_offset);
 }

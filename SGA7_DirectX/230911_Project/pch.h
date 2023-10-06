@@ -64,3 +64,4 @@ typedef unsigned int uint;
 #include "Core/D3D11/Rasterizer/D3D11_RasterizerState.h"
 #include "Core/D3D11/Rasterizer/D3D11_Viewport.h"
 #include "Core/D3D11/OutputMerger/D3D11_BlendState.h"
+#include "Core/D3D11/D3D11_Pipeline.h"

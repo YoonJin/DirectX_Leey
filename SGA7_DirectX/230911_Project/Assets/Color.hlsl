@@ -25,20 +25,45 @@ struct VS_OUTPUT
 	float4 color    : COLOR;
 };
 
+
+cbuffer CameraBuffer : register(b0)
+{
+	row_major matrix matView;
+	row_major matrix matProjection;
+}
+
+cbuffer TransformBuffer : register(b1)
+{
+	row_major matrix matWorld;
+}
+
+cbuffer ColorBuffer : register(b2)
+{
+	float4 color;
+	// 4byte;
+	bool  isConflict;
+}
+
+
 // 정점 셰이더 (VS) 함수
-// 입력 정점 데이터를 가져와서 그래픽스 파이프라인의 다음 단계로 출력
 VS_OUTPUT VS(VS_INPUT input)
 {
 	VS_OUTPUT output; // 출력 구조체를 생성
-	output.position = input.position; // 입력 위치를 그대로 출력 위치로 설정
-	output.color = input.color; // 입력 색상을 그대로 출력 색상으로 설정
+	output.position = mul(input.position, matWorld);
+	output.position = mul(output.position, matView);
+	output.position = mul(output.position, matProjection);
 
-	return output;
+	output.color = input.color;
+
+	return output; // 결과를 반환
 }
 
 // 픽셀 셰이더 (PS)함수
 // 정점 셰이더의 출력을 받아 최종 픽셀 색상을 계산
 float4 PS(VS_OUTPUT input) : SV_Target
 {
-	return input.color;
+	if (isConflict)
+		return color;
+	else
+		return input.color;
 }
