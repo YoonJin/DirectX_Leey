@@ -1,33 +1,4 @@
-﻿  compilation object save succeeded; see C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\Color.cso
-  pch.cpp
-  D3D11_Pipeline.cpp
-  D3D11_IndexBuffer.cpp
-  D3D11_InputLayout.cpp
-  D3D11_VertexBuffer.cpp
-  D3D11_BlendState.cpp
-  D3D11_RasterizerState.cpp
-  D3D11_Viewport.cpp
-  D3D11_SamplerState.cpp
-  D3D11_Texture.cpp
-  D3D11_Vertex.cpp
-  Execute.cpp
-  Graphics.cpp
-  SimpleMath.cpp
-  D3D11_ConstantBuffer.cpp
-  D3D11_Shader.cpp
-  Camera.cpp
+﻿  Execute.cpp
   MyRect.cpp
-  Geometry_Generator.cpp
-  WinMain.cpp
   코드를 생성하고 있습니다...
-DirectXTex_debug.lib(BC.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(BC.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(BC4BC5.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(BC4BC5.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(BC6HBC7.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(BC6HBC7.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(DirectXTexCompress.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexCompress.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(DirectXTexConvert.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexConvert.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(DirectXTexD3D11.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexD3D11.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(DirectXTexImage.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexImage.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(DirectXTexMipMaps.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexMipMaps.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(DirectXTexUtil.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexUtil.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
-DirectXTex_debug.lib(DirectXTexWIC.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexWIC.obj)' 또는 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
   230911_Project.vcxproj -> C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\230911_Project.exe

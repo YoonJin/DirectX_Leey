@@ -43,6 +43,10 @@ public:
 	void Update();
 	void Render(D3D11_Pipeline* pipeline);
 
+	virtual void Event() = 0;
+protected:
+	virtual void Move() = 0;
+
 protected:
 	D3D11_VertexBuffer* vertexBuffer        = nullptr;
 	D3D11_IndexBuffer* indexBuffer          = nullptr;

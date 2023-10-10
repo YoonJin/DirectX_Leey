@@ -57,8 +57,12 @@ MyRect::~MyRect()
 
 void MyRect::Update()
 {
+	Move();
+
 	Matrix S = XMMatrixScaling(scale.x, scale.y, scale.z);
 	Matrix T = XMMatrixTranslation(position.x, position.y, position.z);
+
+	world = S * T;
 
 	// -> World 행렬 변환 상수버퍼 적용 코드
 	{

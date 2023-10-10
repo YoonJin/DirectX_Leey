@@ -10,7 +10,13 @@
 
 // STL
 #include <iostream>
+#include <sstream>
 #include <vector>
+#include <limits>
+#include <map>
+#include <unordered_map>
+#include <random>
+#include <chrono>
 
 using namespace std;
 

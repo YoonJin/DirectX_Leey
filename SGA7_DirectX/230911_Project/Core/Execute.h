@@ -17,5 +17,6 @@ private:
 	class D3D11_Pipeline* pipeline = nullptr;
 	
 	// TODO °´Ã¼µé Ãß°¡...
-
+	class Player* player = nullptr;
+	std::vector<class Monster*> monsters;
 };
