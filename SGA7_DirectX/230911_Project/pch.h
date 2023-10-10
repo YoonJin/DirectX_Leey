@@ -49,8 +49,16 @@ typedef unsigned int uint;
 
 #define CHECK(p) assert(SUCCEEDED(p))
 
+// Math
+#include "Math/MyMath.h"
+
+// Timer
+#include "Timer/Timer.h"
+
+// Intersect
 
 
+// Utility
 #include "Utility/Geometry_Generator.h"
 
 

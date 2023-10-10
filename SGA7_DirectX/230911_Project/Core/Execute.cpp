@@ -24,7 +24,6 @@ Execute::Execute()
 
 	player = new Player(graphics, Color(1.f, 0.f, 0.f, 1.f));
 	player->SetPosition(Vec3(100, 0, 0));
-
 }
 
 Execute::~Execute()
