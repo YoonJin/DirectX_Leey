@@ -24,10 +24,39 @@ Execute::Execute()
 
 	player = new Player(graphics, Color(1.f, 0.f, 0.f, 1.f));
 	player->SetPosition(Vec3(100, 0, 0));
+
+	monsters.reserve(10);
+
+	for (int i = 0; i < 10; i++)
+	{
+		auto random_position = Vec3
+		(
+			MyMath::Random(-500.0f, 500.0f),
+			MyMath::Random(-500.0f, 500.0f),
+			MyMath::Random(-500.0f, 500.0f)
+		);
+
+		auto random_color = Color
+		(
+			MyMath::Random(0.f, 1.f),
+			MyMath::Random(0.f, 1.f),
+			MyMath::Random(0.f, 1.f),
+			1.0f
+		);
+
+		monsters.push_back(new Monster(graphics, random_color));
+		monsters[i]->SetPosition(random_position);
+	}
 }
 
 Execute::~Execute()
 {
+	for (vector<Monster*>::iterator iter = monsters.begin();
+		iter != monsters.end(); iter++)
+	{
+		SAFE_DELETE(*iter);
+	}
+
 	SAFE_DELETE(player);
 	SAFE_DELETE(pipeline);
 	SAFE_DELETE(camera_buffer);
@@ -39,6 +68,19 @@ void Execute::Update()
 {
 	player->Update();
 	camera->Update();
+
+	for (vector<Monster*>::iterator iter = monsters.begin();
+		iter != monsters.end(); iter++)
+	{
+		(*iter)->Update();
+
+		// 面倒 贸府
+		if (Intersect::IsIntersect(player, (*iter)))
+		{
+			player->Event();
+			(*iter)->Event();
+		}
+	}
 
 	// 惑荐 滚欺 贸府
 	auto buffer = camera_buffer->Map<CameraBuffer>();
@@ -61,6 +103,12 @@ void Execute::Render()
 		pipeline->SetConstantBuffer(0, ShaderScope_VS, camera_buffer);
 
 		player->Render(pipeline);
+
+		for (vector<Monster*>::iterator iter = monsters.begin();
+			iter != monsters.end(); iter++)
+		{
+			(*iter)->Render(pipeline);
+		}
 	}
 	graphics->RenderEnd();
 }

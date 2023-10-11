@@ -1,6 +1,4 @@
-﻿  compilation object save succeeded; see C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\Color.cso
-  compilation object save succeeded; see C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\Texture.cso
-  pch.cpp
+﻿  pch.cpp
   D3D11_Pipeline.cpp
   D3D11_IndexBuffer.cpp
   D3D11_InputLayout.cpp
@@ -13,6 +11,7 @@
   D3D11_Vertex.cpp
   Execute.cpp
   Graphics.cpp
+  Intersect.cpp
   MyMath.cpp
   SimpleMath.cpp
   D3D11_ConstantBuffer.cpp
@@ -20,9 +19,9 @@
   Camera.cpp
   Monster.cpp
   MyRect.cpp
-  Player.cpp
   코드를 생성하고 있습니다...
   컴파일하고 있습니다...
+  Player.cpp
   Timer.cpp
   Geometry_Generator.cpp
   WinMain.cpp

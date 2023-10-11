@@ -56,6 +56,7 @@ typedef unsigned int uint;
 #include "Timer/Timer.h"
 
 // Intersect
+#include "Intersect/Intersect.h"
 
 
 // Utility

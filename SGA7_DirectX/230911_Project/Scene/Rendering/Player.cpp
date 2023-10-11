@@ -12,6 +12,8 @@ Player::~Player()
 
 void Player::Event()
 {
+	isConflict = true;
+	instersect_color = Color(1, 0, 1, 1);
 }
 
 void Player::Move()

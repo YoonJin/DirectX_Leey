@@ -171,6 +171,7 @@
     <ClInclude Include="Core\MyWindows.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_ConstantBuffer.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_Shader.h" />
+    <ClInclude Include="Intersect\Intersect.h" />
     <ClInclude Include="Math\MyMath.h" />
     <ClInclude Include="Scene\Camera.h" />
     <ClInclude Include="Scene\Rendering\Monster.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Core\D3D11\Vertex\D3D11_Vertex.cpp" />
     <ClCompile Include="Core\Execute.cpp" />
     <ClCompile Include="Core\Graphics.cpp" />
+    <ClCompile Include="Intersect\Intersect.cpp" />
     <ClCompile Include="Math\MyMath.cpp" />
     <ClCompile Include="MyLibraries\SimpleMath.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_ConstantBuffer.cpp" />
