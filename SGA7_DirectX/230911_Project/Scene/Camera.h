@@ -11,11 +11,15 @@ public:
 
 	void Update();
 
+	void SetPosition(const Vec3 position) { this->position = position; }
+
 private:
 	void UpdateViewMatrix();
 	void UpdateProjectionMatrix();
 
 private:
+	Vec3 position;
+
 	Matrix view;
 	Matrix proj;
 };

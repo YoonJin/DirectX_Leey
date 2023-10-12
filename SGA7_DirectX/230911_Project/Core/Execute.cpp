@@ -67,6 +67,8 @@ Execute::~Execute()
 void Execute::Update()
 {
 	player->Update();
+
+	camera->SetPosition(player->GetPosition());
 	camera->Update();
 
 	for (vector<Monster*>::iterator iter = monsters.begin();
