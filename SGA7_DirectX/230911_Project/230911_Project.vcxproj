@@ -94,6 +94,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>;./;$(SolutionDir)Libraries\Include\;</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -173,7 +174,9 @@
     <ClInclude Include="Core\D3D11\Shader\D3D11_Shader.h" />
     <ClInclude Include="Intersect\Intersect.h" />
     <ClInclude Include="Math\MyMath.h" />
+    <ClInclude Include="Scene\Actor.h" />
     <ClInclude Include="Scene\Camera.h" />
+    <ClInclude Include="Scene\Component\IComponent.h" />
     <ClInclude Include="Scene\Rendering\Monster.h" />
     <ClInclude Include="Scene\Rendering\MyRect.h" />
     <ClInclude Include="Scene\Rendering\Player.h" />
@@ -202,7 +205,9 @@
     <ClCompile Include="MyLibraries\SimpleMath.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_ConstantBuffer.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_Shader.cpp" />
+    <ClCompile Include="Scene\Actor.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />
+    <ClCompile Include="Scene\Component\IComponent.cpp" />
     <ClCompile Include="Scene\Rendering\Monster.cpp" />
     <ClCompile Include="Scene\Rendering\MyRect.cpp" />
     <ClCompile Include="Scene\Rendering\Player.cpp" />
