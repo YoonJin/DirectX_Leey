@@ -39,6 +39,9 @@ public:
 	template <typename T>
 	auto GetComponent_Raw() -> T*;
 
+	template <typename T>
+	auto GetComponents() -> const std::vector<std::shared_ptr<T>>;
+
 	auto GetAllComponents() const -> const std::vector<std::shared_ptr<IComponent>>& 
 	{
 		return components;
@@ -134,16 +137,65 @@ inline auto Actor::GetComponent() -> const std::shared_ptr<T>
 template<typename T>
 inline auto Actor::GetComponent_Raw() -> T*
 {
+	static_assert(std::is_base_of<IComponent, T>::value, "Provider type does not implement IComponent");
+
+	auto type = IComponent::DeduceComponentType<T>();
+	for (const auto& component : components)
+	{
+		if (component->GetComponentType() == type)
+			return std::static_pointer_cast<T>(component).get();
+	}
+
 	return nullptr;
+}
+
+template<typename T>
+inline auto Actor::GetComponents() -> const std::vector<std::shared_ptr<T>>
+{
+	static_assert(std::is_base_of<IComponent, T>::value, 
+		"Provider type does not implement IComponent");
+
+	auto type = IComponent::DeduceComponentType<T>();
+
+	std::vector<std::shared_ptr<T>> temp_components;
+
+	for (const auto& component : components)
+	{
+		if (component->GetComponentType() != type)
+			continue;
+
+		temp_components.push_back(std::static_pointer_cast<T>(component));
+	}
+	return temp_components;
 }
 
 template<typename T>
 inline bool Actor::HasComponent()
 {
-	return false;
+	static_assert(std::is_base_of<IComponent, T>::value,
+		"Provider type does not implement IComponent");
+
+	return HasComponent(IComponent::DeduceComponentType<T>());
 }
 
 template<typename T>
 inline void Actor::RemoveComponent()
 {
+	static_assert(std::is_base_of<IComponent, T>::value,
+		"Provider type does not implement IComponent");
+
+	auto type = IComponent::DeduceComponentType<T>();
+
+	for (auto iter = components.begin(); iter != components.end(); )
+	{
+		auto component = *iter;
+		if (component->GetComponentType() == type)
+		{
+			component->Destroy();
+			component.reset();
+			iter = components.erase(iter);
+		}
+		else
+			iter++;
+	}
 }
