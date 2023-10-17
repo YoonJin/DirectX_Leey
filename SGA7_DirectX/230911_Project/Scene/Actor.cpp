@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Actor.h"
+#include "Component/TransformComponent.h"
+#include "Component/MeshRendererComponent.h"
 
 Actor::Actor()
 {

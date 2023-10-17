@@ -39,6 +39,7 @@ using namespace DirectX;
 	#pragma comment(lib, "DirectXTex\\DirectXTex.lib")
 #endif
 
+#pragma warning(disable : 4506)
 
 typedef unsigned int uint;
 

@@ -114,7 +114,7 @@ void TransformComponent::SetPosition(const Vec3& world_position)
 	if (GetPosition() == world_position)
 		return;
 
-	if (HasParent)
+	if (HasParent())
 	{
 		Matrix inverse;
 		// 역행렬은 원래의 행렬과 곱했을 때 단위행렬이 되는 행렬
@@ -198,37 +198,92 @@ void TransformComponent::SetRotation(const Vec3& world_rotation)
 
 const Matrix TransformComponent::GetWorldRotationMatrix() const
 {
-	return Matrix();
+	XMVECTOR scale, rotationQuat, translation;
+
+	XMMatrixDecompose(&scale, &rotationQuat, &translation, world);
+
+	// 분해된 쿼터니언을 이용하여 회전 행렬을 생성한다.
+	XMMATRIX rotation = XMMatrixRotationQuaternion(rotationQuat);
+
+	// Matrix로 변환
+	XMFLOAT4X4 float4x4;
+	XMStoreFloat4x4(&float4x4, rotation);
+
+	// SimpleMatrix 생성
+	SimpleMath::Matrix simpleMatrix(float4x4);
+
+	return simpleMatrix;
 }
 
+// 월드 매트릭스를 기준으로 오른쪽 방향 벡터를 얻어오는 함수.
 Vec3 TransformComponent::GetRight() const
 {
-	return Vec3();
+	Vec3 right;
+	// 월드 매트릭스를 기준으로 오른쪽 방향이 어느쪽인지를
+	// 계산해서 반환해주는 기능.
+	right = XMVector3TransformCoord(Vec3(1, 0, 0), world);
+	
+	return right;
 }
 
 Vec3 TransformComponent::GetUp() const
 {
-	return Vec3();
+	Vec3 up;
+	up = XMVector3TransformCoord(Vec3(0, 1, 0), world);
+
+	return up;
 }
 
 Vec3 TransformComponent::GetForward() const
 {
-	return Vec3();
+	Vec3 forward;
+	forward = XMVector3TransformCoord(Vec3(0, 0, 1), world);
+
+	return forward;
 }
 
 void TransformComponent::SetParent(TransformComponent* const new_parent)
 {
+	parent = new_parent;
+
+	new_parent->AddChild(this);
 }
 
 TransformComponent* const TransformComponent::GetChildFromIndex(const uint& index)
 {
-	return nullptr;
+	if (!HasChild())
+		return nullptr;
+
+	if (index >= GetChildCount())
+		return nullptr;
+
+	return childs[index];
 }
 
 void TransformComponent::AddChild(TransformComponent* const child)
 {
+	childs.push_back(child);
 }
 
 void TransformComponent::UpdateTransform()
 {
+	Matrix S, R, T;
+	
+	S = Matrix::CreateScale(local_scale.x, local_scale.y, local_scale.z);
+
+	R = Matrix::CreateRotationX(local_rotation.x);
+	R *= Matrix::CreateRotationY(local_rotation.y);
+	R *= Matrix::CreateRotationZ(local_rotation.z);
+
+	T = Matrix::CreateTranslation(local_position.x, local_position.y, local_position.z);
+
+	local = S * R * T;
+
+	if (HasParent())
+		world = local * parent->GetWorldMatrix();
+	else
+		world = local;
+
+	for (const auto& child : childs)
+		child->UpdateTransform();
 }

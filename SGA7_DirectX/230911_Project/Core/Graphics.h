@@ -5,6 +5,12 @@
 class Graphics final
 {
 public:
+	static Graphics& Get()
+	{
+		static Graphics instance;
+		return instance;
+	}
+
 	Graphics();
 	~Graphics();
 

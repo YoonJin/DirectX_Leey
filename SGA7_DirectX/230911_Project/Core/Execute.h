@@ -6,17 +6,13 @@ public:
 	Execute();
 	~Execute();
 	
-
 	void Update();
 	void Render();
 
+	auto CreateActor(const bool& is_active = true)->const std::shared_ptr<class Actor>;
+	void AddActor(const std::shared_ptr<class Actor>& actor);
+
 private:
-	class Graphics* graphics = nullptr;
-	class Camera* camera = nullptr;
-	class D3D11_ConstantBuffer* camera_buffer = nullptr;
-	class D3D11_Pipeline* pipeline = nullptr;
-	
-	// TODO °´Ã¼µé Ãß°¡...
-	class Player* player = nullptr;
-	std::vector<class Monster*> monsters;
+	std::shared_ptr<class D3D11_Pipeline> pipeline;
+	std::vector<std::shared_ptr<class Actor>> actors;
 };

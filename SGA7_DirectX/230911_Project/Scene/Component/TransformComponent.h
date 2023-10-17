@@ -53,7 +53,7 @@ public:
 	bool HasChild() const { return !childs.empty(); }
 
 	TransformComponent* const GetRoot() 
-	{ return HasParent ? parent->GetRoot() : this; }
+	{ return HasParent() ? parent->GetRoot() : this; }
 	
 	TransformComponent* const GetParent() { return parent; }
 	void SetParent(TransformComponent* const new_parent);
