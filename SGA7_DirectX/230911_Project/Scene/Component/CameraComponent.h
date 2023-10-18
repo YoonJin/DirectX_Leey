@@ -3,6 +3,7 @@
 
 class CameraComponent final : public IComponent
 {
+public:
 	CameraComponent
 	(
 		class Actor* const actor,

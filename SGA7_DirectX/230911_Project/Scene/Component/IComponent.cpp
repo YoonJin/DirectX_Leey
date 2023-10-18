@@ -5,7 +5,10 @@
 #include "MeshRendererComponent.h"
 
 IComponent::IComponent(Actor* const actor, TransformComponent* const transform)
+	: actor(actor),
+	  transform(transform)
 {
+
 }
 
 template <typename T>

@@ -9,6 +9,7 @@ public:
 
 	void Initialize();
 	void Update();
+	void Render(class D3D11_Pipeline* const pipeline);
 	void Destroy();
 
 	// property
