@@ -5,7 +5,9 @@ enum class ComponentType : uint
 	Unknown,
 	Camera,
 	Transform,
-	MeshRenderer
+	MeshRenderer,
+	MoveScript,
+	AIScript
 };
 
 class IComponent

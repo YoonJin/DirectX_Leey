@@ -5,6 +5,8 @@
 #include "Scene/Component/TransformComponent.h"
 #include "Scene/Component/CameraComponent.h"
 #include "Scene/Component/MeshRendererComponent.h"
+#include "Scene/Component/MoveScriptComponent.h"
+#include "Scene/Component/AIScriptComponent.h"
 
 Execute::Execute()
 {
@@ -20,16 +22,19 @@ Execute::Execute()
 	camera->SetName("MainCamera");
 
 	auto player = CreateActor();
-	player->AddComponent<MeshRendererComponent>();
+	player->SetName("Player");
 	player->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
 	player->GetComponent<TransformComponent>()->SetPosition(Vec3(100.0f, 0.0f, 0.0f));
-	player->SetName("Player");
+	player->AddComponent<MeshRendererComponent>();
+	player->AddComponent<MoveScriptComponent>();
 
 	auto monster = CreateActor();
-	monster->AddComponent<MeshRendererComponent>();
+	monster->SetName("Monster");
 	monster->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
 	monster->GetComponent<TransformComponent>()->SetPosition(Vec3(-100.0f, 0.0f, 0.0f));
-	monster->SetName("Monster");
+	monster->AddComponent<MeshRendererComponent>();
+	monster->AddComponent<AIScriptComponent>();
+
 }
 
 Execute::~Execute()
