@@ -66,8 +66,13 @@ typedef unsigned int uint;
 
 // Framework
 #include "Core/Settings.h"
-#include "Core/Graphics.h"
 
+// Main System
+#include "Core/Context.h"
+
+// Sub System
+#include "Core/Subsystem/Graphics.h"
+#include "Core/Subsystem/SceneManager.h"
 #include "Core/D3D11/Vertex/D3D11_Vertex.h"
 #include "Core/D3D11/Vertex/D3D11_Geometry.h"
 #include "Core/D3D11/InputAssembler/D3D11_VertexBuffer.h"

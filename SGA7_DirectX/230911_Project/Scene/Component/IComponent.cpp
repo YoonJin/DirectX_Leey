@@ -6,8 +6,9 @@
 #include "MoveScriptComponent.h"
 #include "AIScriptComponent.h"
 
-IComponent::IComponent(Actor* const actor, TransformComponent* const transform)
-	: actor(actor),
+IComponent::IComponent(Context* const context, Actor* const actor, TransformComponent* const transform)
+	: context(context),
+	  actor(actor),
 	  transform(transform)
 {
 

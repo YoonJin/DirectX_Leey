@@ -4,7 +4,7 @@
 class Actor final
 {
 public:
-	Actor();
+	Actor(class Context* const context);
 	~Actor();
 
 	void Initialize();
@@ -58,6 +58,8 @@ public:
 
 
 private:
+	class Context* context = nullptr;
+
 	std::string name;
 	bool is_active = true;
 
@@ -79,6 +81,7 @@ inline auto Actor::AddComponent() -> const std::shared_ptr<T>
 	(
 		std::make_shared<T>
 		(
+			context,
 			this,				//  현재 Actor를 가리키는 포인터
 			transform.get()	    //  raw pointer로 반환된 transformComponent 
 		)

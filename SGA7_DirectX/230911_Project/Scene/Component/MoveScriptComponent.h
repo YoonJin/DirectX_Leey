@@ -6,6 +6,7 @@ class MoveScriptComponent final : public IComponent
 public:
 	MoveScriptComponent
 	(
+		class Context* const context,
 		class Actor* const actor,
 		class TransformComponent* const transform
 	);

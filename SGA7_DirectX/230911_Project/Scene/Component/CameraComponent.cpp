@@ -2,8 +2,8 @@
 #include "CameraComponent.h"
 #include "TransformComponent.h"
 
-CameraComponent::CameraComponent(Actor* const actor, TransformComponent* const transform)
-	:IComponent(actor, transform)
+CameraComponent::CameraComponent(Context* const context, Actor* const actor, TransformComponent* const transform)
+	:IComponent(context, actor, transform)
 {
 }
 
@@ -30,7 +30,8 @@ void CameraComponent::UpdateConstantBuffer()
 {
 	if (!gpu_buffer)
 	{
-		gpu_buffer = std::make_shared<D3D11_ConstantBuffer>(&Graphics::Get());
+		gpu_buffer = std::make_shared<D3D11_ConstantBuffer>
+			(context->GetSubsystem<Graphics>());
 		gpu_buffer->Create<CameraBuffer>();
 	}
 

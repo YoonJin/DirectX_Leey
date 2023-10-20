@@ -6,6 +6,7 @@ class AIScriptComponent final : public IComponent
 public:
 	AIScriptComponent
 	(
+		class Context* const context,
 		class Actor* const actor,
 		class TransformComponent* const transform
 	);

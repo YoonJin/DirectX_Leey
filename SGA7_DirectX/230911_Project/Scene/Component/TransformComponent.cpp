@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "TransformComponent.h"
 
-TransformComponent::TransformComponent(Actor* actor, TransformComponent* transform)
-	:IComponent(actor, transform)
+TransformComponent::TransformComponent(Context* const context, Actor* actor, TransformComponent* transform)
+	:IComponent(context, actor, transform)
 {
 	local = Matrix::Identity;
 	world = Matrix::Identity;
@@ -295,7 +295,7 @@ void TransformComponent::UpdateConstantBuffer()
 {
 	if (!gpu_buffer)
 	{
-		gpu_buffer = std::make_shared<D3D11_ConstantBuffer>(&Graphics::Get());
+		gpu_buffer = std::make_shared<D3D11_ConstantBuffer>(context->GetSubsystem<Graphics>());
 		gpu_buffer->Create<TransformBuffer>();
 	}
 

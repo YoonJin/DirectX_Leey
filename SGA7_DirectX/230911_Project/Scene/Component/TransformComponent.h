@@ -6,6 +6,7 @@ class TransformComponent final : public IComponent
 public:
 	TransformComponent
 	(
+		class Context* context,
 		class Actor* actor,
 		class TransformComponent* transform
 	);

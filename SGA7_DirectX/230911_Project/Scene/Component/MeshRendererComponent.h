@@ -11,6 +11,7 @@ class MeshRendererComponent final : public IComponent
 public:
 	MeshRendererComponent
 	(
+		class Context* const context,
 		class Actor* const actor,
 		class TransformComponent* const transform
 	);

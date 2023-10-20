@@ -2,8 +2,8 @@
 #include "MoveScriptComponent.h"
 #include "TransformComponent.h"
 
-MoveScriptComponent::MoveScriptComponent(Actor* const actor, TransformComponent* const transform)
-	:IComponent(actor, transform)
+MoveScriptComponent::MoveScriptComponent(Context* const context, Actor* const actor, TransformComponent* const transform)
+	:IComponent(context, actor, transform)
 {
 }
 

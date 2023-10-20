@@ -19,6 +19,7 @@ public:
 public:
 	IComponent
 	(
+		class Context* const context,
 		class Actor* const actor,
 		class TransformComponent* const transform
 	);
@@ -50,6 +51,7 @@ public:
 	}
 
 protected:
+	class Context* context              = nullptr;
 	class Actor* actor                  = nullptr;
 	class TransformComponent* transform = nullptr;
 	ComponentType component_type        = ComponentType::Unknown;

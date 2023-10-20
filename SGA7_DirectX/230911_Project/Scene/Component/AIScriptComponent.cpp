@@ -2,8 +2,8 @@
 #include "AIScriptComponent.h"
 #include "TransformComponent.h"
 
-AIScriptComponent::AIScriptComponent(Actor* const actor, TransformComponent* const transform)
-	: IComponent(actor, transform)
+AIScriptComponent::AIScriptComponent(Context* const context, Actor* const actor, TransformComponent* const transform)
+	: IComponent(context, actor, transform)
 {
 }
 

@@ -6,6 +6,7 @@ class CameraComponent final : public IComponent
 public:
 	CameraComponent
 	(
+		class Context* const context,
 		class Actor* const actor,
 		class TransformComponent* const transform
 	);
