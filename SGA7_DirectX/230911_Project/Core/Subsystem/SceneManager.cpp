@@ -49,9 +49,3 @@ void SceneManager::Update()
 	if (!current_scene.expired())
 		current_scene.lock()->Update();
 }
-
-void SceneManager::Render()
-{
-	if (!current_scene.expired())
-		current_scene.lock()->Render();
-}

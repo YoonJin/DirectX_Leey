@@ -73,6 +73,10 @@ typedef unsigned int uint;
 // Sub System
 #include "Core/Subsystem/Graphics.h"
 #include "Core/Subsystem/SceneManager.h"
+#include "Core/Subsystem/Renderer/Renderer.h"
+
+
+// Wrapper Class
 #include "Core/D3D11/Vertex/D3D11_Vertex.h"
 #include "Core/D3D11/Vertex/D3D11_Geometry.h"
 #include "Core/D3D11/InputAssembler/D3D11_VertexBuffer.h"

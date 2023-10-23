@@ -22,5 +22,7 @@ void Engine::Update()
 
 void Engine::Render()
 {
-	context->Render_subsystems();
+	Renderer* renderer = context->GetSubsystem<Renderer>();
+	renderer->Update();
 }
+ 

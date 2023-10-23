@@ -7,14 +7,17 @@ public:
 	~Scene();
 
 	void Update();
-	void Render();
 
 	auto CreateActor(const bool& is_active = true)->const std::shared_ptr<class Actor>;
 	void AddActor(const std::shared_ptr<class Actor>& actor);
 
+	auto GetActors() const -> const std::vector<std::shared_ptr<class Actor>>& { return actors; }
+
 private:
 	class Context* context   = nullptr;
-	class Graphics* graphics = nullptr;
-	std::shared_ptr<class D3D11_Pipeline> pipeline;
+	class Renderer* renderer = nullptr;
+
 	std::vector<std::shared_ptr<class Actor>> actors;
+
+	bool is_update = true;
 };

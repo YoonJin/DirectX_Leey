@@ -10,13 +10,7 @@
 Scene::Scene(Context* const context)
 	: context(context)
 {
-	graphics = context->GetSubsystem<Graphics>();
-
-	graphics->CreateBackBuffer(static_cast<uint>(Settings::Get().GetWidth()),
-		static_cast<uint>(Settings::Get().GetHeight()));
-
-
-	pipeline = std::make_shared<D3D11_Pipeline>(graphics);
+	renderer = context->GetSubsystem<Renderer>();
 
 	auto camera = CreateActor();
 	camera->AddComponent<CameraComponent>();
@@ -47,24 +41,12 @@ void Scene::Update()
 {
 	for (const auto& actor : actors)
 		actor->Update();
-}
 
-void Scene::Render()
-{
-	graphics->RenderBegin();
+	if (is_update)
 	{
-		for (const auto& actor : actors)
-		{
-			if (auto camera = actor->GetComponent<CameraComponent>())
-			{
-				camera->UpdateConstantBuffer();
-				pipeline->SetConstantBuffer(0, ShaderScope_VS,
-					camera->GetConstantBuffer().get());
-			}
-			actor->Render(pipeline.get());
-		}
+		renderer->UpdateRenderables(this);
+		is_update = false;
 	}
-	graphics->RenderEnd();
 }
 
 auto Scene::CreateActor(const bool& is_active) -> const std::shared_ptr<class Actor>

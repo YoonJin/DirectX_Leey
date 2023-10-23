@@ -7,7 +7,6 @@ public:
 
 	virtual bool Initialize() = 0;
 	virtual void Update() = 0;
-	virtual void Render() {}
 
 	auto GetContext() const -> const class Context* const { return context; }
 		

@@ -17,7 +17,6 @@ public:
 	auto RegisterScene(const std::string& scene_name) -> class Scene* const;
 
 	void Update();
-	void Render();
 
 private:
 	std::weak_ptr<class Scene> current_scene;

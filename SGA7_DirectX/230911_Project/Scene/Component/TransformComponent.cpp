@@ -290,21 +290,3 @@ void TransformComponent::UpdateTransform()
 	for (const auto& child : childs)
 		child->UpdateTransform();
 }
-
-void TransformComponent::UpdateConstantBuffer()
-{
-	if (!gpu_buffer)
-	{
-		gpu_buffer = std::make_shared<D3D11_ConstantBuffer>(context->GetSubsystem<Graphics>());
-		gpu_buffer->Create<TransformBuffer>();
-	}
-
-	auto gpu_data = gpu_buffer->Map<TransformBuffer>();
-	{
-		TransformBuffer cpuData;
-		cpuData.matWorld = world;
-
-		memcpy(gpu_data, &cpuData, sizeof(TransformBuffer));
-	}
-	gpu_buffer->Unmap();
-}

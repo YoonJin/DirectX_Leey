@@ -135,6 +135,15 @@
     <ClInclude Include="Core\Engine.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Subsystem\Renderer\Renderer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Subsystem\Renderer\Renderer_ConstantBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Subsystem\Renderer\Renderer_Types.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -240,6 +249,15 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Core\Engine.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Subsystem\Renderer\Renderer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Subsystem\Renderer\Renderer_Passes.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Subsystem\Renderer\Renderer_Resources.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

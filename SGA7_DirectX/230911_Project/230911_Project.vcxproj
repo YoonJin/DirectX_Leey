@@ -176,6 +176,9 @@
     <ClInclude Include="Core\MyWindows.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_ConstantBuffer.h" />
     <ClInclude Include="Core\D3D11\Shader\D3D11_Shader.h" />
+    <ClInclude Include="Core\Subsystem\Renderer\Renderer.h" />
+    <ClInclude Include="Core\Subsystem\Renderer\Renderer_ConstantBuffer.h" />
+    <ClInclude Include="Core\Subsystem\Renderer\Renderer_Types.h" />
     <ClInclude Include="Core\Subsystem\SceneManager.h" />
     <ClInclude Include="Core\Subsystem\ISubsystem.h" />
     <ClInclude Include="Intersect\Intersect.h" />
@@ -221,6 +224,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Core\Subsystem\Graphics.cpp" />
+    <ClCompile Include="Core\Subsystem\Renderer\Renderer.cpp" />
+    <ClCompile Include="Core\Subsystem\Renderer\Renderer_Passes.cpp" />
+    <ClCompile Include="Core\Subsystem\Renderer\Renderer_Resources.cpp" />
     <ClCompile Include="Core\Subsystem\SceneManager.cpp" />
     <ClCompile Include="Intersect\Intersect.cpp" />
     <ClCompile Include="Math\MyMath.cpp" />
