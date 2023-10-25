@@ -7,7 +7,8 @@ enum class ComponentType : uint
 	Transform,
 	MeshRenderer,
 	MoveScript,
-	AIScript
+	AIScript,
+	Animator
 };
 
 class IComponent

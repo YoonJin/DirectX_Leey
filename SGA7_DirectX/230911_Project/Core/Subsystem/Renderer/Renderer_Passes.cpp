@@ -27,7 +27,7 @@ void Renderer::PassMain()
 		pipeline_state.primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 		pipeline_state.vertex_shader      = renderable->GetVertexShader().get();
 		pipeline_state.pixel_shader = renderable->GetPixelShader().get();
-		pipeline_state.rasterizer_state = rasterizers[RasterizerStateType::Cull_Back_Wireframe].get();
+		pipeline_state.rasterizer_state = rasterizers[RasterizerStateType::Cull_Back_Solid].get();
 
 		if (pipeline->Begin(pipeline_state))
 		{

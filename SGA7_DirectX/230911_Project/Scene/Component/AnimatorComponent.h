@@ -32,11 +32,17 @@ public:
 	auto GetCurrentAnimation() const -> const std::shared_ptr<class Animation>;
 	void SetCurrentAnimation(const std::string& animation_name);
 
-	auto GetAnimations() const -> const std::map<std::string, std::shared_ptr<class Animation>>& { return animations; }
+	auto GetAnimations() const -> const std::map<std::string, std::shared_ptr<class Animation>>& 
+	{ return animations; }
 	auto GetCurrentKeyframe() const -> const Keyframe* const;
 
-	auto AddAnimation(const std::string& animation_name, const std::shared_ptr<class Animation>& animation);
+	void AddAnimation(const std::string& animation_name, const std::shared_ptr<class Animation>& animation);
 
+	void Play();
+	void Stop();
+	void Pause();
+
+	bool IsPlaying() const { return animation_mode == AnimationMode::Play; }
 
 private:
 	class Timer* timer           = nullptr;

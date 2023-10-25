@@ -93,7 +93,7 @@
     <ClInclude Include="Math\MyMath.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Timer\Timer.h">
+    <ClInclude Include="Core\Subsystem\Timer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Intersect\Intersect.h">
@@ -142,6 +142,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Core\Subsystem\Renderer\Renderer_Types.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Animation.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Component\AnimatorComponent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -215,7 +221,7 @@
     <ClCompile Include="Math\MyMath.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Timer\Timer.cpp">
+    <ClCompile Include="Core\Subsystem\Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Intersect\Intersect.cpp">
@@ -260,6 +266,12 @@
     <ClCompile Include="Core\Subsystem\Renderer\Renderer_Resources.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\Animation.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Component\AnimatorComponent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MyLibraries\SimpleMath.inl">
@@ -272,5 +284,16 @@
   <ItemGroup>
     <FxCompile Include="Assets\Color.hlsl" />
     <FxCompile Include="Assets\Texture.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Texture\metalslug.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Golem.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Assets\Skeleton.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>
