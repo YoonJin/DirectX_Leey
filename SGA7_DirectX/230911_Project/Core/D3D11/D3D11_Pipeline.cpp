@@ -149,6 +149,20 @@ void D3D11_Pipeline::SetShaderResource(const uint& slot, const uint& scope, cons
 	if (scope & ShaderScope_PS) device_context->PSSetShaderResources(slot, 1, shader_resources);
 }
 
+void D3D11_Pipeline::SetShaderResource_nullptr(const uint& slot, const uint& scope)
+{
+	if (slot >= D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT)
+	{
+		assert(false);
+		return;
+	}
+
+	ID3D11ShaderResourceView* shader_resources[]{ nullptr };
+
+	if (scope & ShaderScope_VS) device_context->VSSetShaderResources(slot, 1, shader_resources);
+	if (scope & ShaderScope_PS) device_context->PSSetShaderResources(slot, 1, shader_resources);
+}
+
 void D3D11_Pipeline::SetSamplerState(const uint& slot, const uint& scope, const D3D11_SamplerState* state)
 {
 	if (!state || !state->GetResource())

@@ -12,13 +12,13 @@ struct PixelInput
 
 cbuffer CameraBuffer : register(b0)
 {
-	matrix view;
-	matrix proj;
+	row_major matrix view;
+	row_major matrix proj;
 }
 
 cbuffer TransformBuffer : register(b1)
 {
-	matrix world;
+	row_major matrix world;
 }
 
 cbuffer AnimationBuffer : register(b2)

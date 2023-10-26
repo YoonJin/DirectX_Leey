@@ -20,3 +20,12 @@ struct ColorBuffer
 	BOOL isConflict = false;
 	int  dummy[3] = { 0, };
 };
+
+struct AnimationBuffer
+{
+	Vec2 sprite_offset;
+	Vec2 sprite_size;
+	Vec2 texture_size;
+	float is_animated;
+	float padding;
+};

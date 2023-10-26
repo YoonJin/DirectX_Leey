@@ -39,6 +39,9 @@ private:
 	TransformBuffer cpu_object_buffer;
 	std::shared_ptr<class D3D11_ConstantBuffer> gpu_object_buffer;
 
+	AnimationBuffer cpu_animation_buffer;
+	std::shared_ptr<class D3D11_ConstantBuffer> gpu_animation_buffer;
+
 private:
 	std::map<RasterizerStateType, std::shared_ptr<class D3D11_RasterizerState>> rasterizers;
 	std::map<BlendStateType, std::shared_ptr<class D3D11_BlendState>>  blend_states;

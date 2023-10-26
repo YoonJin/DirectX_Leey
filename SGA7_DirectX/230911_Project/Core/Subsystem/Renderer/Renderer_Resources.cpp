@@ -9,6 +9,8 @@ void Renderer::CreateConstantBuffers()
 	gpu_object_buffer = std::make_shared<D3D11_ConstantBuffer>(graphics);
 	gpu_object_buffer->Create<TransformBuffer>();
 
+	gpu_animation_buffer = std::make_shared<D3D11_ConstantBuffer>(graphics);
+	gpu_animation_buffer->Create<AnimationBuffer>();
 }
 
 void Renderer::CreateRasterizerStates()

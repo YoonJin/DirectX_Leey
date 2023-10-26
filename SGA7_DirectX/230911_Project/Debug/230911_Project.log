@@ -1,2 +1,1 @@
-﻿  Renderer_Passes.cpp
-  230911_Project.vcxproj -> C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\230911_Project.exe
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(493,5): error MSB3061: "Debug\230911_Project.pch" 파일을 삭제할 수 없습니다. 'C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\230911_Project\Debug\230911_Project.pch' 파일은 다른 프로세스에서 사용 중이므로 프로세스에서 액세스할 수 없습니다.

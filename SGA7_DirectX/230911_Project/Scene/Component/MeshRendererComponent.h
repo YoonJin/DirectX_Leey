@@ -37,6 +37,8 @@ public:
 	void SetStandardMaterial();
 
 private:
+	class Graphics* graphics = nullptr;
+
 	MeshType mesh_type = MeshType::Quad;
 	std::shared_ptr<D3D11_VertexBuffer> vertex_buffer;
 	std::shared_ptr<D3D11_IndexBuffer> index_buffer;

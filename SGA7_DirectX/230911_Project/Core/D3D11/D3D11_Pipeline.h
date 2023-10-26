@@ -30,6 +30,7 @@ public:
 
 	void SetConstantBuffer(const uint& slot, const uint& scope, const D3D11_ConstantBuffer* buffer);
 	void SetShaderResource(const uint& slot, const uint& scope, const D3D11_Texture* resource);
+	void SetShaderResource_nullptr(const uint& slot, const uint& scope);
 	void SetSamplerState(const uint& slot, const uint& scope, const D3D11_SamplerState* state);
 
 	void Draw(const uint& vertex_count, const uint& vertex_offset = 0);

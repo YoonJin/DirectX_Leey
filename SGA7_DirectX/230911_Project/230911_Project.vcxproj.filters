@@ -284,6 +284,7 @@
   <ItemGroup>
     <FxCompile Include="Assets\Color.hlsl" />
     <FxCompile Include="Assets\Texture.hlsl" />
+    <FxCompile Include="Assets\Animation.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Texture\metalslug.png">

@@ -27,7 +27,7 @@ Scene::Scene(Context* const context)
 
 	auto player = CreateActor();
 	player->SetName("Player");
-	player->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
+	player->GetComponent<TransformComponent>()->SetSclae(Vec3(1.0f, 1.0f, 1.0f));
 	player->GetComponent<TransformComponent>()->SetPosition(Vec3(100.0f, 0.0f, 0.0f));
 	player->AddComponent<MeshRendererComponent>();
 	player->AddComponent<MoveScriptComponent>();
