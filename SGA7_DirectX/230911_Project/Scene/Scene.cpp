@@ -13,26 +13,18 @@ Scene::Scene(Context* const context)
 {
 	renderer = context->GetSubsystem<Renderer>();
 
-	auto idle_animation = std::make_shared<Animation>(context);
-	idle_animation->AddKeyframe(Vec2(5.0f, 2.0f), Vec2(28.0f, 38.0f), 200);
-	idle_animation->AddKeyframe(Vec2(36.0f, 2.0f), Vec2(28.0f, 38.0f), 200);
-	idle_animation->AddKeyframe(Vec2(65.0f, 2.0f), Vec2(28.0f, 38.0f), 200);
-	idle_animation->SetRepeatType(RepeatType::Loop);
-	idle_animation->SetSpriteTexture("Assets/Texture/metalslug.png");
-	idle_animation->SetSpriteTextureSize(Vec2(600.0f, 800.0f));
-
 	auto camera = CreateActor();
 	camera->AddComponent<CameraComponent>();
 	camera->SetName("MainCamera");
 
 	auto player = CreateActor();
 	player->SetName("Player");
-	player->GetComponent<TransformComponent>()->SetSclae(Vec3(1.0f, 1.0f, 1.0f));
+	player->GetComponent<TransformComponent>()->SetSclae(Vec3(1.f, 1.0f, 1.0f));
 	player->GetComponent<TransformComponent>()->SetPosition(Vec3(100.0f, 0.0f, 0.0f));
 	player->AddComponent<MeshRendererComponent>();
 	player->AddComponent<MoveScriptComponent>();
 	auto animator = player->AddComponent<AnimatorComponent>();
-	animator->AddAnimation("Idle", idle_animation);
+	animator->AddAnimation("Assets/Animation/Idle.xml");
 	animator->SetAnimationMode(AnimationMode::Play);
 	animator->SetCurrentAnimation("Idle");
 

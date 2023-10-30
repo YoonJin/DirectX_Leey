@@ -11,6 +11,76 @@ Animation::~Animation()
 	keyframes.clear();
 }
 
+bool Animation::SaveToFile(const std::string& path)
+{
+	Xml::XMLDocument doc;
+
+	Xml::XMLDeclaration* decl = doc.NewDeclaration();
+	doc.LinkEndChild(decl);
+
+	Xml::XMLElement* root = doc.NewElement("Animation");
+	doc.LinkEndChild(root);
+
+	root->SetAttribute("Name", animation_name.c_str());
+	root->SetAttribute("Type", static_cast<uint>(repeat_type));
+	root->SetAttribute("TexturePath",  sprite_texture_path.c_str());
+	root->SetAttribute("TextureSizeX", sprite_texture_size.x);
+	root->SetAttribute("TextureSizeY", sprite_texture_size.y);
+
+	for (const auto& keyframe : keyframes)
+	{
+		Xml::XMLElement* keyframe_element = doc.NewElement("Keyframe");
+		root->LinkEndChild(keyframe_element);
+
+		keyframe_element->SetAttribute("OffsetX", keyframe.offset.x);
+		keyframe_element->SetAttribute("OffsetY", keyframe.offset.y);
+		keyframe_element->SetAttribute("SizeX",   keyframe.size.x);
+		keyframe_element->SetAttribute("SizeY",   keyframe.size.y);
+		keyframe_element->SetAttribute("Time",    keyframe.time);
+	}
+
+	return Xml::XMLError::XML_SUCCESS == doc.SaveFile(path.c_str());
+}
+
+bool Animation::LoadFromFile(const std::string& path)
+{
+	Xml::XMLDocument doc;
+	Xml::XMLError error = doc.LoadFile(path.c_str());
+	if (error != Xml::XMLError::XML_SUCCESS)
+	{
+		assert(false);
+		return false;
+	}
+
+	Xml::XMLElement* root = doc.FirstChildElement();
+	animation_name        = root->Attribute("Name");
+	repeat_type           = 
+		static_cast<RepeatType>(root->UnsignedAttribute("Type"));
+	sprite_texture_path   = root->Attribute("TexturePath");
+	sprite_texture_size.x = root->FloatAttribute("TextureSizeX");
+	sprite_texture_size.y = root->FloatAttribute("TextureSizeY");
+
+	SetSpriteTexture(sprite_texture_path);
+
+	Xml::XMLElement* keyframe_element = root->FirstChildElement();
+	for (; keyframe_element != nullptr; keyframe_element = keyframe_element->NextSiblingElement())
+	{
+		Vec2 offset;
+		offset.x = keyframe_element->FloatAttribute("OffsetX");
+		offset.y = keyframe_element->FloatAttribute("OffsetY");
+
+		Vec2 size;
+		size.x = keyframe_element->FloatAttribute("SizeX");
+		size.y = keyframe_element->FloatAttribute("SizeY");
+
+		float time = keyframe_element->FloatAttribute("Time");
+
+		AddKeyframe(Keyframe(offset, size, time));
+	}
+
+	return true;
+}
+
 void Animation::SetSpriteTexture(const std::string& path)
 {
 	// wstring º¯È¯

@@ -37,6 +37,7 @@ public:
 	auto GetCurrentKeyframe() const -> const Keyframe* const;
 
 	void AddAnimation(const std::string& animation_name, const std::shared_ptr<class Animation>& animation);
+	void AddAnimation(const std::string& path);
 
 	void Play();
 	void Stop();

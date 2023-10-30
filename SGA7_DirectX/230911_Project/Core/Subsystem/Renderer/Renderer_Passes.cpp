@@ -29,7 +29,7 @@ void Renderer::PassMain()
 		pipeline_state.vertex_shader      = renderable->GetVertexShader().get();
 		pipeline_state.pixel_shader       = renderable->GetPixelShader().get();
 		pipeline_state.rasterizer_state   = rasterizers[RasterizerStateType::Cull_Back_Solid].get();
-		pipeline_state.blend_state        = blend_states[BlendStateType::Alpha].get();
+		//pipeline_state.blend_state        = blend_states[BlendStateType::Alpha].get();
 
 
 		if (pipeline->Begin(pipeline_state))

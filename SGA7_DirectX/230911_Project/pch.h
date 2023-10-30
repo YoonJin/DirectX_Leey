@@ -59,6 +59,7 @@ typedef unsigned int uint;
 
 
 // Utility
+#include "Utility/Xml.h"
 #include "Utility/Geometry_Generator.h"
 
 

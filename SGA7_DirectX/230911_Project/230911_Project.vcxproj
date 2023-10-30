@@ -209,6 +209,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Core\Settings.h" />
     <ClInclude Include="Utility\Geometry_Generator.h" />
+    <ClInclude Include="Utility\Xml.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\D3D11\D3D11_Pipeline.cpp" />
@@ -257,6 +258,9 @@
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Core\Subsystem\Timer.cpp" />
     <ClCompile Include="Utility\Geometry_Generator.cpp" />
+    <ClCompile Include="Utility\Xml.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -290,6 +294,9 @@
     <Image Include="Assets\Golem.png" />
     <Image Include="Assets\Skeleton.png" />
     <Image Include="Assets\Texture\metalslug.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Animation\Idle.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

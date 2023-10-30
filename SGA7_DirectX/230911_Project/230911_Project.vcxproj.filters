@@ -150,6 +150,9 @@
     <ClInclude Include="Scene\Component\AnimatorComponent.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Xml.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -272,6 +275,9 @@
     <ClCompile Include="Scene\Component\AnimatorComponent.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\Xml.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MyLibraries\SimpleMath.inl">
@@ -296,5 +302,8 @@
     <Image Include="Assets\Skeleton.png">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Animation\Idle.xml" />
   </ItemGroup>
 </Project>
