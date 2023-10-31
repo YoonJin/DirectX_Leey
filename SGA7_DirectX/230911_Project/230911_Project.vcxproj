@@ -184,6 +184,7 @@
     <ClInclude Include="Intersect\Intersect.h" />
     <ClInclude Include="Math\MyMath.h" />
     <ClInclude Include="Resource\Animation.h" />
+    <ClInclude Include="Resource\IResource.h" />
     <ClInclude Include="Scene\Actor.h" />
     <ClInclude Include="Scene\Camera.h" />
     <ClInclude Include="Scene\Component\AIScriptComponent.h" />
@@ -237,6 +238,7 @@
     <ClCompile Include="Core\D3D11\Shader\D3D11_ConstantBuffer.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_Shader.cpp" />
     <ClCompile Include="Resource\Animation.cpp" />
+    <ClCompile Include="Resource\IResource.cpp" />
     <ClCompile Include="Scene\Actor.cpp" />
     <ClCompile Include="Scene\Camera.cpp" />
     <ClCompile Include="Scene\Component\AIScriptComponent.cpp" />

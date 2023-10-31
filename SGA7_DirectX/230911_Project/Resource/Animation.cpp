@@ -2,7 +2,7 @@
 #include "Animation.h"
 
 Animation::Animation(Context* const context)
-	: context(context)
+	: IResource(context, ResourceType::Animation)
 {
 }
 
@@ -21,9 +21,9 @@ bool Animation::SaveToFile(const std::string& path)
 	Xml::XMLElement* root = doc.NewElement("Animation");
 	doc.LinkEndChild(root);
 
-	root->SetAttribute("Name", animation_name.c_str());
+	root->SetAttribute("Name", resource_name.c_str());
 	root->SetAttribute("Type", static_cast<uint>(repeat_type));
-	root->SetAttribute("TexturePath",  sprite_texture_path.c_str());
+	root->SetAttribute("TexturePath",  resource_path.c_str());
 	root->SetAttribute("TextureSizeX", sprite_texture_size.x);
 	root->SetAttribute("TextureSizeY", sprite_texture_size.y);
 
@@ -53,14 +53,14 @@ bool Animation::LoadFromFile(const std::string& path)
 	}
 
 	Xml::XMLElement* root = doc.FirstChildElement();
-	animation_name        = root->Attribute("Name");
+	resource_name         = root->Attribute("Name");
 	repeat_type           = 
 		static_cast<RepeatType>(root->UnsignedAttribute("Type"));
-	sprite_texture_path   = root->Attribute("TexturePath");
+	resource_path   = root->Attribute("TexturePath");
 	sprite_texture_size.x = root->FloatAttribute("TextureSizeX");
 	sprite_texture_size.y = root->FloatAttribute("TextureSizeY");
 
-	SetSpriteTexture(sprite_texture_path);
+	SetSpriteTexture(resource_path);
 
 	Xml::XMLElement* keyframe_element = root->FirstChildElement();
 	for (; keyframe_element != nullptr; keyframe_element = keyframe_element->NextSiblingElement())

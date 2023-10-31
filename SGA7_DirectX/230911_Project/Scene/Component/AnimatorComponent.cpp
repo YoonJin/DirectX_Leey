@@ -76,7 +76,7 @@ void AnimatorComponent::AddAnimation(const std::string& path)
     if (!animation->LoadFromFile(path))
         assert(false);
 
-    AddAnimation(animation->GetAnimationName(), animation);
+    AddAnimation(animation->GetResourceName(), animation);
 }
 
 void AnimatorComponent::Play()

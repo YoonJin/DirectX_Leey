@@ -1,4 +1,5 @@
 #pragma once
+#include "IResource.h"
 
 enum class RepeatType : uint
 {
@@ -40,20 +41,14 @@ struct Keyframe final
 	double time = 0.f;                  // ½Ã°£
 };
 
-class Animation final
+class Animation final : public IResource
 {
 public:
 	Animation(class Context* const context);
 	~Animation();
 
-	bool SaveToFile(const std::string& path);
-	bool LoadFromFile(const std::string& path);
-
-	auto GetAnimationName() const -> const std::string& { return animation_name; }
-	void SetAnimationName(const std::string& name) { this->animation_name = name; }
-
-	auto GetSpriteTexturePath() const -> const std::string& { return sprite_texture_path; }
-	void SetSpriteTexturePath(const std::string& path) { this->sprite_texture_path = path; }
+	bool SaveToFile(const std::string& path) override;
+	bool LoadFromFile(const std::string& path) override;
 
 	auto GetRepeatType() const -> const RepeatType& { return repeat_type; }
 	void SetRepeatType(const RepeatType& repeat_type) { this->repeat_type = repeat_type; }
@@ -79,13 +74,10 @@ public:
 	void AddKeyframe(const Vec2& offset, const Vec2& size, const double& time);
 
 private:
-	class Context* context   = nullptr;
 	RepeatType repeat_type   = RepeatType::Loop;
 	
 	std::shared_ptr<class D3D11_Texture> sprite_texture;
 	Vec2 sprite_texture_size = Vec2(1.f, 1.f);
-	std::string sprite_texture_path = "";
 
-	std::string animation_name = "";
 	std::vector<Keyframe> keyframes;
 };
