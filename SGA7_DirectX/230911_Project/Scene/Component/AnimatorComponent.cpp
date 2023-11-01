@@ -72,9 +72,12 @@ void AnimatorComponent::AddAnimation(const std::string& animation_name, const st
 
 void AnimatorComponent::AddAnimation(const std::string& path)
 {
-    auto animation = std::make_shared<Animation>(context);
-    if (!animation->LoadFromFile(path))
-        assert(false);
+    auto resource_manager = context->GetSubsystem<ResourceManager>();
+
+    auto animation = resource_manager->Load<Animation>(path);
+   
+    if(!animation)
+       assert(false);
 
     AddAnimation(animation->GetResourceName(), animation);
 }

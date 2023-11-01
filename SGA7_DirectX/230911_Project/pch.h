@@ -75,7 +75,7 @@ typedef unsigned int uint;
 #include "Core/Subsystem/Graphics.h"
 #include "Core/Subsystem/SceneManager.h"
 #include "Core/Subsystem/Renderer/Renderer.h"
-
+#include "Core/Subsystem/ResourceManager.h"
 
 // Wrapper Class
 #include "Core/D3D11/Vertex/D3D11_Vertex.h"

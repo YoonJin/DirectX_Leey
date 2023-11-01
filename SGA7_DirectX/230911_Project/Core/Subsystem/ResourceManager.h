@@ -129,16 +129,47 @@ inline auto ResourceManager::Load(const std::string& path) -> const std::shared_
 template<typename T>
 inline auto ResourceManager::GetResourceFromName(const std::string& name) -> const std::shared_ptr<T>
 {
-	return std::shared_ptr<T>();
+	// T가 IResource를 구현하는지 확인
+	static_assert(std::is_base_of<IResource, T>::value, "Provided type does not implement IResource");
+
+	// 해당 유형의 리소스 그룹에서 경로로 리소스 검색
+	for (const auto& resource : resource_groups[IResource::DeduceResourceType<T>()])
+	{
+		if (resource->GetResourceName() == name)
+			return std::static_pointer_cast<T>(resource);
+	}
+
+	return nullptr;
 }
 
 template<typename T>
 inline auto ResourceManager::GetResourceFromPath(const std::string& path) -> const std::shared_ptr<T>
 {
-	return std::shared_ptr<T>();
+	static_assert(std::is_base_of<IResource, T>::value, "Provided type does not implement IResource");
+
+	for (const auto& resource : resource_groups[IResource::DeduceResourceType<T>()])
+	{
+		if (resource->GetResourcePath() == path)
+			return std::static_pointer_cast<T>(resource);
+	}
+
+	return nullptr;
 }
 
 template<typename T>
 inline auto ResourceManager::RegisterResource(const std::shared_ptr<T>& resource)
 {
+	static_assert(std::is_base_of<IResource, T>::value, "Provided type does not implement IResource");
+
+	if (!resource)
+	{
+		assert(false);
+		return;
+	}
+
+	// 리소스 등록을 스레드로부터 보호하기 위한 뮤텍스 사용
+	//뮤텍스가 범위를 벗어나면 자동으로 뮤텍스가 해제된다.
+	std::lock_guard<std::mutex> guard(resource_mutex);
+
+	resource_groups[resource->GetResourceType()].push_back(resource);
 }
