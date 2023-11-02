@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Animation Name="PlayerMove" Type="1" TexturePath="Assets/Texture/player.png" 
+           TextureSizeX="316" TextureSizeY="104">
+  <Direction Name ="0">
+    <Keyframe OffsetX="0"      OffsetY="0" SizeX="26"    SizeY="26"    Time="50"/>
+    <Keyframe OffsetX="26.33"  OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="52.66"  OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="78.99"  OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="105.32" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="131.65" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="157.98" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="184.31" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="210.64" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="235.97" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="262.30" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="287.63" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+  </Direction>
+  <Direction Name ="1">
+    <Keyframe OffsetX="0"      OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="26.33"  OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="52.66"  OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="78.99"  OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="105.32" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="131.65" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="157.98" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="184.31" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="210.64" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="235.97" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="262.30" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="287.63" OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>
+  </Direction>
+  <Direction Name ="2">
+    <Keyframe OffsetX="0"      OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="26.33"  OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="52.66"  OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="78.99"  OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="105.32" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="131.65" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="157.98" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="184.31" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="210.64" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="235.97" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="262.30" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="287.63" OffsetY="52.66" SizeX="26.33" SizeY="26.33" Time="50"/>
+  </Direction>
+  <Direction Name ="3">
+    <Keyframe OffsetX="0"      OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="26.33"  OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="52.66"  OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="78.99"  OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="105.32" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="131.65" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="157.98" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="184.31" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="210.64" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="235.97" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="262.30" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="287.63" OffsetY="78.99" SizeX="26.33" SizeY="26.33" Time="50"/>
+  </Direction>
+</Animation>

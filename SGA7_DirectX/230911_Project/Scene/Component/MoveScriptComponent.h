@@ -15,4 +15,10 @@ public:
 	void Initialize() override;
 	void Update()     override;
 	void Destroy()    override;
+
+	PlayerDirection GetCurrentDirection() { return _curDir; }
+
+	float _speed = 10.0f;
+	Vec3  _curPos;
+	PlayerDirection _curDir = PlayerDirection::PlayerLeft;
 };

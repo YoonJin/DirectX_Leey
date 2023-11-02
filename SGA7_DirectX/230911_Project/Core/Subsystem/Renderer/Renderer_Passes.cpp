@@ -6,6 +6,7 @@
 #include "Scene/Component/MeshRendererComponent.h"
 #include "Scene/Component/TransformComponent.h"
 #include "Scene/Component/AnimatorComponent.h"
+#include "Scene/Component/MoveScriptComponent.h"
 
 void Renderer::PassMain()
 {
@@ -29,7 +30,7 @@ void Renderer::PassMain()
 		pipeline_state.vertex_shader      = renderable->GetVertexShader().get();
 		pipeline_state.pixel_shader       = renderable->GetPixelShader().get();
 		pipeline_state.rasterizer_state   = rasterizers[RasterizerStateType::Cull_Back_Solid].get();
-		//pipeline_state.blend_state        = blend_states[BlendStateType::Alpha].get();
+		pipeline_state.blend_state        = blend_states[BlendStateType::Alpha].get();
 
 
 		if (pipeline->Begin(pipeline_state))
@@ -42,7 +43,9 @@ void Renderer::PassMain()
 
 			if (auto animator = actor->GetComponent<AnimatorComponent>())
 			{
-				auto current_keyframe = animator->GetCurrentKeyframe();
+				auto moveScript = actor->GetComponent<MoveScriptComponent>();
+
+				auto current_keyframe = animator->GetCurrentKeyframe(moveScript->GetCurrentDirection());
 				cpu_animation_buffer.sprite_offset = current_keyframe->offset;
 				cpu_animation_buffer.sprite_size   = current_keyframe->size;
 				cpu_animation_buffer.texture_size  = animator->GetCurrentAnimation()->GetSpriteTextureSize();

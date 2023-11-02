@@ -13,33 +13,34 @@ Animation::~Animation()
 
 bool Animation::SaveToFile(const std::string& path)
 {
-	Xml::XMLDocument doc;
+	//Xml::XMLDocument doc;
 
-	Xml::XMLDeclaration* decl = doc.NewDeclaration();
-	doc.LinkEndChild(decl);
+	//Xml::XMLDeclaration* decl = doc.NewDeclaration();
+	//doc.LinkEndChild(decl);
 
-	Xml::XMLElement* root = doc.NewElement("Animation");
-	doc.LinkEndChild(root);
+	//Xml::XMLElement* root = doc.NewElement("Animation");
+	//doc.LinkEndChild(root);
 
-	root->SetAttribute("Name", resource_name.c_str());
-	root->SetAttribute("Type", static_cast<uint>(repeat_type));
-	root->SetAttribute("TexturePath",  resource_path.c_str());
-	root->SetAttribute("TextureSizeX", sprite_texture_size.x);
-	root->SetAttribute("TextureSizeY", sprite_texture_size.y);
+	//root->SetAttribute("Name", resource_name.c_str());
+	//root->SetAttribute("Type", static_cast<uint>(repeat_type));
+	//root->SetAttribute("TexturePath",  resource_path.c_str());
+	//root->SetAttribute("TextureSizeX", sprite_texture_size.x);
+	//root->SetAttribute("TextureSizeY", sprite_texture_size.y);
 
-	for (const auto& keyframe : keyframes)
-	{
-		Xml::XMLElement* keyframe_element = doc.NewElement("Keyframe");
-		root->LinkEndChild(keyframe_element);
+	//for (const auto& keyframe : keyframes)
+	//{
+	//	Xml::XMLElement* keyframe_element = doc.NewElement("Keyframe");
+	//	root->LinkEndChild(keyframe_element);
 
-		keyframe_element->SetAttribute("OffsetX", keyframe.offset.x);
-		keyframe_element->SetAttribute("OffsetY", keyframe.offset.y);
-		keyframe_element->SetAttribute("SizeX",   keyframe.size.x);
-		keyframe_element->SetAttribute("SizeY",   keyframe.size.y);
-		keyframe_element->SetAttribute("Time",    keyframe.time);
-	}
+	//	keyframe_element->SetAttribute("OffsetX", keyframe.offset.x);
+	//	keyframe_element->SetAttribute("OffsetY", keyframe.offset.y);
+	//	keyframe_element->SetAttribute("SizeX",   keyframe.size.x);
+	//	keyframe_element->SetAttribute("SizeY",   keyframe.size.y);
+	//	keyframe_element->SetAttribute("Time",    keyframe.time);
+	//}
 
-	return Xml::XMLError::XML_SUCCESS == doc.SaveFile(path.c_str());
+	//return Xml::XMLError::XML_SUCCESS == doc.SaveFile(path.c_str());
+	return true;
 }
 
 bool Animation::LoadFromFile(const std::string& path)
@@ -59,23 +60,32 @@ bool Animation::LoadFromFile(const std::string& path)
 	resource_path   = root->Attribute("TexturePath");
 	sprite_texture_size.x = root->FloatAttribute("TextureSizeX");
 	sprite_texture_size.y = root->FloatAttribute("TextureSizeY");
+	
 
 	SetSpriteTexture(resource_path);
 
-	Xml::XMLElement* keyframe_element = root->FirstChildElement();
-	for (; keyframe_element != nullptr; keyframe_element = keyframe_element->NextSiblingElement())
+	Xml::XMLElement* direction_element = root->FirstChildElement();
+	for (; direction_element != nullptr; direction_element = direction_element->NextSiblingElement())
 	{
-		Vec2 offset;
-		offset.x = keyframe_element->FloatAttribute("OffsetX");
-		offset.y = keyframe_element->FloatAttribute("OffsetY");
+		int index = direction_element->IntAttribute("Name");
+		PlayerDirection dir = static_cast<PlayerDirection>(index);
+		
+		Xml::XMLElement* keyframe_element = direction_element->FirstChildElement();
 
-		Vec2 size;
-		size.x = keyframe_element->FloatAttribute("SizeX");
-		size.y = keyframe_element->FloatAttribute("SizeY");
+		for (; keyframe_element != nullptr; keyframe_element = keyframe_element->NextSiblingElement())
+		{
+			Vec2 offset;
+			offset.x = keyframe_element->FloatAttribute("OffsetX");
+			offset.y = keyframe_element->FloatAttribute("OffsetY");
 
-		float time = keyframe_element->FloatAttribute("Time");
+			Vec2 size;
+			size.x = keyframe_element->FloatAttribute("SizeX");
+			size.y = keyframe_element->FloatAttribute("SizeY");
 
-		AddKeyframe(Keyframe(offset, size, time));
+			float time = keyframe_element->FloatAttribute("Time");
+
+			AddKeyframe(dir, offset, size, time);
+		}
 	}
 
 	return true;
@@ -91,18 +101,19 @@ void Animation::SetSpriteTexture(const std::string& path)
 	sprite_texture->Create(texture_path);
 }
 
-auto Animation::GetKeyframeFromIndex(const uint& index) -> const Keyframe* const
+auto Animation::GetKeyframeFromIndex(PlayerDirection eDirection, const uint& index) -> const Keyframe* const
 {
 	assert(index < keyframes.size());
-	return &keyframes[index];
+
+	return &keyframes[eDirection][index];
 }
 
-void Animation::AddKeyframe(const Keyframe& keyframe)
+void Animation::AddKeyframe(PlayerDirection eDirection, const Keyframe& keyframe)
 {
-	keyframes.push_back(keyframe);
+	keyframes[eDirection].push_back(keyframe);
 }
 
-void Animation::AddKeyframe(const Vec2& offset, const Vec2& size, const double& time)
+void Animation::AddKeyframe(PlayerDirection eDirection, const Vec2& offset, const Vec2& size, const double& time)
 {
-	keyframes.push_back(Keyframe(offset, size, time));
+	keyframes[eDirection].push_back(Keyframe(offset, size, time));
 }

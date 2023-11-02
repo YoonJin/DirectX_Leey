@@ -6,6 +6,14 @@ enum class RepeatType : uint
 	Once, Loop,
 };
 
+enum class PlayerDirection : uint
+{
+	PlayerRight = 0,
+	PlayerLeft  = 1,
+	PlayerUp    = 2,
+	PlayerDown
+};
+
 // 키프레임은 애니메이션에서 매우 중요한 개념이다.
 // 애니메이션은 시간 경과에 따라 객체의 상태를 바꾸는 과정이며,
 // 이러한 변화는 일련의 키 프레임(Keyframe)들 사이에서 발생합니다.
@@ -64,14 +72,16 @@ public:
 	{  this->sprite_texture = sprite_texture;	}
 	void SetSpriteTexture(const std::string& path);
 
-	auto GetKeyframes() const -> const std::vector<Keyframe>& { return keyframes; }
-	void SetKeyframes(const std::vector<Keyframe>& keyframes) { this->keyframes = keyframes; }
+	auto GetKeyframes(PlayerDirection eDirection) -> const std::vector<Keyframe>&
+	{ return keyframes[eDirection]; }
+	void SetKeyframes(PlayerDirection eDirection, const std::vector<Keyframe>& keyframes) 
+	{ this->keyframes[eDirection] = keyframes; }
 
-	auto GetKeyframeFromIndex(const uint& index) -> const Keyframe* const;
+	auto GetKeyframeFromIndex(PlayerDirection eDirection, const uint& index) -> const Keyframe* const;
 	auto GetKeyframeCount() const -> const uint { return keyframes.size(); }
 
-	void AddKeyframe(const Keyframe& keyframe);
-	void AddKeyframe(const Vec2& offset, const Vec2& size, const double& time);
+	void AddKeyframe(PlayerDirection eDirection, const Keyframe& keyframe);
+	void AddKeyframe(PlayerDirection eDirection, const Vec2& offset, const Vec2& size, const double& time);
 
 private:
 	RepeatType repeat_type   = RepeatType::Loop;
@@ -79,5 +89,5 @@ private:
 	std::shared_ptr<class D3D11_Texture> sprite_texture;
 	Vec2 sprite_texture_size = Vec2(1.f, 1.f);
 
-	std::vector<Keyframe> keyframes;
+	std::map<PlayerDirection, std::vector<Keyframe>> keyframes;
 };

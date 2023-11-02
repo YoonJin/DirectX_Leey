@@ -159,6 +159,12 @@
     <ClInclude Include="Core\Subsystem\ResourceManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\Texture.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Component\TextureComponent.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -290,6 +296,12 @@
     <ClCompile Include="Core\Subsystem\ResourceManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\Texture.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Component\TextureComponent.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MyLibraries\SimpleMath.inl">
@@ -314,8 +326,12 @@
     <Image Include="Assets\Skeleton.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Assets\Texture\player.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Assets\Animation\Idle.xml" />
+    <Xml Include="Assets\Animation\Player.xml" />
   </ItemGroup>
 </Project>

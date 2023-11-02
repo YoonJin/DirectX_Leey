@@ -34,7 +34,7 @@ public:
 
 	auto GetAnimations() const -> const std::map<std::string, std::shared_ptr<class Animation>>& 
 	{ return animations; }
-	auto GetCurrentKeyframe() const -> const Keyframe* const;
+	auto GetCurrentKeyframe(PlayerDirection dir) const -> const Keyframe* const;
 
 	void AddAnimation(const std::string& animation_name, const std::shared_ptr<class Animation>& animation);
 	void AddAnimation(const std::string& path);
@@ -44,6 +44,9 @@ public:
 	void Pause();
 
 	bool IsPlaying() const { return animation_mode == AnimationMode::Play; }
+
+private:
+	std::shared_ptr<class MoveScriptComponent> move_script_component;
 
 private:
 	class Timer* timer           = nullptr;

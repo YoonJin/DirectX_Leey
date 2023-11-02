@@ -14,12 +14,30 @@ void MoveScriptComponent::Initialize()
 void MoveScriptComponent::Update()
 {
 	auto position = transform->GetPosition();
+	_curPos = position;
 
-	if (GetAsyncKeyState('W') & 0x8000) position.y++;
-	else if (GetAsyncKeyState('S') & 0x8000) position.y--;
-	if (GetAsyncKeyState('D') & 0x8000) position.x++;
-	else if (GetAsyncKeyState('A') & 0x8000) position.x--;
+	if (GetAsyncKeyState('W') & 0x8000)
+	{
+		_curPos.y += _speed;
+		_curDir = PlayerDirection::PlayerUp;
+	}
+	else if (GetAsyncKeyState('S') & 0x8000)
+	{
+		_curPos.y -= _speed;
+		_curDir = PlayerDirection::PlayerDown;
+	}
+	if (GetAsyncKeyState('D') & 0x8000)
+	{
+		_curPos.x += _speed;
+		_curDir = PlayerDirection::PlayerRight;
+	}
+	else if (GetAsyncKeyState('A') & 0x8000)
+	{
+		_curPos.x -= _speed;
+		_curDir = PlayerDirection::PlayerLeft;
+	}
 
+	position = _curPos;
 	transform->SetPosition(position);
 }
 

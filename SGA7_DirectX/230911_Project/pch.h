@@ -95,3 +95,4 @@ typedef unsigned int uint;
 
 // Resources
 #include "Resource/Animation.h"
+#include "Resource/Texture.h"

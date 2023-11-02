@@ -1,10 +1,13 @@
 #include "pch.h"
+#include "../Actor.h"
 #include "AnimatorComponent.h"
+#include "MoveScriptComponent.h"
 
 AnimatorComponent::AnimatorComponent(Context* const context, Actor* const actor, TransformComponent* const transform)
     : IComponent(context, actor, transform)
 {
-    timer = context->GetSubsystem<Timer>();
+    timer                 = context->GetSubsystem<Timer>();
+    move_script_component = actor->GetComponent<MoveScriptComponent>();
 }
 
 void AnimatorComponent::Initialize()
@@ -18,7 +21,7 @@ void AnimatorComponent::Update()
 
     frame_counter += timer->GetDeltaTimeMS();
 
-    if (frame_counter > GetCurrentKeyframe()->time)
+    if (frame_counter > GetCurrentKeyframe(move_script_component.get()->_curDir)->time)
     {
         current_frame_number++;
 
@@ -58,10 +61,10 @@ void AnimatorComponent::SetCurrentAnimation(const std::string& animation_name)
     frame_counter        = 0.0f;
 }
 
-auto AnimatorComponent::GetCurrentKeyframe() const -> const Keyframe* const
+auto AnimatorComponent::GetCurrentKeyframe(PlayerDirection dir) const -> const Keyframe* const
 {
     assert(!current_animation.expired());
-    return current_animation.lock()->GetKeyframeFromIndex(current_frame_number);
+    return current_animation.lock()->GetKeyframeFromIndex(dir, current_frame_number);
 }
 
 void AnimatorComponent::AddAnimation(const std::string& animation_name, const std::shared_ptr<class Animation>& animation)

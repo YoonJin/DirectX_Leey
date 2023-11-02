@@ -24,9 +24,9 @@ Scene::Scene(Context* const context)
 	player->AddComponent<MeshRendererComponent>();
 	player->AddComponent<MoveScriptComponent>();
 	auto animator = player->AddComponent<AnimatorComponent>();
-	animator->AddAnimation("Assets/Animation/Idle.xml");
+	animator->AddAnimation("Assets/Animation/Player.xml");
 	animator->SetAnimationMode(AnimationMode::Play);
-	animator->SetCurrentAnimation("Idle");
+	animator->SetCurrentAnimation("PlayerMove");
 
 	auto monster = CreateActor();
 	monster->SetName("Monster");
