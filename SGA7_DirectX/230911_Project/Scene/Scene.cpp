@@ -7,6 +7,7 @@
 #include "Scene/Component/MoveScriptComponent.h"
 #include "Scene/Component/AIScriptComponent.h"
 #include "Scene/Component/AnimatorComponent.h"
+#include "Scene/Component/TextureComponent.h"
 
 Scene::Scene(Context* const context)
 	: context(context)
@@ -17,23 +18,36 @@ Scene::Scene(Context* const context)
 	camera->AddComponent<CameraComponent>();
 	camera->SetName("MainCamera");
 
+	auto map = CreateActor();
+	map->SetName("Map");
+	map->GetComponent<TransformComponent>()->SetPosition(Vec3(0.f, 0.f, 0.f));
+	map->GetComponent<TransformComponent>()->SetSclae(Vec3(479.f, 527.f, 100.f));
+	map->AddComponent<MeshRendererComponent>();
+	map->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
+	map->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Texture.hlsl");
+	auto texture = map->AddComponent<TextureComponent>();
+	texture->LoadResource("Assets/Texture/background.png");
+
+
 	auto player = CreateActor();
 	player->SetName("Player");
 	player->GetComponent<TransformComponent>()->SetSclae(Vec3(1.f, 1.0f, 1.0f));
 	player->GetComponent<TransformComponent>()->SetPosition(Vec3(100.0f, 0.0f, 0.0f));
 	player->AddComponent<MeshRendererComponent>();
+	player->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
+	player->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Animation.hlsl");
 	player->AddComponent<MoveScriptComponent>();
 	auto animator = player->AddComponent<AnimatorComponent>();
 	animator->AddAnimation("Assets/Animation/Player.xml");
 	animator->SetAnimationMode(AnimationMode::Play);
 	animator->SetCurrentAnimation("PlayerMove");
 
-	auto monster = CreateActor();
-	monster->SetName("Monster");
-	monster->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
-	monster->GetComponent<TransformComponent>()->SetPosition(Vec3(-100.0f, 0.0f, 0.0f));
-	monster->AddComponent<MeshRendererComponent>();
-	monster->AddComponent<AIScriptComponent>();
+	//auto monster = CreateActor();
+	//monster->SetName("Monster");
+	//monster->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
+	//monster->GetComponent<TransformComponent>()->SetPosition(Vec3(-100.0f, 0.0f, 0.0f));
+	//monster->AddComponent<MeshRendererComponent>();
+	//monster->AddComponent<AIScriptComponent>();
 
 }
 

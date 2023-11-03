@@ -26,14 +26,22 @@ struct VS_OUTPUT
 	float2 uv		: TEXCOORD; // 텍스처 좌표
 };
 
-// cbuffer == constantBuffer
-cbuffer TransformData : register(b0)
+
+cbuffer CameraBuffer : register(b0)
 {
-	// row_major : 행렬의 요소가 메모리에 저장될때 
-	// 행 우선 순서로 저장하라.
-	row_major matrix matWorld;
 	row_major matrix matView;
 	row_major matrix matProjection;
+}
+
+// cbuffer == constantBuffer
+cbuffer TransformBuffer : register(b1)
+{
+	row_major matrix matWorld;
+}
+
+cbuffer TextureBuffer : register(b2)
+{
+	float4 offset;
 }
 
 
@@ -57,7 +65,6 @@ VS_OUTPUT VS(VS_INPUT input)
 // register(t0) : 그래픽스 파이프라인 내의 추상화된 레지스터를 타나낸다.
 // gpu 상에 있는 directX가 데이터를 저장하기 위한 공간이다.
 Texture2D texture0 : register(t0);
-Texture2D texture1 : register(t1);
 
 // 샘플러 상태를 나타낸다. : 텍스처를 나타낼 때 사용되는 픽셀 계산등의 규칙 정의
 SamplerState sampler0 : register(s0);

@@ -25,6 +25,8 @@ private:
 	void UpdateObjectBuffer();
 	void UpdateAnimationBuffer();
 
+	void UpdateTextureBuffer();
+
 private:
 	void PassMain();
 
@@ -41,6 +43,9 @@ private:
 
 	AnimationBuffer cpu_animation_buffer;
 	std::shared_ptr<class D3D11_ConstantBuffer> gpu_animation_buffer;
+
+	TextureBuffer cpu_texture_buffer;
+	std::shared_ptr<class D3D11_ConstantBuffer> gpu_texture_buffer;
 
 private:
 	std::map<RasterizerStateType, std::shared_ptr<class D3D11_RasterizerState>> rasterizers;

@@ -26,7 +26,7 @@ public:
 	*/
 	auto GetVertexBuffer() const { return vertex_buffer; }
 	auto GetIndexBuffer() const { return index_buffer;  }
-	void SetStandardMesh();
+	void SetStandardMesh(MeshType type);
 
 	/*
 	*	Material
@@ -34,7 +34,7 @@ public:
 	auto GetVertexShader() const { return vertex_shader; }
 	auto GetPixelShader() const { return pixel_shader; }
 	auto GetInputLayout() const { return input_layout; }
-	void SetStandardMaterial();
+	void SetStandardMaterial(std::wstring path);
 
 private:
 	class Graphics* graphics = nullptr;

@@ -6,11 +6,11 @@
 #include <Windows.h>
 #include <assert.h>
 #include <string>
-
-
-// STL
 #include <iostream>
 #include <sstream>
+#include <fstream>
+
+// STL
 #include <vector>
 #include <limits>
 #include <map>
@@ -96,3 +96,6 @@ typedef unsigned int uint;
 // Resources
 #include "Resource/Animation.h"
 #include "Resource/Texture.h"
+
+// Pacman
+#include "Pacman/BaseStructure/PacmanType.h"

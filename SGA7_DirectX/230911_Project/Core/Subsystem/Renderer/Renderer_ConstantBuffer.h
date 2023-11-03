@@ -21,6 +21,13 @@ struct ColorBuffer
 	int  dummy[3] = { 0, };
 };
 
+struct TextureBuffer
+{
+	Vec2 offset;
+	Vec2 dummy;
+};
+
+
 struct AnimationBuffer
 {
 	Vec2 sprite_offset;

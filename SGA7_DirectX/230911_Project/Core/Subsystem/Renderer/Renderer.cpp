@@ -88,3 +88,10 @@ void Renderer::UpdateAnimationBuffer()
 	*buffer = cpu_animation_buffer;
 	gpu_animation_buffer->Unmap();
 }
+
+void Renderer::UpdateTextureBuffer()
+{
+	auto buffer = gpu_texture_buffer->Map<TextureBuffer>();
+	*buffer = cpu_texture_buffer;
+	gpu_texture_buffer->Unmap();
+}

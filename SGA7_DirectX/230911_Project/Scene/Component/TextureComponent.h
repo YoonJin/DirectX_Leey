@@ -12,7 +12,16 @@ public:
 	);
 	~TextureComponent() = default;
 
-	// TODO : 함수 추가 필요
+	void Initialize() override;
+	void Update()     override;
+	void Destroy()    override;
+
+	void LoadResource(const std::string& path);
+	const std::shared_ptr<Texture>& GetCurrentTexture()
+	{
+		return current_texture;
+	}
+
 private:
 	std::shared_ptr<class Texture> current_texture;
 };

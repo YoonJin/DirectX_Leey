@@ -10,7 +10,7 @@ int APIENTRY WinMain
 	int nCmdShow
 )
 {
-	MyWindows::Create(hInstance, 1000, 1000);
+	MyWindows::Create(hInstance, 479.f, 527.f);
 	MyWindows::Show();
 
 	Settings::Get().SetWindowHandle(MyWindows::g_hWnd);

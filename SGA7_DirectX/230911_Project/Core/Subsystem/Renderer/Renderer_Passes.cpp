@@ -7,6 +7,7 @@
 #include "Scene/Component/TransformComponent.h"
 #include "Scene/Component/AnimatorComponent.h"
 #include "Scene/Component/MoveScriptComponent.h"
+#include "Scene/Component/TextureComponent.h"
 
 void Renderer::PassMain()
 {
@@ -41,7 +42,17 @@ void Renderer::PassMain()
 			cpu_object_buffer.matWorld = transform->GetWorldMatrix();
 			UpdateObjectBuffer();
 
-			if (auto animator = actor->GetComponent<AnimatorComponent>())
+			if (auto texture = actor->GetComponent<TextureComponent>())
+			{
+				cpu_texture_buffer.offset = Vec2(0, 0);
+				UpdateTextureBuffer();
+
+				const D3D11_Texture* data = texture->GetCurrentTexture()->GetTexture();
+				pipeline->SetConstantBuffer(2, ShaderScope_VS | ShaderScope_PS,
+					gpu_texture_buffer.get());
+				pipeline->SetShaderResource(0, ShaderScope_PS, data);
+			}
+			else if (auto animator = actor->GetComponent<AnimatorComponent>())
 			{
 				auto moveScript = actor->GetComponent<MoveScriptComponent>();
 
@@ -55,18 +66,7 @@ void Renderer::PassMain()
 				pipeline->SetConstantBuffer(2, ShaderScope_VS | ShaderScope_PS, gpu_animation_buffer.get());
 				pipeline->SetShaderResource(0, ShaderScope_PS, animator->GetCurrentAnimation()->GetSpriteTexture().get());
 			}
-			else
-			{
-				cpu_animation_buffer.sprite_offset = Vec2(0, 0);
-				cpu_animation_buffer.sprite_size   = Vec2(1, 1);
-				cpu_animation_buffer.texture_size  = Vec2(1, 1);
-				cpu_animation_buffer.is_animated   = 0.0f;
-				UpdateAnimationBuffer();
-
-				pipeline->SetConstantBuffer(2, ShaderScope_VS | ShaderScope_PS, gpu_animation_buffer.get());
-				pipeline->SetShaderResource_nullptr(0, ShaderScope_PS);
-			}
-
+			
 			pipeline->SetConstantBuffer(0, ShaderScope_VS, gpu_camera_buffer.get());
 			pipeline->SetConstantBuffer(1, ShaderScope_VS, gpu_object_buffer.get());
 
