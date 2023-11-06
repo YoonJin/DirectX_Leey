@@ -17,8 +17,20 @@ public:
 	// 팩맨 관련 함수
 	/////////////////////////////////////////////////
 	void FileDataRead();
+	void CreateAndSetPlayerPosition();
+	void CreateAndSetObjectPosition();
+
+	//////////////////////////////////////////////////
+	// 게임 시스템(플로우) 관련 함수
+	/////////////////////////////////////////////////
+	void LoadResource();
 
 private:
+	//////////////////////////////////////////////////
+	// 게임 시스템(플로우) 관련 데이터
+	/////////////////////////////////////////////////
+	bool isLoadingComplete = false;
+
 	class Context* context   = nullptr;
 	class Renderer* renderer = nullptr;
 
@@ -29,10 +41,10 @@ private:
 	/////////////////////////////////////////////////
 	int stage_map_data[MAP_HEIGHT][MAP_WIDTH];
 
-	std::vector<std::shared_ptr<class Actor*>> candies;
-	std::vector<std::shared_ptr<class Actor*>> players;
-	std::vector<std::shared_ptr<class Actor*>> enemies;
-	std::vector<std::shared_ptr<class Actor*>> walls;
+	std::vector<class Actor*> candies;
+	std::vector<class Actor*> players;
+	std::vector<class Actor*> enemies;
+	std::vector<class Actor*> walls;
 
 	std::vector<std::shared_ptr<class Actor>> actors;
 };

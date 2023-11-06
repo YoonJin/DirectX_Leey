@@ -14,41 +14,7 @@ Scene::Scene(Context* const context)
 {
 	renderer = context->GetSubsystem<Renderer>();
 
-	auto camera = CreateActor();
-	camera->AddComponent<CameraComponent>();
-	camera->SetName("MainCamera");
-
-	auto map = CreateActor();
-	map->SetName("Map");
-	map->GetComponent<TransformComponent>()->SetPosition(Vec3(0.f, 0.f, 0.f));
-	map->GetComponent<TransformComponent>()->SetSclae(Vec3(479.f, 527.f, 100.f));
-	map->AddComponent<MeshRendererComponent>();
-	map->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
-	map->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Texture.hlsl");
-	auto texture = map->AddComponent<TextureComponent>();
-	texture->LoadResource("Assets/Texture/background.png");
-
-
-	auto player = CreateActor();
-	player->SetName("Player");
-	player->GetComponent<TransformComponent>()->SetSclae(Vec3(1.f, 1.0f, 1.0f));
-	player->GetComponent<TransformComponent>()->SetPosition(Vec3(100.0f, 0.0f, 0.0f));
-	player->AddComponent<MeshRendererComponent>();
-	player->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
-	player->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Animation.hlsl");
-	player->AddComponent<MoveScriptComponent>();
-	auto animator = player->AddComponent<AnimatorComponent>();
-	animator->AddAnimation("Assets/Animation/Player.xml");
-	animator->SetAnimationMode(AnimationMode::Play);
-	animator->SetCurrentAnimation("PlayerMove");
-
-	//auto monster = CreateActor();
-	//monster->SetName("Monster");
-	//monster->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
-	//monster->GetComponent<TransformComponent>()->SetPosition(Vec3(-100.0f, 0.0f, 0.0f));
-	//monster->AddComponent<MeshRendererComponent>();
-	//monster->AddComponent<AIScriptComponent>();
-
+	LoadResource();
 }
 
 Scene::~Scene()
@@ -80,4 +46,104 @@ auto Scene::CreateActor(const bool& is_active) -> const std::shared_ptr<class Ac
 void Scene::AddActor(const std::shared_ptr<class Actor>& actor)
 {
 	actors.push_back(actor);
+}
+
+void Scene::FileDataRead()
+{
+	// 파일 입출력
+	ifstream readFile;
+	readFile.open("Assets/Texture/Map.txt");
+
+	if (readFile.is_open())
+	{
+		int i = 0, j = 0;
+
+		while (!readFile.eof())
+		{
+			char nObjNum;
+
+			readFile.get(nObjNum);
+
+			if (nObjNum == ' ' || nObjNum == '\n')
+				continue;
+
+			stage_map_data[i][j] = nObjNum - '0';
+			j++;
+
+			if (j == MAP_WIDTH)
+			{
+				j = 0;
+				i++;
+			}
+		}
+	}
+
+	readFile.close();
+
+	this->CreateAndSetPlayerPosition();
+	this->CreateAndSetObjectPosition();
+}
+
+void Scene::CreateAndSetPlayerPosition()
+{
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		for (int j = 0; j < MAP_WIDTH; j++)
+		{
+			if (stage_map_data[i][j] == UINT_CONVERT_TO(MapObject::PLAYER))
+			{
+				float posX = (j * CELL_WIDTH) - (Settings::Get().GetWidth() / 2) + (CELL_WIDTH / 2);
+				float posY = ((30 - i) * CELL_HEIGHT) - (Settings::Get().GetHeight() / 2) + (CELL_HEIGHT / 2);
+
+				auto player = CreateActor();
+				player->SetName("Player");
+				player->GetComponent<TransformComponent>()->SetPosition(Vec3(posX, posY, 0.0f));
+				player->GetComponent<TransformComponent>()->SetScale(Vec3(0.5f, 0.5f, 0.5f));
+				player->AddComponent<MeshRendererComponent>();
+				player->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
+				player->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Animation.hlsl");
+				player->AddComponent<MoveScriptComponent>();
+				auto animator = player->AddComponent<AnimatorComponent>();
+				animator->AddAnimation("Assets/Animation/Player.xml");
+				animator->SetAnimationMode(AnimationMode::Play);
+				animator->SetCurrentAnimation("PlayerMove");
+
+				players.push_back(player.get());
+			}
+		}
+	}
+
+}
+
+void Scene::CreateAndSetObjectPosition()
+{
+}
+
+void Scene::LoadResource()
+{
+	auto camera = CreateActor();
+	camera->AddComponent<CameraComponent>();
+	camera->SetName("MainCamera");
+
+	auto map = CreateActor();
+	map->SetName("Map");
+	map->GetComponent<TransformComponent>()->SetPosition(Vec3(0.f, 0.f, 0.f));
+	map->GetComponent<TransformComponent>()->SetScale(Vec3(479.f, 527.f, 100.f));
+	map->AddComponent<MeshRendererComponent>();
+	map->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
+	map->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Texture.hlsl");
+	auto texture = map->AddComponent<TextureComponent>();
+	texture->LoadResource("Assets/Texture/background_tiled.png");
+
+
+	
+
+	//auto monster = CreateActor();
+	//monster->SetName("Monster");
+	//monster->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
+	//monster->GetComponent<TransformComponent>()->SetPosition(Vec3(-100.0f, 0.0f, 0.0f));
+	//monster->AddComponent<MeshRendererComponent>();
+	//monster->AddComponent<AIScriptComponent>();
+
+	FileDataRead();
 }

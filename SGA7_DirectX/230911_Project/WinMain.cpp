@@ -10,7 +10,22 @@ int APIENTRY WinMain
 	int nCmdShow
 )
 {
-	MyWindows::Create(hInstance, 479.f, 527.f);
+	// 화면 해상도 얻기
+	int nResolutionX = GetSystemMetrics(SM_CXSCREEN);
+	int nResolutionY = GetSystemMetrics(SM_CYSCREEN);
+
+	// 창 화면 띄울 위치 계산
+	int nWinPosX = (nResolutionX / 2) - (WINSIZEX / 2);
+	int nWinPosY = (nResolutionY / 2) - (WINSIZEY / 2);
+
+	MyWindows::Create(hInstance, WINSIZEX, WINSIZEY);
+
+	RECT rt = { nWinPosX, nWinPosY, nWinPosX + WINSIZEX, nWinPosY + WINSIZEY };
+
+	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
+
+	MoveWindow(MyWindows::g_hWnd, nWinPosX, nWinPosY, rt.right - rt.left, rt.bottom - rt.top, TRUE);
+
 	MyWindows::Show();
 
 	Settings::Get().SetWindowHandle(MyWindows::g_hWnd);

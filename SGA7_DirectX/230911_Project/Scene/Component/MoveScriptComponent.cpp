@@ -44,3 +44,23 @@ void MoveScriptComponent::Update()
 void MoveScriptComponent::Destroy()
 {
 }
+
+float MoveScriptComponent::GetDistance(Vec2 curPos, Vec2 targetPos)
+{
+	float dx = targetPos.x - curPos.x;
+	float dy = targetPos.y - curPos.y;
+
+	return sqrt(dx * dx + dy * dy);
+}
+
+Vec2 MoveScriptComponent::Normalize(Vec2 direction)
+{
+	float length = sqrt((direction.x * direction.x) + (direction.y * direction.y));
+
+	if (length != 0)
+	{
+		direction.x /= length;
+		direction.y /= length;
+	}
+	return direction;
+}

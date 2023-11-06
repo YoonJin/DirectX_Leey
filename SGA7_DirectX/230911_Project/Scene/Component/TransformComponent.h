@@ -34,7 +34,7 @@ public:
 		World
 	*/
 	const Vec3 GetScale();
-	void SetSclae(const Vec3& world_scale);
+	void SetScale(const Vec3& world_scale);
 	const Vec3 GetPosition();
 	void SetPosition(const Vec3& world_position);
 	const Vec3 GetRotation();

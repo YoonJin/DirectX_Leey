@@ -51,6 +51,8 @@ typedef unsigned int uint;
 
 #define CHECK(p) assert(SUCCEEDED(p))
 
+#define UINT_CONVERT_TO(e) static_cast<uint>(e)
+
 // Math
 #include "Math/MyMath.h"
 

@@ -184,6 +184,7 @@
     <ClInclude Include="Core\Subsystem\ISubsystem.h" />
     <ClInclude Include="Intersect\Intersect.h" />
     <ClInclude Include="Math\MyMath.h" />
+    <ClInclude Include="Pacman\BaseStructure\PacmanType.h" />
     <ClInclude Include="Resource\Animation.h" />
     <ClInclude Include="Resource\IResource.h" />
     <ClInclude Include="Resource\Texture.h" />
@@ -307,6 +308,9 @@
   <ItemGroup>
     <Xml Include="Assets\Animation\Idle.xml" />
     <Xml Include="Assets\Animation\Player.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Texture\Map.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

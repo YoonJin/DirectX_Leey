@@ -21,4 +21,7 @@ public:
 	float _speed = 10.0f;
 	Vec3  _curPos;
 	PlayerDirection _curDir = PlayerDirection::PlayerLeft;
+
+	float GetDistance(Vec2 curPos, Vec2 targetPos);
+	Vec2  Normalize(Vec2 direction);
 };

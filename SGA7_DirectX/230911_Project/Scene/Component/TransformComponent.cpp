@@ -76,7 +76,7 @@ const Vec3 TransformComponent::GetScale()
 	return world_scale;
 }
 
-void TransformComponent::SetSclae(const Vec3& world_scale)
+void TransformComponent::SetScale(const Vec3& world_scale)
 {
 	if (GetScale() == world_scale)
 		return;

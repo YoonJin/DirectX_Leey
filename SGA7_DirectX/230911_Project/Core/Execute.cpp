@@ -23,14 +23,14 @@ Execute::Execute()
 
 	auto player = CreateActor();
 	player->SetName("Player");
-	player->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
+	player->GetComponent<TransformComponent>()->SetScale(Vec3(100.0f, 100.0f, 1.0f));
 	player->GetComponent<TransformComponent>()->SetPosition(Vec3(100.0f, 0.0f, 0.0f));
 	player->AddComponent<MeshRendererComponent>();
 	player->AddComponent<MoveScriptComponent>();
 
 	auto monster = CreateActor();
 	monster->SetName("Monster");
-	monster->GetComponent<TransformComponent>()->SetSclae(Vec3(100.0f, 100.0f, 1.0f));
+	monster->GetComponent<TransformComponent>()->SetScale(Vec3(100.0f, 100.0f, 1.0f));
 	monster->GetComponent<TransformComponent>()->SetPosition(Vec3(-100.0f, 0.0f, 0.0f));
 	monster->AddComponent<MeshRendererComponent>();
 	monster->AddComponent<AIScriptComponent>();
