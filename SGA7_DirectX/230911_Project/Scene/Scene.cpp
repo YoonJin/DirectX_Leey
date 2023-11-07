@@ -103,6 +103,7 @@ void Scene::CreateAndSetPlayerPosition()
 				player->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
 				player->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Animation.hlsl");
 				player->AddComponent<MoveScriptComponent>();
+				player->GetComponent<MoveScriptComponent>()->_mapPos = Coordinate(j, i);
 				auto animator = player->AddComponent<AnimatorComponent>();
 				animator->AddAnimation("Assets/Animation/Player.xml");
 				animator->SetAnimationMode(AnimationMode::Play);
@@ -117,6 +118,44 @@ void Scene::CreateAndSetPlayerPosition()
 
 void Scene::CreateAndSetObjectPosition()
 {
+	for (int i = 0; i < MAP_HEIGHT; i++)
+	{
+		for (int j = 0; j < MAP_WIDTH; j++)
+		{
+			if (stage_map_data[i][j] == UINT_CONVERT_TO(MapObject::ENEMY))
+			{
+				float posX = (j * CELL_WIDTH) - (Settings::Get().GetWidth() / 2) + (CELL_WIDTH / 2);
+				float posY = ((30 - i) * CELL_HEIGHT) - (Settings::Get().GetHeight() / 2) + (CELL_HEIGHT / 2);
+
+				auto monster = CreateActor();
+				monster->SetName("Monster");
+				monster->GetComponent<TransformComponent>()->SetPosition(Vec3(posX, posY, 0.3f));
+				monster->GetComponent<TransformComponent>()->SetScale(Vec3(14.0f, 14.0f, 14.0f));
+				monster->AddComponent<MeshRendererComponent>();
+				monster->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
+				monster->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Texture.hlsl");
+				auto texture_mob = monster->AddComponent<TextureComponent>();
+				texture_mob->LoadResource("Assets/Texture/enemy.png");
+				enemies.push_back(monster.get());
+			}
+			else if (stage_map_data[i][j] == UINT_CONVERT_TO(MapObject::CANDY))
+			{
+				float posX = (j * CELL_WIDTH) - (Settings::Get().GetWidth() / 2) + (CELL_WIDTH / 2);
+				float posY = ((30 - i) * CELL_HEIGHT) - (Settings::Get().GetHeight() / 2) + (CELL_HEIGHT / 2);
+
+				auto candy = CreateActor();
+				candy->SetName("Candy");
+				candy->GetComponent<TransformComponent>()->SetPosition(Vec3(posX, posY, 0.3f));
+				candy->GetComponent<TransformComponent>()->SetScale(Vec3(14.0f, 14.0f, 14.0f));
+				candy->AddComponent<MeshRendererComponent>();
+				candy->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
+				candy->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Texture.hlsl");
+				auto texture = candy->AddComponent<TextureComponent>();
+				texture->LoadResource("Assets/Texture/Candy.png");
+				candies.push_back(candy.get());
+			}
+		}
+	}
 }
 
 void Scene::LoadResource()
@@ -127,13 +166,13 @@ void Scene::LoadResource()
 
 	auto map = CreateActor();
 	map->SetName("Map");
-	map->GetComponent<TransformComponent>()->SetPosition(Vec3(0.f, 0.f, 0.f));
+	map->GetComponent<TransformComponent>()->SetPosition(Vec3(0.f, 0.f, 1.f));
 	map->GetComponent<TransformComponent>()->SetScale(Vec3(479.f, 527.f, 100.f));
 	map->AddComponent<MeshRendererComponent>();
 	map->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
 	map->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Texture.hlsl");
 	auto texture = map->AddComponent<TextureComponent>();
-	texture->LoadResource("Assets/Texture/background_tiled.png");
+	texture->LoadResource("Assets/Texture/background.png");
 
 
 	

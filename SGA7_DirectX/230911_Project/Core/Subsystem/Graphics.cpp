@@ -50,8 +50,15 @@ Graphics::~Graphics()
 // 렌더링을 어떻게 할지, 화면 렌더링 데이터를 결정해준다.
 void Graphics::RenderBegin()
 {
+	// 뎁스 버퍼 설정
+	CreateDepthStencil(_viewport.width, _viewport.height);
+
 	// 화면을 출력하는데 사용할 RTV 데이터를 결정한다.
-	_deviceContext->OMSetRenderTargets(1, &_renderTargetView, nullptr);
+	_deviceContext->OMSetRenderTargets(1, &_renderTargetView, depthStencilView);
+	_deviceContext->OMSetDepthStencilState(depthStencilState, 1);
+
+	_deviceContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH, 1.f, 0);
+
 	// RTV를 이용하여 버퍼를 특정색상으로 덮어 씌워준다.
 	_deviceContext->ClearRenderTargetView(_renderTargetView, _clearColor);
 
@@ -146,6 +153,64 @@ bool Graphics::Initialize()
 	}
 
 	return true;
+}
+
+void Graphics::CreateDepthStencil(const uint& width, const uint& height)
+{
+	// 깊이 버퍼 및 깊이 스텐실 뷰 생성
+	D3D11_TEXTURE2D_DESC depthBufferDesc;
+
+	// 깊이 버퍼의 설명을 위한 구조체 생성
+	ZeroMemory(&depthBufferDesc, sizeof(depthBufferDesc));
+	{
+		// 깊이 버퍼의 크기 설정(화면 크기와 동일)
+		depthBufferDesc.Width = width; // 화면의 너비
+		depthBufferDesc.Height = height; // 화면의 높이
+		// MipMap 레벨 설정 (이 경우 1레벨만 사용)
+		depthBufferDesc.MipLevels = 1;
+		// 텍스처 배열의 크기 설정 (1개의 텍스처만 사용)
+		depthBufferDesc.ArraySize = 1;
+		// 깊이와 스텐실 데이터의 포맷 설정 (24비트 깊이, 8비트 스텐실)
+		depthBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		// 멀티 샘플링 설정 (이 경우 멀티 샘플링 사용하지 않음)
+		depthBufferDesc.SampleDesc.Count = 1;
+		depthBufferDesc.SampleDesc.Quality = 0;
+		// GPU가 이 텍스처를 어떻게 사용할지 지정 (기본 사용)
+		depthBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+		// 깊이 스텐실로 사용될 것이라는 플래그 설정
+		depthBufferDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		// CPU 액세스 플래그 설정 (이 경우 CPU에서 액세스 하지 않음)
+		depthBufferDesc.CPUAccessFlags = 0;
+		// 기타 플래그 설정 (사용하지 않음)
+		depthBufferDesc.MiscFlags = 0;
+	}
+	
+	SAFE_RELEASE(depthStencilBuffer);
+
+	// 위의 설명을 기반으로 깊이 버퍼 텍스처 생성
+	HRESULT hr = _device->CreateTexture2D(&depthBufferDesc, nullptr, &depthStencilBuffer);
+	CHECK(hr);
+
+	// 깊이 스텐실 뷰 생성 (2D 깊이 버퍼 텍스처를 사용하여)
+	hr = _device->CreateDepthStencilView(depthStencilBuffer, nullptr, &depthStencilView);
+	CHECK(hr);
+
+	// 깊이 스텐실 스테이트 생성
+	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
+	ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
+	{
+		// 깊이 테스트 활성화 설정
+		depthStencilDesc.DepthEnable = true;
+		// 깊이 데이터 쓰기 마스크 설정 (모든 깊이 데이터에 쓰기 가능)
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		// 깊이 데이터 비교 함수 설정 (현재 픽셀의 깊이가 버퍼의 깊이보다
+		// 작거나 같을 경우 픽셀그리기)
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	}
+
+	// 깊이 스텐실 스테이트 객체 생성
+	hr = _device->CreateDepthStencilState(&depthStencilDesc, &depthStencilState);
+	CHECK(hr);
 }
 
 void Graphics::CreateBackBuffer(const uint& width, const uint& height)

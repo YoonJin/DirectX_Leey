@@ -13,35 +13,62 @@ void MoveScriptComponent::Initialize()
 
 void MoveScriptComponent::Update()
 {
-	auto position = transform->GetPosition();
-	_curPos = position;
+	if (isMoving == false)
+		SetMoveEventData();
 
+	_curPos = transform->GetPosition();
+
+	float PosX = (this->_mapPos.x * CELL_WIDTH) -
+		(Settings::Get().GetWidth() / 2) + (CELL_WIDTH / 2);
+	float PosY = ((30 - this->_mapPos.y) * CELL_HEIGHT) -
+		(Settings::Get().GetHeight() / 2) + (CELL_HEIGHT / 2);
+	Vec2 destination = Vec2(PosX, PosY);
+
+	// 거리 구하기
+	if (this->GetDistance(Vec2(_curPos.x, _curPos.y), destination) > 1.0f)
+	{
+		isMoving = true; // 이동 시작
+
+		// 이동 방향 구하기
+		Vec2 direction = destination - _curPos;
+		direction = this->Normalize(direction);
+
+		transform->SetPosition(_curPos + (context->GetSubsystem<Timer>()->GetDeltaTimeSEC() * direction * this->_speed));
+	}
+	else
+		isMoving = false;
+
+}
+
+void MoveScriptComponent::Destroy()
+{
+}
+
+void MoveScriptComponent::SetMoveEventData()
+{
 	if (GetAsyncKeyState('W') & 0x8000)
 	{
-		_curPos.y += _speed;
+		this->_mapPos += Coordinate(0, -1);
 		_curDir = PlayerDirection::PlayerUp;
 	}
 	else if (GetAsyncKeyState('S') & 0x8000)
 	{
-		_curPos.y -= _speed;
+		this->_mapPos += Coordinate(0, +1);
 		_curDir = PlayerDirection::PlayerDown;
 	}
-	if (GetAsyncKeyState('D') & 0x8000)
+	else if (GetAsyncKeyState('D') & 0x8000)
 	{
-		_curPos.x += _speed;
+		this->_mapPos += Coordinate(+1, 0);
 		_curDir = PlayerDirection::PlayerRight;
 	}
 	else if (GetAsyncKeyState('A') & 0x8000)
 	{
-		_curPos.x -= _speed;
+		this->_mapPos += Coordinate(-1, 0);
 		_curDir = PlayerDirection::PlayerLeft;
 	}
-
-	position = _curPos;
-	transform->SetPosition(position);
 }
 
-void MoveScriptComponent::Destroy()
+void MoveScriptComponent::SetMapData(int stage_map_data[][MAP_WIDTH])
 {
 }
 

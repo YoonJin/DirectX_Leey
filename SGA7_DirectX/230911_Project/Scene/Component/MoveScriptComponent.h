@@ -16,12 +16,21 @@ public:
 	void Update()     override;
 	void Destroy()    override;
 
-	PlayerDirection GetCurrentDirection() { return _curDir; }
-
-	float _speed = 10.0f;
-	Vec3  _curPos;
-	PlayerDirection _curDir = PlayerDirection::PlayerLeft;
+	void SetMoveEventData();
+	void SetMapData(int stage_map_data[][MAP_WIDTH]);
 
 	float GetDistance(Vec2 curPos, Vec2 targetPos);
 	Vec2  Normalize(Vec2 direction);
+
+	PlayerDirection GetCurrentDirection() { return _curDir; }
+
+	bool isMoving = false;
+	float _speed  = 50.0f;
+	
+	Vec3  _curPos;
+	Coordinate _mapPos;
+
+	PlayerDirection _curDir = PlayerDirection::PlayerLeft;
+
+	int stage_map_data[MAP_HEIGHT][MAP_WIDTH];
 };
