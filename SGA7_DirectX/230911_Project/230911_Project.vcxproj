@@ -182,6 +182,7 @@
     <ClInclude Include="Core\Subsystem\ResourceManager.h" />
     <ClInclude Include="Core\Subsystem\SceneManager.h" />
     <ClInclude Include="Core\Subsystem\ISubsystem.h" />
+    <ClInclude Include="Intersect\Intersect.h" />
     <ClInclude Include="Math\MyMath.h" />
     <ClInclude Include="Pacman\BaseStructure\PacmanType.h" />
     <ClInclude Include="Resource\Animation.h" />
@@ -227,6 +228,7 @@
     <ClCompile Include="Core\Subsystem\Renderer\Renderer_Resources.cpp" />
     <ClCompile Include="Core\Subsystem\ResourceManager.cpp" />
     <ClCompile Include="Core\Subsystem\SceneManager.cpp" />
+    <ClCompile Include="Intersect\Intersect.cpp" />
     <ClCompile Include="Math\MyMath.cpp" />
     <ClCompile Include="MyLibraries\SimpleMath.cpp" />
     <ClCompile Include="Core\D3D11\Shader\D3D11_ConstantBuffer.cpp" />

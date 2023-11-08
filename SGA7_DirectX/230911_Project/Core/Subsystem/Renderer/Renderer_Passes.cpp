@@ -25,6 +25,9 @@ void Renderer::PassMain()
 		if (!transform)
 			continue;
 
+		if (!actor->IsActive())
+			continue;
+
 		D3D11_PipelineState pipeline_state;
 		pipeline_state.input_layout       = renderable->GetInputLayout().get();
 		pipeline_state.primitive_topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
