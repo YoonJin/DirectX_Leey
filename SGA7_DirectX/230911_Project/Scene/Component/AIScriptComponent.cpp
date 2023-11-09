@@ -5,6 +5,7 @@
 AIScriptComponent::AIScriptComponent(Context* const context, Actor* const actor, TransformComponent* const transform)
 	: IComponent(context, actor, transform)
 {
+	this->transform = transform;
 }
 
 void AIScriptComponent::Initialize()
@@ -13,35 +14,105 @@ void AIScriptComponent::Initialize()
 
 void AIScriptComponent::Update()
 {
-	auto position = transform->GetPosition();
-
-	switch (direction)
+	if (isInitialize)
 	{
-	case Direction::Up:    position.y++; break;
-	case Direction::Right: position.x++; break;
-	case Direction::Down:  position.y--; break;
-	case Direction::Left:  position.x--; break;
-	}
+		// 목표 좌표 설정
+		this->SetDestPos();
 
-	if (stopwatch.GetElapsedTimeSec() >= 3.0f)
-	{
-		auto new_dir = static_cast<Direction>(MyMath::Random(0, 3));
-		if (direction == new_dir)
+		// 이동 중에 A*로 경로가 바뀌어 버린다면 문제가 생길 수 있으므로
+		// 무조건 이동이 끝난 후 A*로 다시 계산을 한다.
+		if (!isSearchMove)
 		{
-			int dir_num = static_cast<int>(new_dir);
-			dir_num = (dir_num <= 1) ? dir_num + 2 : dir_num - 2;
+			// Astar 초기화
+			this->InitAstar();
+		}
 
-			direction = static_cast<Direction>(dir_num);
+		// 계산한 위치에 따라 움직임.
+		if (_points.size() != 0)
+		{
+			// 지속적인 유연한 움직임을 위함.
+			if (!isSearchMove)
+			{
+				_pos.x = _points.front().x;
+				_pos.y = _points.front().y;
+				_points.pop_front();
+
+				// TODO : 여러분들이 직접!!
+				// 1. 목적지 실제 좌표 계산
+				// 2. 이동 방향 계산
+				// 3. 방향 Normalize
+			}
+		}
+
+		// 4. 거리 계산
+		// 아래에서 이동
+		/*if (distance > 0.5f)
+		{
+			isSearchMove = true;
+
+			transform->SetPosition("블라블라");
 		}
 		else
-			direction = new_dir;
+		 isSearchMove = false;
+		*/
 
-		stopwatch.Start();
+		if (this->confirmPos.Equare(this->_pos))
+			this->isDefaultMove = false;
 	}
-
-	transform->SetPosition(position);
 }
 
 void AIScriptComponent::Destroy()
+{
+}
+
+float AIScriptComponent::GetDistance(Vec2 curPos, Vec2 targetPos)
+{
+	return 0.0f;
+}
+
+Vec2 AIScriptComponent::Normalize(Vec2 direction)
+{
+	return Vec2();
+}
+
+void AIScriptComponent::SetDestPos()
+{
+	switch (_state)
+	{
+	case EnemyState::MOVE:
+		if (!isDefaultMove)
+		{
+			isDefaultMove = true;
+			int width  = MAP_WIDTH  - 1;
+			int height = MAP_HEIGHT - 1;
+			confirmPos = Coordinate(MyMath::Random(0, width), MyMath::Random(0, height));
+
+			while (1)
+			{
+				if (this->stage_map_data[confirmPos.y][confirmPos.x] ==
+					UINT_CONVERT_TO(MapObject::WALL))
+				{
+					confirmPos = Coordinate(MyMath::Random(0, width), MyMath::Random(0, height));
+				}
+				else
+					break;
+			}
+		}
+		break;
+	case EnemyState::SEARCH:
+		// TODO : 추후
+		break;
+	}
+}
+
+void AIScriptComponent::InitAstar()
+{
+}
+
+void AIScriptComponent::Astar()
+{
+}
+
+void AIScriptComponent::CalcPathFromParent(Coordinate dest)
 {
 }

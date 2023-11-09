@@ -12,6 +12,7 @@
 
 // STL
 #include <vector>
+#include <queue>
 #include <limits>
 #include <map>
 #include <unordered_map>

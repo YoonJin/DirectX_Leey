@@ -32,6 +32,16 @@ void Scene::Update()
 		renderer->UpdateRenderables(this);
 		is_update = false;
 	}
+
+	for (auto iter = candies.begin(); iter != candies.end(); iter++)
+	{
+		if (Intersect::IsIntersect(players[0], *iter))
+		{
+			(*iter)->SetActive(false);
+			candies.erase(iter);
+			break;
+		}
+	}
 }
 
 auto Scene::CreateActor(const bool& is_active) -> const std::shared_ptr<class Actor>
@@ -104,6 +114,7 @@ void Scene::CreateAndSetPlayerPosition()
 				player->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Animation.hlsl");
 				player->AddComponent<MoveScriptComponent>();
 				player->GetComponent<MoveScriptComponent>()->_mapPos = Coordinate(j, i);
+				player->GetComponent<MoveScriptComponent>()->SetMapData(this->stage_map_data);
 				auto animator = player->AddComponent<AnimatorComponent>();
 				animator->AddAnimation("Assets/Animation/Player.xml");
 				animator->SetAnimationMode(AnimationMode::Play);

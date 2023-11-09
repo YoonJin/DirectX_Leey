@@ -25,7 +25,7 @@ public:
 	PlayerDirection GetCurrentDirection() { return _curDir; }
 
 	bool isMoving = false;
-	float _speed  = 50.0f;
+	float _speed  = 30.f;
 	
 	Vec3  _curPos;
 	Coordinate _mapPos;
