@@ -1,2 +1,9 @@
-﻿  Scene.cpp
+﻿  AIScriptComponent.cpp
+C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\230911_Project\Scene\Component\AIScriptComponent.cpp(245,40): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\230911_Project\Scene\Component\AIScriptComponent.cpp(245,24): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\230911_Project\Scene\Component\AIScriptComponent.cpp(246,10): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\230911_Project\Scene\Component\AIScriptComponent.cpp(247,10): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  IComponent.cpp
+  Scene.cpp
+  코드를 생성하고 있습니다...
   230911_Project.vcxproj -> C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\230911_Project.exe

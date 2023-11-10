@@ -41,6 +41,7 @@ public:
 
 	float GetDistance(Vec2 curPos, Vec2 targetPos);
 	Vec2 Normalize(Vec2 direction);
+	void SetMapData(int stage_map_data[][MAP_WIDTH]);
 
 	Coordinate _pos;
 

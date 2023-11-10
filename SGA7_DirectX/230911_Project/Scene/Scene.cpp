@@ -145,6 +145,9 @@ void Scene::CreateAndSetObjectPosition()
 				monster->AddComponent<MeshRendererComponent>();
 				monster->GetComponent<MeshRendererComponent>()->SetStandardMesh(MeshType::Quad);
 				monster->GetComponent<MeshRendererComponent>()->SetStandardMaterial(L"Assets/Texture.hlsl");
+				monster->AddComponent<AIScriptComponent>().get()->_pos = Coordinate(j, i);
+				monster->GetComponent<AIScriptComponent>().get()->SetMapData(this->stage_map_data);
+				monster->GetComponent<AIScriptComponent>().get()->isInitialize = true;
 				auto texture_mob = monster->AddComponent<TextureComponent>();
 				texture_mob->LoadResource("Assets/Texture/enemy.png");
 				enemies.push_back(monster.get());
