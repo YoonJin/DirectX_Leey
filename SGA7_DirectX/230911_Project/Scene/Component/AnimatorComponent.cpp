@@ -30,12 +30,12 @@ void AnimatorComponent::Update()
         case RepeatType::Once:
             if (current_frame_number >= current_animation.lock()->GetKeyframeCount())
             {
-                current_frame_number = current_animation.lock()->GetKeyframeCount() - 1;
+                current_frame_number = current_animation.lock()->GetKeyframes(move_script_component.get()->_curDir).size() - 1;
                 Pause();
             }
             break;
         case RepeatType::Loop:
-            current_frame_number %= current_animation.lock()->GetKeyframeCount();
+            current_frame_number %= (current_animation.lock()->GetKeyframes(move_script_component.get()->_curDir).size() - 1);
             break;
         }
         frame_counter = 0.0f;

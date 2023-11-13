@@ -37,24 +37,46 @@ void AIScriptComponent::Update()
 				_pos.y = _points.front().y;
 				_points.pop_front();
 
-				// TODO : 여러분들이 직접!!
-				// 1. 목적지 실제 좌표 계산
-				// 2. 이동 방향 계산
-				// 3. 방향 Normalize
+				float PosX = (_pos.x * CELL_WIDTH) - (Settings::Get().GetWidth() / 2) + (CELL_WIDTH / 2);
+				float PosY = ((MAP_HEIGHT - _pos.y) * CELL_HEIGHT) - ((Settings::Get().GetHeight() / 2) + (CELL_HEIGHT / 2));
+
+				destination = Vec2(PosX,PosY);
+
+				// 적 이동방향 벡터 구함
+				direction = destination - Vec2(transform->GetPosition().x, transform->GetPosition().y);
+				direction = Normalize(direction);
 			}
 		}
 
+		Vec2 _curPos = Vec2(transform->GetPosition().x, transform->GetPosition().y);
+		float distance = GetDistance(_curPos, destination);
+
 		// 4. 거리 계산
 		// 아래에서 이동
-		/*if (distance > 0.5f)
+		if (distance > 0.5f)
 		{
 			isSearchMove = true;
 
-			transform->SetPosition("블라블라");
+			float time = context->GetSubsystem<Timer>()->GetDeltaTimeSEC();
+			Vec2 moveValue = (time * direction * _speed);
+
+			// 실제 이동 거리 계산
+			float  moveDistance = moveValue.Length();
+
+			if (moveDistance > distance)
+			{
+				moveValue.Normalize();
+				moveValue *= distance; 
+			}
+			transform->SetPosition(Vec3(_curPos.x, _curPos.y, transform->GetPosition().z) + moveValue);
 		}
 		else
-		 isSearchMove = false;
-		*/
+		{
+			isSearchMove = false;
+			transform->SetPosition(Vec3(destination.x, destination.y, transform->GetPosition().z));
+		}
+		 
+		
 
 		if (this->confirmPos.Equare(this->_pos))
 			this->isDefaultMove = false;
@@ -212,7 +234,7 @@ void AIScriptComponent::Astar()
 			// 경로 비용계산
 			int g = node.G + cost[i];
 			// h값은 현재 좌표에서 next까지의 거리를 의미한다.
-			int h = (dest.y - nextY) + (dest.x = nextX);
+			int h = (dest.y - nextY) + (dest.x - nextX);
 
 			// 다른 경로에서 더 빠른 길을 이미 찾았으면 스킵
 			if (open[nextY][nextX] < g + h)

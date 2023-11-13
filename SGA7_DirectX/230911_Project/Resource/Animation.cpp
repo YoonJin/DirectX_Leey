@@ -103,7 +103,7 @@ void Animation::SetSpriteTexture(const std::string& path)
 
 auto Animation::GetKeyframeFromIndex(PlayerDirection eDirection, const uint& index) -> const Keyframe* const
 {
-	assert(index < keyframes.size());
+	assert(index < keyframes[eDirection].size());
 
 	return &keyframes[eDirection][index];
 }
