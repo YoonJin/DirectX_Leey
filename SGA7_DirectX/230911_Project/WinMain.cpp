@@ -22,11 +22,11 @@ int APIENTRY WinMain
 
 	RECT rt = { nWinPosX, nWinPosY, nWinPosX + WINSIZEX, nWinPosY + WINSIZEY };
 
-	AdjustWindowRect(&rt, WS_OVERLAPPEDWINDOW, false);
-
-	MoveWindow(MyWindows::g_hWnd, nWinPosX, nWinPosY, rt.right - rt.left, rt.bottom - rt.top, TRUE);
+	AdjustWindowRect(& rt, WS_OVERLAPPEDWINDOW, false );
 
 	MyWindows::Show();
+
+	MoveWindow(MyWindows::g_hWnd, nWinPosX, nWinPosY, rt.right - rt.left, rt.bottom - rt.top, TRUE);
 
 	Settings::Get().SetWindowHandle(MyWindows::g_hWnd);
 	Settings::Get().SetWidth(static_cast<float>(MyWindows::GetWidth()));
@@ -39,7 +39,6 @@ int APIENTRY WinMain
 	while (MyWindows::Update())
 	{
 		engine->Update();
-		engine->Render();
 	}
 
 	MyWindows::Destroy();

@@ -1,7 +1,7 @@
 #pragma once
-#include "ISubsystem.h"
+#include "IObserver.h"
 
-class Timer final : public ISubsystem
+class Timer final : public IObserver
 {
 public:
 	Timer(class Context* const context);
@@ -9,14 +9,20 @@ public:
 
 	bool Initialize() override;
 	void Update() override;
+	void ReceivedNotify() override;
 
 	auto GetDeltaTimeMS() -> const float { return static_cast<float>(delta_time_ms); }
 	auto GetDeltaTimeSEC() -> const float { return static_cast<float>(delta_time_ms / 1000.0); }
+
+	bool IsPause() { return isPause; }
+	void SetPause(bool isPause) { this->isPause = isPause; }
 
 private:
 	double delta_time_ms = 0.0;
 
 	std::chrono::time_point<std::chrono::high_resolution_clock> previous_time;
+
+	bool isPause = false;
 };
 
 class Stopwatch final

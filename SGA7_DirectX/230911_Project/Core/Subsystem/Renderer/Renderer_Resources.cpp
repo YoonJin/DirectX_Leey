@@ -18,30 +18,23 @@ void Renderer::CreateConstantBuffers()
 
 void Renderer::CreateRasterizerStates()
 {
-	rasterizers[RasterizerStateType::Cull_Front_Solid] =
-		std::make_shared<D3D11_RasterizerState>(graphics);
+	rasterizers[RasterizerStateType::Cull_Front_Solid] = std::make_shared<D3D11_RasterizerState>(graphics);
 	rasterizers[RasterizerStateType::Cull_Front_Solid]->Create(D3D11_CULL_FRONT, D3D11_FILL_SOLID);
 
-	rasterizers[RasterizerStateType::Cull_Back_Solid] =
-		std::make_shared<D3D11_RasterizerState>(graphics);
+	rasterizers[RasterizerStateType::Cull_Back_Solid] = std::make_shared<D3D11_RasterizerState>(graphics);
 	rasterizers[RasterizerStateType::Cull_Back_Solid]->Create(D3D11_CULL_BACK, D3D11_FILL_SOLID);
 
-	rasterizers[RasterizerStateType::Cull_None_Solid] =
-		std::make_shared<D3D11_RasterizerState>(graphics);
+	rasterizers[RasterizerStateType::Cull_None_Solid] = std::make_shared<D3D11_RasterizerState>(graphics);
 	rasterizers[RasterizerStateType::Cull_None_Solid]->Create(D3D11_CULL_NONE, D3D11_FILL_SOLID);
 
-	rasterizers[RasterizerStateType::Cull_Front_Wireframe] =
-		std::make_shared<D3D11_RasterizerState>(graphics);
+	rasterizers[RasterizerStateType::Cull_Front_Wireframe] = std::make_shared<D3D11_RasterizerState>(graphics);
 	rasterizers[RasterizerStateType::Cull_Front_Wireframe]->Create(D3D11_CULL_FRONT, D3D11_FILL_WIREFRAME);
 
-	rasterizers[RasterizerStateType::Cull_Back_Wireframe] =
-		std::make_shared<D3D11_RasterizerState>(graphics);
+	rasterizers[RasterizerStateType::Cull_Back_Wireframe] = std::make_shared<D3D11_RasterizerState>(graphics);
 	rasterizers[RasterizerStateType::Cull_Back_Wireframe]->Create(D3D11_CULL_BACK, D3D11_FILL_WIREFRAME);
 
-	rasterizers[RasterizerStateType::Cull_None_Wireframe] =
-		std::make_shared<D3D11_RasterizerState>(graphics);
-	rasterizers[RasterizerStateType::Cull_None_Wireframe]->Create
-	(D3D11_CULL_NONE, D3D11_FILL_WIREFRAME);
+	rasterizers[RasterizerStateType::Cull_None_Wireframe] = std::make_shared<D3D11_RasterizerState>(graphics);
+	rasterizers[RasterizerStateType::Cull_None_Wireframe]->Create(D3D11_CULL_NONE, D3D11_FILL_WIREFRAME);
 }
 
 void Renderer::CreateBlendStates()

@@ -9,10 +9,10 @@ enum class ResourceType : uint
 	Material
 };
 
-class IResource
+class IResource 
 {
-public:
-	template <typename T>
+public: 
+	template<typename T>
 	static constexpr ResourceType DeduceResourceType();
 
 public:
@@ -26,15 +26,8 @@ public:
 	auto GetResourceName() const { return resource_name; }
 	auto GetResourcePath() const { return resource_path; }
 
-	void SetResourceName(const std::string& name)
-	{
-		this->resource_name = name;
-	}
-
-	void SetResourcePath(const std::string& path)
-	{
-		this->resource_path = path;
-	}
+	void SetResourceName(const std::string& name) { this->resource_name = name; }
+	void SetResourcePath(const std::string& path) { this->resource_path = path; }
 
 protected:
 	class Context* context = nullptr;
@@ -42,3 +35,4 @@ protected:
 	std::string resource_name;
 	std::string resource_path;
 };
+

@@ -1,8 +1,4 @@
 #pragma once
-
-
-
-
 // 파이프라인 상태
 // 자주 바뀔수 있는 데이터를 모아둠
 struct D3D11_PipelineState final

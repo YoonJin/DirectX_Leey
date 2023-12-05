@@ -32,12 +32,15 @@ public:
 	auto GetCurrentAnimation() const -> const std::shared_ptr<class Animation>;
 	void SetCurrentAnimation(const std::string& animation_name);
 
-	auto GetAnimations() const -> const std::map<std::string, std::shared_ptr<class Animation>>& 
-	{ return animations; }
+	auto GetAnimations() const -> const std::map<std::string, std::shared_ptr<class Animation>>&
+	{
+		return animations;
+	}
 	auto GetCurrentKeyframe(PlayerDirection dir) const -> const Keyframe* const;
 
 	void AddAnimation(const std::string& animation_name, const std::shared_ptr<class Animation>& animation);
 	void AddAnimation(const std::string& path);
+
 
 	void Play();
 	void Stop();
@@ -45,14 +48,16 @@ public:
 
 	bool IsPlaying() const { return animation_mode == AnimationMode::Play; }
 
-private:
-	std::shared_ptr<class MoveScriptComponent> move_script_component;
+	string GetAnimationsName() { return animations.begin()->first; }
 
 private:
-	class Timer* timer           = nullptr;
+	std::shared_ptr<class MoveScriptComponent> move_script_component;
+	std::shared_ptr<class AIScriptComponent> ai_script_component;
+private:
+	class Timer* timer = nullptr;
 	AnimationMode animation_mode = AnimationMode::Play;
-	uint current_frame_number    = 0;
-	float frame_counter          = 0.0f;
+	uint current_frame_number = 0;
+	float frame_counter = 0.0f;
 
 	std::weak_ptr<class Animation> current_animation;
 	std::map<std::string, std::shared_ptr<class Animation>> animations;

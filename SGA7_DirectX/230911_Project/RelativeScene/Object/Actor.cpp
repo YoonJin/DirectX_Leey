@@ -34,6 +34,7 @@ void Actor::Update()
 	}
 }
 
+
 void Actor::Destroy()
 {
 	for (const auto& component : components)

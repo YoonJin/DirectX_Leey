@@ -1,5 +1,6 @@
 #pragma once
 #include "pch.h"
+#pragma comment(linker, "/entry:WinMainCRTStartup /subsystem:console")
 
 #pragma region DirectX¶õ?
 /*

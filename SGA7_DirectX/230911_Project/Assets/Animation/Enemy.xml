@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Animation Name="EnemyMove" Type="1" TexturePath="Assets/Texture/enemy2.png"
+           TextureSizeX="55" TextureSizeY="58">
+  <Direction Name ="0">
+    <Keyframe OffsetX="6" OffsetY="11" SizeX="14" SizeY="14" Time="100"/>
+    <Keyframe OffsetX="22" OffsetY="11" SizeX="14" SizeY="14" Time="100"/>
+
+  </Direction>
+  <Direction Name ="1">
+	  <Keyframe OffsetX="6" OffsetY="11" SizeX="14" SizeY="14" Time="100"/>
+    <Keyframe OffsetX="22" OffsetY="11" SizeX="14" SizeY="14" Time="100"/>
+
+  </Direction>
+  <Direction Name ="2">
+    <Keyframe OffsetX="38" OffsetY="11" SizeX="14" SizeY="14" Time="100"/>
+    <Keyframe OffsetX="6" OffsetY="26" SizeX="14" SizeY="14" Time="100"/>
+
+  </Direction>
+  <Direction Name ="3">
+    <Keyframe OffsetX="22" OffsetY="26" SizeX="14" SizeY="14" Time="100"/>
+    <Keyframe OffsetX="38" OffsetY="26" SizeX="14" SizeY="14" Time="100"/>
+
+  </Direction>
+</Animation>

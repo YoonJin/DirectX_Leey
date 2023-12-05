@@ -9,6 +9,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include <thread>
 
 // STL
 #include <vector>
@@ -51,7 +52,6 @@ typedef unsigned int uint;
 #define SAFE_RELEASE(p) { if(p) { (p)->Release(); (p) = nullptr; } }
 
 #define CHECK(p) assert(SUCCEEDED(p))
-
 #define UINT_CONVERT_TO(e) static_cast<uint>(e)
 
 // Math
@@ -70,8 +70,10 @@ typedef unsigned int uint;
 // Framework
 #include "Core/Settings.h"
 
+
 // Main System
 #include "Core/Context.h"
+
 
 // Sub System
 #include "Core/Subsystem/Timer.h"
@@ -96,7 +98,7 @@ typedef unsigned int uint;
 #include "Core/D3D11/D3D11_Pipeline.h"
 
 
-// Resources
+// Resource
 #include "Resource/Animation.h"
 #include "Resource/Texture.h"
 

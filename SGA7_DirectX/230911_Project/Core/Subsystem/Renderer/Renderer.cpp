@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "Renderer.h"
-#include "Scene/Scene.h"
-#include "Scene/Actor.h"
-#include "Scene/Component/CameraComponent.h"
-#include "Scene/Component/MeshRendererComponent.h"
+#include "RelativeScene/Scene/BaseScene.h"
+#include "RelativeScene/Object/Actor.h"
+#include "RelativeScene/Object/Component/CameraComponent.h"
+#include "RelativeScene/Object//Component/MeshRendererComponent.h"
 
-Renderer::Renderer(Context* const context)
-	: ISubsystem(context)
+Renderer::Renderer(Context* const context) : IObserver(context)
 {
+
 }
 
 Renderer::~Renderer()
@@ -17,10 +17,9 @@ Renderer::~Renderer()
 bool Renderer::Initialize()
 {
 	graphics = context->GetSubsystem<Graphics>();
-	graphics->CreateBackBuffer(
-		static_cast<uint>(Settings::Get().GetWidth()),
-		static_cast<uint>(Settings::Get().GetHeight()));
-
+	graphics->CreateBackBuffer(static_cast<uint>(Settings::Get().GetWidth()), static_cast<uint>(Settings::Get().GetHeight()));
+	graphics->CreateDepthStencil(static_cast<uint>(Settings::Get().GetWidth()), static_cast<uint>(Settings::Get().GetHeight()));
+	
 	pipeline = std::make_shared<D3D11_Pipeline>(graphics);
 
 	CreateConstantBuffers();
@@ -35,7 +34,7 @@ void Renderer::Update()
 	if (!camera)
 		return;
 
-	cpu_camera_buffer.matView       = camera->GetViewMatrix();
+	cpu_camera_buffer.matView = camera->GetViewMatrix();
 	cpu_camera_buffer.matProjection = camera->GetProjectionMatrix();
 	UpdateCameraBuffer();
 
@@ -44,7 +43,12 @@ void Renderer::Update()
 	graphics->RenderEnd();
 }
 
-void Renderer::UpdateRenderables(Scene* const scene)
+void Renderer::ReceivedNotify()
+{
+
+}
+
+void Renderer::UpdateRenderables(BaseScene* const scene)
 {
 	auto actors = scene->GetActors();
 	if (actors.empty())
@@ -95,3 +99,5 @@ void Renderer::UpdateTextureBuffer()
 	*buffer = cpu_texture_buffer;
 	gpu_texture_buffer->Unmap();
 }
+
+

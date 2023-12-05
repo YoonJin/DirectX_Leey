@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "Texture.h"
 
-Texture::Texture(Context* const context)
-	: IResource(context, ResourceType::Texture2D)
+Texture::Texture(Context* const context) : IResource(context, ResourceType::Texture2D)
 {
 }
 
@@ -22,6 +21,6 @@ bool Texture::LoadFromFile(const std::string& path)
 
 	origin_texture = std::make_shared<D3D11_Texture>(context->GetSubsystem<Graphics>());
 	origin_texture->Create(real_path);
-	
+
 	return true;
 }

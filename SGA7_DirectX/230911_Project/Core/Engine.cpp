@@ -6,8 +6,8 @@ Engine::Engine()
 	context = new Context();
 	context->Register_subsystem<Timer>();
 	context->Register_subsystem<Graphics>();
-	context->Register_subsystem<ResourceManager>();
-	context->Register_subsystem<SceneManager>();
+	context->Register_subsystem<ResourceManager>(); 
+	context->Register_subsystem<SceneManager>(); 
 	context->Register_subsystem<Renderer>();
 
 	context->Initialize_subsystems();
@@ -25,7 +25,6 @@ void Engine::Update()
 
 void Engine::Render()
 {
-	Renderer* renderer = context->GetSubsystem<Renderer>();
-	renderer->Update();
+	//Renderer* renderer = context->GetSubsystem<Renderer>();
+	//renderer->Update();
 }
- 

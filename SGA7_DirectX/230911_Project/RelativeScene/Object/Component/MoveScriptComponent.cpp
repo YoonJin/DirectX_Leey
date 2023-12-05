@@ -2,6 +2,7 @@
 #include "MoveScriptComponent.h"
 #include "TransformComponent.h"
 
+
 MoveScriptComponent::MoveScriptComponent(Context* const context, Actor* const actor, TransformComponent* const transform)
 	:IComponent(context, actor, transform)
 {
@@ -9,32 +10,35 @@ MoveScriptComponent::MoveScriptComponent(Context* const context, Actor* const ac
 
 void MoveScriptComponent::Initialize()
 {
+
 }
 
 void MoveScriptComponent::Update()
 {
+		// 목표 위치를 구한다.
+		// 현재 위치와 목표위치 사이의 거리를 구한다.
+		// 이동 방향 구한다.( 목표위치 - 현재위치 = 방향벡터)
+		// 방향 normalize
+		// _curPos += deltaTime * 방향 * speed;
 	if (isMoving == false)
 		SetMoveEventData();
 
 	_curPos = transform->GetPosition();
-
-	float PosX = (this->_mapPos.x * CELL_WIDTH) -
-		(Settings::Get().GetWidth() / 2) + (CELL_WIDTH / 2);
-	float PosY = ((30 - this->_mapPos.y) * CELL_HEIGHT) -
-		(Settings::Get().GetHeight() / 2) + (CELL_HEIGHT / 2);
+	
+	float PosX = (this->_mapPos.x * CELL_WIDTH) - (Settings::Get().GetWidth() / 2) + (CELL_WIDTH / 2);
+	float PosY = ((30 - this->_mapPos.y) * CELL_HEIGHT) - (Settings::Get().GetHeight() / 2) + (CELL_HEIGHT / 2);
 	Vec2 destination = Vec2(PosX, PosY);
 
-
 	float distance = GetDistance(Vec2(_curPos.x, _curPos.y), destination);
-	
+
 	// 이동 방향 구하기
 	Vec2 direction = destination - _curPos;
+	// 방향 normalize
 	direction = this->Normalize(direction);
 
-	// 거리 구하기
 	if (distance > 1.0f)
 	{
-		isMoving = true; // 이동 시작
+		isMoving = true;  // 이동 시작
 
 		float time = context->GetSubsystem<Timer>()->GetDeltaTimeSEC();
 		Vec2 moveValue = (time * direction * _speed);
@@ -58,9 +62,8 @@ void MoveScriptComponent::Destroy()
 
 void MoveScriptComponent::SetMoveEventData()
 {
-	// 벽에 충돌하는 위치라면 되돌리기 위함.
-	Coordinate originPos      = this->_mapPos;
-	PlayerDirection originDir = _curDir;
+	Coordinate confirmPos = this->_mapPos;
+	PlayerDirection confirmDir = _curDir;
 
 	if (GetAsyncKeyState('W') & 0x8000)
 	{
@@ -83,11 +86,10 @@ void MoveScriptComponent::SetMoveEventData()
 		_curDir = PlayerDirection::PlayerLeft;
 	}
 
-	// 이동할 위치가 벽이라면 이동좌표를 업데이트 하지 않는다.
-	if (this->stage_map_data[this->_mapPos.y][this->_mapPos.x] == UINT_CONVERT_TO(MapObject::WALL))
+	if (stage_map_data[_mapPos.y][_mapPos.x ]== static_cast<int>(MapObject::WALL))
 	{
-		this->_mapPos = originPos;
-		this->_curDir = originDir;
+		this->_mapPos = confirmPos;
+		this->_curDir = confirmDir;
 	}
 }
 
@@ -119,5 +121,10 @@ Vec2 MoveScriptComponent::Normalize(Vec2 direction)
 		direction.x /= length;
 		direction.y /= length;
 	}
+
 	return direction;
 }
+
+
+
+

@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "IResource.h"
 
-IResource::IResource(Context* const context, const ResourceType type)
-	: context(context)
-	, resource_type(type)
+IResource::IResource(Context* const context, const ResourceType type) : context(context), resource_type(type)
 {
 }
 
@@ -13,7 +11,7 @@ constexpr ResourceType IResource::DeduceResourceType()
 	return ResourceType::Unknown;
 }
 
-#define REGISTER_RESOURCE_TYPE(T, enum_type) template<> ResourceType IResource::DeduceResourceType<T>() { return enum_type; }
+#define REGISTER_RESOURCE_TYPE(T, enum_type) template<> ResourceType IResource::DeduceResourceType<T>() {return enum_type;}
 
 REGISTER_RESOURCE_TYPE(Animation, ResourceType::Animation)
-REGISTER_RESOURCE_TYPE(Texture,   ResourceType::Texture2D)
+REGISTER_RESOURCE_TYPE(Texture, ResourceType::Texture2D)

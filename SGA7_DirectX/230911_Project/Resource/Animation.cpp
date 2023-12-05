@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "Animation.h"
 
-Animation::Animation(Context* const context)
-	: IResource(context, ResourceType::Animation)
+Animation::Animation(Context* const context) : IResource(context, ResourceType::Animation)
 {
 }
 
@@ -17,13 +16,13 @@ bool Animation::SaveToFile(const std::string& path)
 
 	//Xml::XMLDeclaration* decl = doc.NewDeclaration();
 	//doc.LinkEndChild(decl);
-
+	//
 	//Xml::XMLElement* root = doc.NewElement("Animation");
 	//doc.LinkEndChild(root);
 
 	//root->SetAttribute("Name", resource_name.c_str());
 	//root->SetAttribute("Type", static_cast<uint>(repeat_type));
-	//root->SetAttribute("TexturePath",  resource_path.c_str());
+	//root->SetAttribute("TexturePath", resource_path.c_str());
 	//root->SetAttribute("TextureSizeX", sprite_texture_size.x);
 	//root->SetAttribute("TextureSizeY", sprite_texture_size.y);
 
@@ -34,9 +33,9 @@ bool Animation::SaveToFile(const std::string& path)
 
 	//	keyframe_element->SetAttribute("OffsetX", keyframe.offset.x);
 	//	keyframe_element->SetAttribute("OffsetY", keyframe.offset.y);
-	//	keyframe_element->SetAttribute("SizeX",   keyframe.size.x);
-	//	keyframe_element->SetAttribute("SizeY",   keyframe.size.y);
-	//	keyframe_element->SetAttribute("Time",    keyframe.time);
+	//	keyframe_element->SetAttribute("SizeX", keyframe.size.x);
+	//	keyframe_element->SetAttribute("SizeY", keyframe.size.y);
+	//	keyframe_element->SetAttribute("Time", keyframe.time);
 	//}
 
 	//return Xml::XMLError::XML_SUCCESS == doc.SaveFile(path.c_str());
@@ -54,24 +53,22 @@ bool Animation::LoadFromFile(const std::string& path)
 	}
 
 	Xml::XMLElement* root = doc.FirstChildElement();
-	resource_name         = root->Attribute("Name");
-	repeat_type           = 
-		static_cast<RepeatType>(root->UnsignedAttribute("Type"));
-	resource_path   = root->Attribute("TexturePath");
+	resource_name = root->Attribute("Name");
+	repeat_type = static_cast<RepeatType>(root->UnsignedAttribute("Type"));
+	resource_path = root->Attribute("TexturePath");
 	sprite_texture_size.x = root->FloatAttribute("TextureSizeX");
 	sprite_texture_size.y = root->FloatAttribute("TextureSizeY");
-	
 
 	SetSpriteTexture(resource_path);
 
 	Xml::XMLElement* direction_element = root->FirstChildElement();
+
 	for (; direction_element != nullptr; direction_element = direction_element->NextSiblingElement())
 	{
 		int index = direction_element->IntAttribute("Name");
 		PlayerDirection dir = static_cast<PlayerDirection>(index);
-		
-		Xml::XMLElement* keyframe_element = direction_element->FirstChildElement();
 
+		Xml::XMLElement* keyframe_element = direction_element->FirstChildElement();
 		for (; keyframe_element != nullptr; keyframe_element = keyframe_element->NextSiblingElement())
 		{
 			Vec2 offset;
@@ -88,6 +85,7 @@ bool Animation::LoadFromFile(const std::string& path)
 		}
 	}
 
+
 	return true;
 }
 
@@ -96,16 +94,17 @@ void Animation::SetSpriteTexture(const std::string& path)
 	// wstring º¯È¯
 	std::wstring texture_path;
 	texture_path.append(path.begin(), path.end());
-
+	
 	sprite_texture = std::make_shared<D3D11_Texture>(context->GetSubsystem<Graphics>());
 	sprite_texture->Create(texture_path);
+
 }
 
 auto Animation::GetKeyframeFromIndex(PlayerDirection eDirection, const uint& index) -> const Keyframe* const
 {
 	assert(index < keyframes[eDirection].size());
 
-	return &keyframes[eDirection][index];
+	return  &keyframes[eDirection][index];
 }
 
 void Animation::AddKeyframe(PlayerDirection eDirection, const Keyframe& keyframe)

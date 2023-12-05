@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "Timer.h"
 
-Timer::Timer(Context* const context)
-	: ISubsystem(context)
+Timer::Timer(Context* const context) : IObserver(context)
 {
 }
 
@@ -14,11 +13,16 @@ bool Timer::Initialize()
 
 void Timer::Update()
 {
+	// 프레임당 단위 밀리초로 나눠서 델타 타임에 카운트 해줌
 	auto current_time = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double, std::milli> ms = current_time - previous_time;
 	previous_time = current_time;
 
 	delta_time_ms = ms.count();
+}
+
+void Timer::ReceivedNotify()
+{
 }
 
 
@@ -54,3 +58,4 @@ const float Stopwatch::GetElapsedTimeMs()
 	// 밀리초로 그대로 반환
 	return static_cast<float>(ms.count());
 }
+

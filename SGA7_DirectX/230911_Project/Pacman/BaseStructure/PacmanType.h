@@ -1,6 +1,6 @@
 #pragma once
 
-#define MAP_WIDTH  28
+#define MAP_WIDTH 28
 #define MAP_HEIGHT 31
 
 #define CELL_WIDTH 17
@@ -26,9 +26,7 @@ public:
 
 	Coordinate()
 	{
-
 	}
-
 	Coordinate(int x, int y)
 	{
 		this->x = x;
@@ -37,7 +35,7 @@ public:
 
 	bool Equare(Coordinate obj)
 	{
-		if ((this->x == obj.x) && (this->y == obj.y))
+		if (this->x == obj.x && this->y == obj.y)
 			return true;
 		else
 			return false;

@@ -49,6 +49,7 @@ SamplerState samp        : register(s0);
 
 float4 PS(PixelInput input) : SV_Target
 {
+
 	if (is_animated == 1.0f)
 		return source_texture.Sample(samp, input.uv);
 	else

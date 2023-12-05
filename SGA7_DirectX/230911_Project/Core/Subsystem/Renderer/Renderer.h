@@ -1,11 +1,11 @@
 #pragma once
 
-#include "../ISubsystem.h"
+#include "../IObserver.h"
 #include "../Graphics.h"
 #include "Renderer_ConstantBuffer.h"
 #include "Renderer_Types.h"
 
-class Renderer final : public ISubsystem
+class Renderer final : public IObserver
 {
 public:
 	Renderer(class Context* const context);
@@ -13,8 +13,9 @@ public:
 
 	bool Initialize() override;
 	void Update() override;
+	void ReceivedNotify() override;
 
-	void UpdateRenderables(class Scene* const scene);
+	void UpdateRenderables(class BaseScene* const scene);
 
 private:
 	void CreateConstantBuffers();
@@ -37,7 +38,7 @@ private:
 
 	CameraBuffer cpu_camera_buffer;
 	std::shared_ptr<class D3D11_ConstantBuffer> gpu_camera_buffer;
-	
+
 	TransformBuffer cpu_object_buffer;
 	std::shared_ptr<class D3D11_ConstantBuffer> gpu_object_buffer;
 
@@ -45,11 +46,12 @@ private:
 	std::shared_ptr<class D3D11_ConstantBuffer> gpu_animation_buffer;
 
 	TextureBuffer cpu_texture_buffer;
-	std::shared_ptr<class D3D11_ConstantBuffer> gpu_texture_buffer;
+	std::shared_ptr<class D3D11_ConstantBuffer>gpu_texture_buffer;
 
 private:
 	std::map<RasterizerStateType, std::shared_ptr<class D3D11_RasterizerState>> rasterizers;
-	std::map<BlendStateType, std::shared_ptr<class D3D11_BlendState>>  blend_states;
+	std::map<BlendStateType, std::shared_ptr<class D3D11_BlendState>> blend_states;
 
 	std::unordered_map<RenderableType, std::vector<class Actor*>> renderables;
 };
+

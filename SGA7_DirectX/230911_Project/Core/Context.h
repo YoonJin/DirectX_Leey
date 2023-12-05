@@ -1,7 +1,7 @@
 #pragma once
 
 #include "pch.h"
-#include "Subsystem/ISubsystem.h"
+#include "Subsystem/IObserver.h"
 
 class Context final
 {
@@ -28,14 +28,14 @@ public:
 	template <typename T>
 	auto Register_subsystem() -> T* const
 	{
-		static_assert(std::is_base_of<ISubsystem, T>::value, "Provided type does not implement ISubsystem");
+		static_assert(std::is_base_of<IObserver, T>::value, "Provided type does not implement ISubsystem");
 		return static_cast<T*>(subsystems.emplace_back(new T(this)));
 	}
 
 	template <typename T>
 	auto GetSubsystem() -> T* const
 	{
-		static_assert(std::is_base_of<ISubsystem, T>::value, "Provided type does not implement ISubsystem");
+		static_assert(std::is_base_of<IObserver, T>::value, "Provided type does not implement ISubsystem");
 
 		for (const auto& subsystem : subsystems)
 		{
@@ -52,7 +52,6 @@ public:
 			subsystem->Update();
 	}
 
-	
 private:
-	std::vector<ISubsystem*> subsystems;
+	std::vector<IObserver*> subsystems;
 };

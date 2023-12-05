@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "SceneManager.h"
-#include "Scene/Scene.h"
+#include "RelativeScene/Scene/GameScene.h"
+#include "RelativeScene/Scene/LoadingScene.h"
+#include "RelativeScene/Scene/TitleScene.h"
 
 SceneManager::SceneManager(Context* context)
-	: ISubsystem(context)
+	: IObserver(context)
 {
 }
 
@@ -14,18 +16,20 @@ SceneManager::~SceneManager()
 
 bool SceneManager::Initialize()
 {
-	RegisterScene("First");
-	SetCurrentScene("First");
+	scene_type = UINT_CONVERT_TO(SceneType::TitleScene);
+
+	RegisterScene<TitleScene>(SceneType::TitleScene);	
+	SetCurrentScene(static_cast<SceneType>(scene_type));
 
 	return true;
 }
 
-auto SceneManager::GetCurrentScene() -> class Scene* const
+auto SceneManager::GetCurrentScene() -> class BaseScene* const
 {
 	return current_scene.expired() ? nullptr : current_scene.lock().get();
 }
 
-void SceneManager::SetCurrentScene(const std::string& scene_name)
+void SceneManager::SetCurrentScene(SceneType scene_name)
 {
 	if (scenes.find(scene_name) == scenes.end())
 		assert(false);
@@ -33,19 +37,22 @@ void SceneManager::SetCurrentScene(const std::string& scene_name)
 	current_scene = scenes[scene_name];
 }
 
-auto SceneManager::RegisterScene(const std::string& scene_name) -> class Scene* const
+void SceneManager::ChangeScene(SceneType scene_name)
 {
-	if (scenes.find(scene_name) != scenes.end())
-		assert(false);
+	RegisterScene<LoadingScene>(SceneType::LoadingScene);
+	RegisterScene<GameScene>(SceneType::GameScene);
 
-	auto new_scene = std::make_shared<Scene>(context);
-	scenes[scene_name] = new_scene;
-
-	return new_scene.get();
+	SetCurrentScene(static_cast<SceneType>(++scene_type));
 }
+
 
 void SceneManager::Update()
 {
 	if (!current_scene.expired())
 		current_scene.lock()->Update();
+}
+
+void SceneManager::ReceivedNotify()
+{
+	SetCurrentScene(static_cast<SceneType>(++scene_type));
 }

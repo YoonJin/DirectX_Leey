@@ -1,8 +1,8 @@
 #pragma once
 #include "Core/D3D11/Rasterizer/D3D11_Viewport.h"
-#include "ISubsystem.h"
+#include "IObserver.h"
 
-class Graphics final : public ISubsystem
+class Graphics final : public IObserver
 {
 public:
 	Graphics(class Context* context);
@@ -10,7 +10,8 @@ public:
 
 public:
 	bool Initialize() override;
-	void Update() override {}
+	void Update() override;
+	void ReceivedNotify() override;
 
 	void CreateDepthStencil(const uint& width, const uint& height);
 
@@ -26,11 +27,11 @@ private:
 	// Device & SwapChain
 	// * Device : GPU에 대한 접근과 제어가 가능하다.
 	//            GPU에 관련된 리소스(버퍼, 텍스처, 셰이더 등)을 생성 및 관리하는 역할을 한다.
-	ID3D11Device* _device                      = nullptr;
+	ID3D11Device* _device = nullptr;
 	// * DeviceContext : Device로 생성된 리소스들을 이용하여 실제 렌더링 작업을 수행하는 역할을 한다.
-	ID3D11DeviceContext* _deviceContext        = nullptr;
+	ID3D11DeviceContext* _deviceContext = nullptr;
 	// * SwapChain  : 프론트 버퍼, 백버퍼 등 화면에 출력되는 버퍼에 대한 관리를 한다.(더블 버퍼링 등) 
-	IDXGISwapChain* _swapchain                 = nullptr;
+	IDXGISwapChain* _swapchain = nullptr;
 
 	/*
 		 **깊이-스텐실 (Depth-Stencil)**에 대한 설명:
@@ -79,7 +80,7 @@ private:
 	   * depthStencilBuffer : 깊이 - 스텐실 버퍼를 위한 2D 텍스처를 저장하기 위해 사용된다.
 							  깊이 - 스텐실 버퍼는 특별한 종류의 2D 텍스처로, 각 픽셀의 깊이 값과 스텐실 값(옵션)을 저장합니다.
 	*/
-	ID3D11Texture2D* depthStencilBuffer        = nullptr;
+	ID3D11Texture2D* depthStencilBuffer = nullptr;
 	/*
 	* ID3D11DepthStencilView : 깊이-스텐실 텍스처에 대한 뷰를 제공하는 인터페이스입니다.
 							   "뷰"는 데이터에 대한 한 가지 특정한 해석을 나타냅니다.
@@ -87,7 +88,7 @@ private:
 							   깊이와 스텐실 데이터에 액세스하기 위한 뷰를 생성한다.
 							   이 뷰는 렌더링 파이프라인의 출력 병합 단계에서 사용됩니다.
 	*/
-	ID3D11DepthStencilView* depthStencilView   = nullptr;
+	ID3D11DepthStencilView* depthStencilView = nullptr;
 	/*
 * ID3D11DepthStencilState : 깊이 및 스텐실 테스트 동작을 정의하는 인터페이스이다.
 							깊이와 스텐실 테스트의 다양한 설정과 동작을 저장한다.
@@ -98,8 +99,8 @@ private:
 
 
 	// RTV
-	ID3D11RenderTargetView* _renderTargetView  = nullptr;
+	ID3D11RenderTargetView* _renderTargetView = nullptr;
 
 	D3D11_Viewport _viewport = D3D11_Viewport::Undefined_viewport;
-	float	 _clearColor[4] = { 0, 0, 0, 0 };  // black
+	float	 _clearColor[4] = { 0.7f, 0.7f, 0.7f, 1.f };  // grey
 };

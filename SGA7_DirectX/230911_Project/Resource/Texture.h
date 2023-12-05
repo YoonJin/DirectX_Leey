@@ -3,7 +3,7 @@
 
 class Texture final : public IResource
 {
-public:
+public :
 	Texture(class Context* const context);
 	~Texture();
 

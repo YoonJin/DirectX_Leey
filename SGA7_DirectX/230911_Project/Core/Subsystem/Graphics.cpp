@@ -6,26 +6,26 @@
 
 /*
 *
-*  1. 입력 조립(Input Assembler) 단계 : 
-      입력 데이터 (버텍스, 인덱스 데이터 등)를 가져와서 
+*  1. 입력 조립(Input Assembler) 단계 :
+	  입력 데이터 (버텍스, 인덱스 데이터 등)를 가져와서
 	  버텍스 쉐이더로 보낼 준비를 한다.
 *
-*  2. 버텍스 쉐이더(Vertex Shader) 단계 : 
-      각 버텍스마다 적용되는 프로그래머가 작성한 코드이다. 
+*  2. 버텍스 쉐이더(Vertex Shader) 단계 :
+	  각 버텍스마다 적용되는 프로그래머가 작성한 코드이다.
 	  이 단계에서는 일반적으로 공간 변환
 	  ( 예 : 월드, 뷰, 투영 변환)이 수행된다.
 
-   3. 래스터라이즈(Rasterizer) 단계 : 
-      래스터라이저는 버텍스 쉐이더에서 나온 버텍스를 사용하여 
-      삼각형을 구성하고 이 삼각형을 2D 픽셀로 변환한다.
+   3. 래스터라이즈(Rasterizer) 단계 :
+	  래스터라이저는 버텍스 쉐이더에서 나온 버텍스를 사용하여
+	  삼각형을 구성하고 이 삼각형을 2D 픽셀로 변환한다.
 
-   4. 픽셀 쉐이더(Pixel Shader) 단계 : 
-      래스터라이저에서 생성된 각 픽셀에 대해 수행되는 코드이다. 
+   4. 픽셀 쉐이더(Pixel Shader) 단계 :
+	  래스터라이저에서 생성된 각 픽셀에 대해 수행되는 코드이다.
 	  일반적으로 이 단계에서는 텍스처 매핑, 조명 계산 등이 수행된다.
 
-   5. 출력 병합(Ouput Merger) 단계 : 
-      출력 병합 단계에서는 픽셀 쉐이더에서 나온 결과와 
-	  기존의 픽셀(예 : 백 버퍼의 픽셀)을 병합한다. 
+   5. 출력 병합(Ouput Merger) 단계 :
+	  출력 병합 단계에서는 픽셀 쉐이더에서 나온 결과와
+	  기존의 픽셀(예 : 백 버퍼의 픽셀)을 병합한다.
 	  일반적으로 깊이 - 스텐실 테스트, 블렌딩 등이 수행된다.
 *
 *
@@ -33,9 +33,9 @@
 
 
 Graphics::Graphics(Context* context)
-	: ISubsystem(context)
+	: IObserver(context)
 {
-	
+
 }
 
 Graphics::~Graphics()
@@ -50,9 +50,7 @@ Graphics::~Graphics()
 // 렌더링을 어떻게 할지, 화면 렌더링 데이터를 결정해준다.
 void Graphics::RenderBegin()
 {
-	// 뎁스 버퍼 설정
-	CreateDepthStencil(_viewport.width, _viewport.height);
-
+	
 	// 화면을 출력하는데 사용할 RTV 데이터를 결정한다.
 	_deviceContext->OMSetRenderTargets(1, &_renderTargetView, depthStencilView);
 	_deviceContext->OMSetDepthStencilState(depthStencilState, 1);
@@ -65,8 +63,8 @@ void Graphics::RenderBegin()
 	D3D11_VIEWPORT _d3d11Viewport;
 	_d3d11Viewport.TopLeftX = _viewport.x;
 	_d3d11Viewport.TopLeftY = _viewport.y;
-	_d3d11Viewport.Width    = _viewport.width;
-	_d3d11Viewport.Height   = _viewport.height;
+	_d3d11Viewport.Width = _viewport.width;
+	_d3d11Viewport.Height = _viewport.height;
 	_d3d11Viewport.MinDepth = _viewport.min_depth;
 	_d3d11Viewport.MaxDepth = _viewport.max_depth;
 
@@ -155,6 +153,14 @@ bool Graphics::Initialize()
 	return true;
 }
 
+void Graphics::Update()
+{
+}
+
+void Graphics::ReceivedNotify()
+{
+}
+
 void Graphics::CreateDepthStencil(const uint& width, const uint& height)
 {
 	// 깊이 버퍼 및 깊이 스텐실 뷰 생성
@@ -184,7 +190,7 @@ void Graphics::CreateDepthStencil(const uint& width, const uint& height)
 		// 기타 플래그 설정 (사용하지 않음)
 		depthBufferDesc.MiscFlags = 0;
 	}
-	
+
 	SAFE_RELEASE(depthStencilBuffer);
 
 	// 위의 설명을 기반으로 깊이 버퍼 텍스처 생성
@@ -258,10 +264,10 @@ void Graphics::CreateBackBuffer(const uint& width, const uint& height)
 	hr = _device->CreateRenderTargetView(backBuffer, nullptr, &_renderTargetView);
 	CHECK(hr);
 
-	_viewport.x			= 0.0f;
-	_viewport.y			= 0.0f;
-	_viewport.width		= static_cast<float>(width);
-	_viewport.height	= static_cast<float>(height);
+	_viewport.x = 0.0f;
+	_viewport.y = 0.0f;
+	_viewport.width = static_cast<float>(width);
+	_viewport.height = static_cast<float>(height);
 	_viewport.min_depth = 0.0f;
 	_viewport.max_depth = 1.0f;
 

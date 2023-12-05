@@ -290,3 +290,4 @@ void TransformComponent::UpdateTransform()
 	for (const auto& child : childs)
 		child->UpdateTransform();
 }
+

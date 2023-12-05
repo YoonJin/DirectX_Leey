@@ -24,7 +24,7 @@ void MeshRendererComponent::SetStandardMesh(MeshType type)
 {
 	D3D11_Geometry<D3D11_VertexTexture> geometry;
 
-	if(type == MeshType::Quad)
+	if (type == MeshType::Quad)
 		Geometry_Generator::CreateQuad(geometry);
 
 	vertex_buffer = std::make_shared<D3D11_VertexBuffer>(graphics);
@@ -37,7 +37,7 @@ void MeshRendererComponent::SetStandardMesh(MeshType type)
 void MeshRendererComponent::SetStandardMaterial(std::wstring path)
 {
 	vertex_shader = std::make_shared<D3D11_Shader>(graphics);
-	vertex_shader->Create(ShaderScope_VS, path);
+	vertex_shader->Create(ShaderScope_VS, path );
 
 	pixel_shader = std::make_shared<D3D11_Shader>(graphics);
 	pixel_shader->Create(ShaderScope_PS, path);

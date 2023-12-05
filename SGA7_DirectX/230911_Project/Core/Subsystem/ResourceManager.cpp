@@ -1,14 +1,13 @@
 #include "pch.h"
 #include "ResourceManager.h"
 
-ResourceManager::ResourceManager(Context* const context)
-	: ISubsystem(context)
+ResourceManager::ResourceManager(Context*  context) : IObserver(context)
 {
 	auto root_directory = GetAssetDirectory();
 
 	RegisterDirectory(AssetType::Animation, root_directory + "Animation/");
-	RegisterDirectory(AssetType::Shader,    root_directory + "Shader/");
-	RegisterDirectory(AssetType::Texture,   root_directory + "Texture/");
+	RegisterDirectory(AssetType::Shader, root_directory + "Shader/");
+	RegisterDirectory(AssetType::Texture, root_directory + "Texture/");
 }
 
 bool ResourceManager::Initialize()
@@ -17,6 +16,11 @@ bool ResourceManager::Initialize()
 }
 
 void ResourceManager::Update()
+{
+
+}
+
+void ResourceManager::ReceivedNotify()
 {
 }
 
@@ -28,7 +32,6 @@ bool ResourceManager::HasResource(const std::string& resource_name, const Resour
 		if (resource->GetResourceName() == resource_name)
 			return true;
 	}
-
 	return false;
 }
 

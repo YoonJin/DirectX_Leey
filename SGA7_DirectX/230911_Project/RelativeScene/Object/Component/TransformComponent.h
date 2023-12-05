@@ -72,6 +72,7 @@ public:
 
 	void UpdateTransform();
 
+
 private:
 	Vec3 local_scale = Vec3(1, 1, 1);
 	Vec3 local_position = Vec3(0, 0, 0);

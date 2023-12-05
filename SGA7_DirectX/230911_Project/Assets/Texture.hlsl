@@ -26,7 +26,6 @@ struct VS_OUTPUT
 	float2 uv		: TEXCOORD; // 텍스처 좌표
 };
 
-
 cbuffer CameraBuffer : register(b0)
 {
 	row_major matrix matView;
@@ -36,6 +35,8 @@ cbuffer CameraBuffer : register(b0)
 // cbuffer == constantBuffer
 cbuffer TransformBuffer : register(b1)
 {
+	// row_major : 행렬의 요소가 메모리에 저장될때 
+	// 행 우선 순서로 저장하라.
 	row_major matrix matWorld;
 }
 
@@ -43,7 +44,6 @@ cbuffer TextureBuffer : register(b2)
 {
 	float4 offset;
 }
-
 
 // 정점 셰이더 (VS) 함수
 // 입력 정점 데이터를 가져와서 그래픽스 파이프라인의 다음 단계로 출력
@@ -74,6 +74,8 @@ SamplerState sampler0 : register(s0);
 float4 PS(VS_OUTPUT input) : SV_Target
 {
 	float4 color = texture0.Sample(sampler0, input.uv);
+
+	//color.rgb = 1.0 - color.rgb;
 
 	return color;
 }

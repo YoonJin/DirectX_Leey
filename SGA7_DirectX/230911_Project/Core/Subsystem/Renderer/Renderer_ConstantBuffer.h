@@ -27,12 +27,11 @@ struct TextureBuffer
 	Vec2 dummy;
 };
 
-
 struct AnimationBuffer
 {
 	Vec2 sprite_offset;
 	Vec2 sprite_size;
 	Vec2 texture_size;
 	float is_animated;
-	float padding;
+	float padding; //16 바이트 기준의  animation.hlsl의  AnimationBuffer와 크기를 맞춰주기 위한 더미
 };

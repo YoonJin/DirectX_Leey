@@ -13,7 +13,7 @@
     <Keyframe OffsetX="210.64" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
     <Keyframe OffsetX="235.97" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
     <Keyframe OffsetX="262.30" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
-    <Keyframe OffsetX="287.63" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/>
+    <Keyframe OffsetX="287.63" OffsetY="0" SizeX="26.33" SizeY="26.33" Time="50"/> 
   </Direction>
   <Direction Name ="1">
     <Keyframe OffsetX="0"      OffsetY="26.33" SizeX="26.33" SizeY="26.33" Time="50"/>

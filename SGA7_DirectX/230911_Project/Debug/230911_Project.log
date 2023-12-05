@@ -1,2 +1,55 @@
-﻿  AnimatorComponent.cpp
-  230911_Project.vcxproj -> C:\Users\SGA\Documents\SGA_7Time_DirectX\SGA7_DirectX\Binaries\230911_Project.exe
+﻿  D3D11_Pipeline.cpp
+  SimpleMath.cpp
+  Actor.cpp
+  AIScriptComponent.cpp
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\AIScriptComponent.cpp(280,40): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\AIScriptComponent.cpp(280,24): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\AIScriptComponent.cpp(281,10): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\AIScriptComponent.cpp(282,10): warning C4244: '=': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  AnimatorComponent.cpp
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\Core\Subsystem\ResourceManager.h(83,1): warning C4305: '인수': 'int'에서 'const _Elem'(으)로 잘립니다.
+          with
+          [
+              _Elem=char
+          ]
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\AnimatorComponent.cpp(108): message : 컴파일되는 함수 템플릿 인스턴스화 'const std::shared_ptr<Animation> ResourceManager::Load<Animation>(const std::string &)'에 대한 참조를 확인하세요.
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\Core\Subsystem\ResourceManager.h(83,38): warning C4309: '인수': 상수 값이 잘립니다.
+  CameraComponent.cpp
+  IComponent.cpp
+  MeshRendererComponent.cpp
+  MoveScriptComponent.cpp
+  TextureComponent.cpp
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\TextureComponent.cpp(26,43): warning C4305: '인수': 'int'에서 'const _Elem'(으)로 잘립니다.
+          with
+          [
+              _Elem=char
+          ]
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\TextureComponent.cpp(26,38): warning C4309: '인수': 상수 값이 잘립니다.
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\Core\Subsystem\ResourceManager.h(83,1): warning C4305: '인수': 'int'에서 'const _Elem'(으)로 잘립니다.
+          with
+          [
+              _Elem=char
+          ]
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\RelativeScene\Object\Component\TextureComponent.cpp(35): message : 컴파일되는 함수 템플릿 인스턴스화 'const std::shared_ptr<Texture> ResourceManager::Load<Texture>(const std::string &)'에 대한 참조를 확인하세요.
+C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\230911_Project\Core\Subsystem\ResourceManager.h(83,38): warning C4309: '인수': 상수 값이 잘립니다.
+  TransformComponent.cpp
+  BaseScene.cpp
+  GameScene.cpp
+  ISubject.cpp
+  LoadingScene.cpp
+  TitleScene.cpp
+  Timer.cpp
+  WinMain.cpp
+  코드를 생성하고 있습니다...
+  Xml.cpp
+DirectXTex_debug.lib(BC.obj) : warning LNK4099: '' PDB를 'DirectXTex_debug.lib(BC.obj)' 또는 ''에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(BC4BC5.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(BC4BC5.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(BC6HBC7.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(BC6HBC7.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(DirectXTexCompress.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexCompress.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(DirectXTexConvert.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexConvert.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(DirectXTexD3D11.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexD3D11.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(DirectXTexImage.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexImage.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(DirectXTexMipMaps.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexMipMaps.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(DirectXTexUtil.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexUtil.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+DirectXTex_debug.lib(DirectXTexWIC.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_debug.lib(DirectXTexWIC.obj)' 또는 'C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+  230911_Project.vcxproj -> C:\Users\dkseh\Documents\SGA7Time_DirectX\SGA7_DirectX\Binaries\230911_Project.exe
